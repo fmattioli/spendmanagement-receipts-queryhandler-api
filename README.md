@@ -4,6 +4,7 @@ This application has te purpose to be a readmodel from the spendmanagement proje
 # Related projects
 > https://github.com/fmattioli/spendmanagement-api <br/>
 > https://github.com/fmattioli/spendmanagement-domain <br/>
+> https://github.com/fmattioli/spendmanagement-eventhandler <br/>
 > https://github.com/fmattioli/spendmanagement-eventsourcing <br/>
 
 # Related packages
