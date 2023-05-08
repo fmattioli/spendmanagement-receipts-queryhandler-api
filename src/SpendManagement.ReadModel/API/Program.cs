@@ -1,6 +1,5 @@
 using API.Extensions;
 using CrossCutting.Extensions.Logging;
-
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
