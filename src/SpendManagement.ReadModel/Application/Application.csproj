@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="UseCases\GetReceipts\Validators\" />
+    <Compile Remove="UseCases\GetReceipts\Validators\**" />
+    <EmbeddedResource Remove="UseCases\GetReceipts\Validators\**" />
+    <None Remove="UseCases\GetReceipts\Validators\**" />
   </ItemGroup>
 
   <ItemGroup>
