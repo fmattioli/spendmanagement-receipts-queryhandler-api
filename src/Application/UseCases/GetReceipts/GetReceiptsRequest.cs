@@ -4,6 +4,10 @@ namespace Application.UseCases.GetReceipts
 {
     public class GetReceiptsRequest
     {
+        /// <summary>
+        /// Filter by receiptIds
+        /// <param name="ReceiptIds">Filter by Product numbers</param>
+        /// </summary>
         [FromQuery]
         public IEnumerable<Guid> ReceiptIds { get; set; } = null!;
 
