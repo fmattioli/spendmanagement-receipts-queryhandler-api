@@ -9,10 +9,13 @@ namespace Application.UseCases.GetReceipts
         /// <param name="ReceiptIds">Filter by Product numbers</param>
         /// </summary>
         [FromQuery]
-        public IEnumerable<Guid> ReceiptIds { get; set; } = null!;
+        public IEnumerable<Guid> ReceiptIds { get; set; } = new List<Guid>();
 
         [FromQuery]
-        public IEnumerable<string> EstablishmentNames { get; set; } = null!;
+        public IEnumerable<Guid> ReceiptItemIds { get; set; } = new List<Guid>();
+
+        [FromQuery]
+        public IEnumerable<string> EstablishmentNames { get; set; } = new List<string>();
 
         [FromQuery]
         public DateTime ReceiptDate { get; set; }

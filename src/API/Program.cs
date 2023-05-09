@@ -22,6 +22,7 @@ var applicationSettings = builder.Configuration.GetSection("Settings").Get<Setti
 // Add services to the container.
 builder.Services
     .AddDependencyInjection()
+    .AddRepositories()
     .AddMongo(applicationSettings.MongoSettings)
     .AddLoggingDependency()
     .AddControllers();

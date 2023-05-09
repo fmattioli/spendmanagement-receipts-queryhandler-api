@@ -2,9 +2,9 @@
 
 namespace Domain.Interfaces
 {
-    public interface IBaseRepository<TEntity> where TEntity : class 
+    public interface IBaseRepository<T> where T : class 
     {
-        Task<TEntity> FindOneAsync(
-            Expression<Func<TEntity, bool>> filterExpression);
+        //Task<TEntity> FindOneAsync(
+        //    Expression<Func<TEntity, bool>> filterExpression);
     }
 }

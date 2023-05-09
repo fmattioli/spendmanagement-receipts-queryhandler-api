@@ -2,5 +2,5 @@
 
 namespace Application.UseCases.GetReceipts
 {
-    public record GetReceiptsQuery(GetReceiptsRequest GetReceiptsViewModel) : IRequest<IReadOnlyCollection<GetReceiptsResponse>>;
+    public record GetReceiptsQuery(GetReceiptsRequest GetReceiptsRequest) : IRequest<GetReceiptsResponse>;
 }
