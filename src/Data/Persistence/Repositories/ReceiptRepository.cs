@@ -17,7 +17,7 @@ namespace Data.Persistence.Repositories
             this.receiptCollection = mongoDb.GetCollection<Receipt>("Receipts");
         }
 
-        public async Task<PagedResultFilter<Receipt>> GetReceiptsAsync(GetReceiptsFilter queryFilter)
+        public async Task<PagedResultFilter<Receipt>> GetReceiptsAsync(ReceiptsFilters queryFilter)
         {
             var results = await BuildAndExecutePipeline(queryFilter);
 
@@ -30,7 +30,7 @@ namespace Data.Persistence.Repositories
             };
         }
 
-        private async Task<IEnumerable<Receipt>> BuildAndExecutePipeline(GetReceiptsFilter queryFilter)
+        private async Task<IEnumerable<Receipt>> BuildAndExecutePipeline(ReceiptsFilters queryFilter)
         {
             var pipelineDefinition = PipelineDefinitionBuilder
                             .For<Receipt>()

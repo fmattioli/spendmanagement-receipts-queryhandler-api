@@ -10,7 +10,7 @@ namespace Data.Queries.PipelineStages
     {
         internal static PipelineDefinition<Receipt, BsonDocument> FilterReceiptItems(
             this PipelineDefinition<Receipt, BsonDocument> pipelineDefinition,
-            GetReceiptsFilter queryFilter)
+            ReceiptsFilters queryFilter)
         {
             var matchFilter = BuildMatchFilter(queryFilter);
 
@@ -22,7 +22,7 @@ namespace Data.Queries.PipelineStages
             return pipelineDefinition;
         }
 
-        private static FilterDefinition<BsonDocument> BuildMatchFilter(GetReceiptsFilter queryFilter)
+        private static FilterDefinition<BsonDocument> BuildMatchFilter(ReceiptsFilters queryFilter)
         {
             var filters = new List<FilterDefinition<BsonDocument>>
             {
@@ -40,7 +40,7 @@ namespace Data.Queries.PipelineStages
         }
 
         private static FilterDefinition<BsonDocument> MatchByItemNames(
-            GetReceiptsFilter queryFilter)
+            ReceiptsFilters queryFilter)
         {
             if (!queryFilter.ItemNames.Any())
             {

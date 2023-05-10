@@ -1,4 +1,5 @@
-﻿using Domain.Interfaces;
+﻿using Application.UseCases.Converters;
+using Domain.Interfaces;
 using MediatR;
 
 namespace Application.UseCases.GetReceipts
@@ -14,8 +15,9 @@ namespace Application.UseCases.GetReceipts
 
         public async Task<GetReceiptsResponse> Handle(GetReceiptsQuery request, CancellationToken cancellationToken)
         {
-            var filters = request.GetReceiptsRequest.ToDomainFilters();
-            var receiptQueryResult = await receiptRepository.GetReceiptsAsync(filters);
+            var getReceiptsInput = request.GetReceiptsRequest.ToInput();
+            var domainFilters = getReceiptsInput.ToDomainFilters();
+            var receiptQueryResult = await receiptRepository.GetReceiptsAsync(domainFilters);
             return receiptQueryResult.ToResponse();
         }
     }

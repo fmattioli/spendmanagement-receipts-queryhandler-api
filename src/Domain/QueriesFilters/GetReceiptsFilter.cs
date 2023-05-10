@@ -1,20 +1,22 @@
 ﻿namespace Domain.Queries.GetReceipts
 {
-    public class GetReceiptsFilter
+    public class ReceiptsFilters
     {
-        public GetReceiptsFilter(IEnumerable<Guid> receiptIds, 
+        public ReceiptsFilters(IEnumerable<Guid> receiptIds, 
             IEnumerable<Guid> receiptItemIds,
             IEnumerable<string> establishmentNames,
             IEnumerable<string> itemNames,
             DateTime receiptDate,
-            DateTime receiptDateFinal)
+            DateTime receiptDateFinal,
+            int pageNumber,
+            int pageSize)
         {
             ReceiptIds = receiptIds;
             ReceiptItemIds = receiptItemIds;
             EstablishmentNames = establishmentNames;
             ReceiptDate = receiptDate;
             ReceiptDateFinal = receiptDateFinal;
-            PageFilter = new PageFilter();
+            PageFilter = new PageFilter(pageNumber, pageSize);
             ItemNames = itemNames;
         }
 
