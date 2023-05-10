@@ -54,7 +54,7 @@ namespace Data.Queries.PipelineStages
 
             var receiptIds = new BsonDocument(
                 "_id",
-                new BsonDocument("$in", new BsonArray(receiptItemIds)));
+                new BsonDocument("$inmn", new BsonArray(receiptItemIds)));
 
             return new BsonDocumentFilterDefinition<BsonDocument>(receiptIds);
         }
