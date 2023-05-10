@@ -12,6 +12,7 @@ namespace Application.UseCases.GetReceipts
                 getReceiptsRequest.ReceiptIds,
                 getReceiptsRequest.ReceiptItemIds,
                 getReceiptsRequest.EstablishmentNames,
+                getReceiptsRequest.ItemNames,
                 getReceiptsRequest.ReceiptDate,
                 getReceiptsRequest.ReceiptDateFinal);
         }

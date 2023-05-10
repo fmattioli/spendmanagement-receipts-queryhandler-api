@@ -19,7 +19,7 @@ namespace Data.Persistence.Repositories
 
         public async Task<PagedResultFilter<Receipt>> GetReceiptsAsync(GetReceiptsFilter queryFilter)
         {
-            var results = await BuildPipelineDefinitions(queryFilter);
+            var results = await BuildAndExecutePipeline(queryFilter);
 
             return new PagedResultFilter<Receipt>
             {
@@ -30,7 +30,7 @@ namespace Data.Persistence.Repositories
             };
         }
 
-        private async Task<IEnumerable<Receipt>> BuildPipelineDefinitions(GetReceiptsFilter queryFilter)
+        private async Task<IEnumerable<Receipt>> BuildAndExecutePipeline(GetReceiptsFilter queryFilter)
         {
             var pipelineDefinition = PipelineDefinitionBuilder
                             .For<Receipt>()

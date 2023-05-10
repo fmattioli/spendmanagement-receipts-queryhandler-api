@@ -10,16 +10,14 @@ namespace Application.UseCases.GetReceipts
         /// </summary>
         [FromQuery]
         public IEnumerable<Guid> ReceiptIds { get; set; } = new List<Guid>();
-
         [FromQuery]
         public IEnumerable<Guid> ReceiptItemIds { get; set; } = new List<Guid>();
-
         [FromQuery]
         public IEnumerable<string> EstablishmentNames { get; set; } = new List<string>();
-
+        [FromQuery]
+        public IEnumerable<string> ItemNames { get; set; } = new List<string>();
         [FromQuery]
         public DateTime ReceiptDate { get; set; }
-
         [FromQuery]
         public DateTime ReceiptDateFinal { get; set; }
     }

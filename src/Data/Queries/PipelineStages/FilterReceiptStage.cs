@@ -50,7 +50,7 @@ namespace Data.Queries.PipelineStages
             }
 
             var receiptItemIds = queryFilter.ReceiptIds
-                .Select(x => x.ToString());
+                .Select(x => new BsonBinaryData(x, GuidRepresentation.Standard));
 
             var receiptIds = new BsonDocument(
                 "_id",
