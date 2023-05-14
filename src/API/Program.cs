@@ -33,7 +33,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "SpendManagement - ReadModel", Version = "v1" });
-    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "SpendManagement.ReadModel.xml"));
+    c.IncludeXmlComments(Path.Combine("./", "SpendManagement.ReadModel.xml"));
 });
 
 var app = builder.Build();

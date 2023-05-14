@@ -56,5 +56,23 @@ namespace Data.Queries.PipelineStages
 
             return new BsonDocumentFilterDefinition<BsonDocument>(filter);
         }
+
+        private static FilterDefinition<BsonDocument> MatchByReceiptIds(
+            ReceiptsFilters queryFilter)
+        {
+            if (!queryFilter.ReceiptIds.Any())
+            {
+                return FilterDefinition<BsonDocument>.Empty;
+            }
+
+            var receiptItemIds = queryFilter.ReceiptItemIds
+                .Select(x => new BsonBinaryData(x, GuidRepresentation.Standard));
+
+            var receiptIds = new BsonDocument(
+                "ReceiptItems._id",
+                new BsonDocument("$in", new BsonArray(receiptItemIds)));
+
+            return new BsonDocumentFilterDefinition<BsonDocument>(receiptIds);
+        }
     }
 }

@@ -67,25 +67,31 @@ namespace Data.Queries.PipelineStages
                 return FilterDefinition<BsonDocument>.Empty;
             }
 
-            var bsonQuery = queryFilter.ReceiptDate switch
+            var query = queryFilter.ReceiptDate switch
             {
-                _ when queryFilter.ReceiptDate.HasValue && queryFilter.ReceiptDateFinal.HasValue => new BsonDocument(
-                    "_id",
-                    new BsonDocument("$in", new BsonArray())),
-                _ when queryFilter.ReceiptDate.HasValue && !queryFilter.ReceiptDateFinal.HasValue => new BsonDocument(
-                    "_id",
-                    new BsonDocument("$in", new BsonArray())),
-                _ when !queryFilter.ReceiptDate.HasValue && queryFilter.ReceiptDateFinal.HasValue => new BsonDocument(
-                    "_id",
-                    new BsonDocument("$in", new BsonArray())),
+                _ when queryFilter.ReceiptDate != DateTime.MinValue && queryFilter.ReceiptDateFinal != DateTime.MinValue =>
+                    new BsonDocument("ReceiptDate",
+                    new BsonDocument
+                    {
+                        { "$gte", queryFilter.ReceiptDate },
+                        { "$lt", queryFilter.ReceiptDateFinal!.Value.AddHours(23).AddMinutes(59) },
+                    }),
+                _ when queryFilter.ReceiptDate != DateTime.MinValue && queryFilter.ReceiptDateFinal == DateTime.MinValue =>
+                    new BsonDocument("ReceiptDate",
+                    new BsonDocument
+                    {
+                        { "$gte", queryFilter.ReceiptDate },
+                    }),
+                _ when queryFilter.ReceiptDateFinal != DateTime.MinValue && queryFilter.ReceiptDate == DateTime.MinValue =>
+                     new BsonDocument("ReceiptDate",
+                     new BsonDocument
+                     {
+                        { "$lte", queryFilter.ReceiptDateFinal!.Value.AddHours(23).AddMinutes(59) },
+                     }),
                 _ => throw new Exception("Invalid filter provided"),
             };
 
-            var receiptIds = new BsonDocument(
-                "_id",
-                new BsonDocument("$in", bsonQuery));
-
-            return new BsonDocumentFilterDefinition<BsonDocument>(receiptIds);
+            return new BsonDocumentFilterDefinition<BsonDocument>(query);
         }
 
         private static FilterDefinition<BsonDocument> MatchByEstablishmentNames(
