@@ -24,8 +24,15 @@
         public IEnumerable<Guid> ReceiptItemIds { get; set; }
         public IEnumerable<string> EstablishmentNames { get; set; }
         public IEnumerable<string> ItemNames { get; set; }
-        public DateTime ReceiptDate { get; set; }
-        public DateTime ReceiptDateFinal { get; set; }
+        public DateTime? ReceiptDate { get; set; }
+        public DateTime? ReceiptDateFinal { get; set; }
         public PageFilter PageFilter { get; set; }
+    }
+
+    public enum DateTimeFilters
+    {
+        ByInternal,
+        ByReceiptDateInitial,
+        ByReceiptDateFinal,
     }
 }
