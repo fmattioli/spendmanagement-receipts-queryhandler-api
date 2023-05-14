@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using System.Linq.Expressions;
 
-namespace Data.Persistence.Repositories
+namespace Data.Queries.Repositories
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
     {
@@ -12,13 +12,13 @@ namespace Data.Persistence.Repositories
         public BaseRepository(IMongoDatabase mongoDb, string collectionName)
         {
             MapClasses();
-            this.collection = mongoDb.GetCollection<TEntity>(collectionName);
+            collection = mongoDb.GetCollection<TEntity>(collectionName);
         }
 
         public async Task<TEntity> FindOneAsync(
             Expression<Func<TEntity, bool>> filterExpression)
         {
-            return await this.collection.Find(filterExpression).SingleOrDefaultAsync();
+            return await collection.Find(filterExpression).SingleOrDefaultAsync();
         }
 
         private static void MapClasses()

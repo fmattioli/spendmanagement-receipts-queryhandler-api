@@ -1,4 +1,6 @@
 using API.Extensions;
+using API.Filters;
+
 using Crosscutting.Cofig;
 using CrossCutting.Extensions;
 using CrossCutting.Extensions.Logging;
@@ -22,15 +24,16 @@ var applicationSettings = builder.Configuration.GetSection("Settings").Get<Setti
 // Add services to the container.
 builder.Services
     .AddDependencyInjection()
+    .AddRepositories()
     .AddMongo(applicationSettings.MongoSettings)
     .AddLoggingDependency()
-    .AddControllers();
+    .AddControllers(c => c.Filters.Add(typeof(ExceptionFilter)));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "SpendManagement - ReadModel", Version = "v1" });
-    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "SpendManagement.ReadModel.xml"));
+    c.IncludeXmlComments(Path.Combine("./", "SpendManagement.ReadModel.xml"));
 });
 
 var app = builder.Build();

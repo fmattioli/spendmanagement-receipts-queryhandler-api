@@ -1,12 +1,24 @@
-﻿using MediatR;
+﻿using Application.UseCases.Converters;
+using Domain.Interfaces;
+using MediatR;
 
 namespace Application.UseCases.GetReceipts
 {
-    public class GetReceiptsQueryHandler : IRequestHandler<GetReceiptsQuery, IReadOnlyCollection<GetReceiptsResponse>>
+    public class GetReceiptsQueryHandler : IRequestHandler<GetReceiptsQuery, GetReceiptsResponse>
     {
-        public Task<IReadOnlyCollection<GetReceiptsResponse>> Handle(GetReceiptsQuery request, CancellationToken cancellationToken)
+        private readonly IReceiptRepository receiptRepository;
+
+        public GetReceiptsQueryHandler(IReceiptRepository receiptRepository)
         {
-            throw new NotImplementedException();
+            this.receiptRepository = receiptRepository;
+        }
+
+        public async Task<GetReceiptsResponse> Handle(GetReceiptsQuery request, CancellationToken cancellationToken)
+        {
+            var getReceiptsInput = request.GetReceiptsRequest.ToInput();
+            var domainFilters = getReceiptsInput.ToDomainFilters();
+            var receiptQueryResult = await receiptRepository.GetReceiptsAsync(domainFilters);
+            return receiptQueryResult.ToResponse();
         }
     }
 }
