@@ -6,7 +6,7 @@ using Domain.Queries.GetReceipts;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
-namespace Data.Persistence.Repositories
+namespace Data.Queries.Repositories
 {
     public class ReceiptRepository : BaseRepository<Receipt>, IReceiptRepository
     {
@@ -14,7 +14,7 @@ namespace Data.Persistence.Repositories
 
         public ReceiptRepository(IMongoDatabase mongoDb) : base(mongoDb, "Receipts")
         {
-            this.receiptCollection = mongoDb.GetCollection<Receipt>("Receipts");
+            receiptCollection = mongoDb.GetCollection<Receipt>("Receipts");
         }
 
         public async Task<PagedResultFilter<Receipt>> GetReceiptsAsync(ReceiptsFilters queryFilter)
@@ -45,7 +45,7 @@ namespace Data.Persistence.Repositories
 
             var resultsPipeline = pipelineDefinition.As<Receipt, BsonDocument, Receipt>();
 
-            var aggregation = await this.receiptCollection.AggregateAsync(
+            var aggregation = await receiptCollection.AggregateAsync(
                                   resultsPipeline,
                                   new AggregateOptions { AllowDiskUse = true, MaxTime = Timeout.InfiniteTimeSpan, });
 

@@ -1,4 +1,4 @@
-﻿using Data.Persistence.Repositories;
+﻿using Data.Queries.Repositories;
 using Domain.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
