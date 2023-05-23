@@ -1,6 +1,5 @@
 using API.Extensions;
 using API.Filters;
-
 using Crosscutting.Cofig;
 using CrossCutting.Extensions;
 using CrossCutting.Extensions.Logging;
@@ -32,7 +31,7 @@ builder.Services
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "SpendManagement - ReadModel", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "SpendManagement ReadModel", Version = "v1" });
     c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "SpendManagement.ReadModel.xml"));
 });
 
@@ -42,7 +41,10 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Api One V1");
+    });
 }
 
 app.UseHttpsRedirection();
