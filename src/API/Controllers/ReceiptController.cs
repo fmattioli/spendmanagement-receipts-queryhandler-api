@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
+    [Route("api/v1")]
+    [ApiController]
     public class ReceiptController : ControllerBase
     {
         private readonly IMediator _mediator;
