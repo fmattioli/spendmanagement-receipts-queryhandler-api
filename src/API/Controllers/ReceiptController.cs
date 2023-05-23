@@ -13,7 +13,7 @@ namespace API.Controllers
         public ReceiptController(IMediator mediator) => _mediator = mediator;
 
         /// <summary>
-        /// GET receipts based on informeted filters.
+        /// GET receipts based on previously informeted filters.
         /// Required at least a filter as parameters.
         /// </summary>
         /// <returns>Return a list of receipts based on pre determined filters.</returns>

@@ -7,16 +7,20 @@
     <UserSecretsId>0882ffb8-f2f0-49f6-8a82-7adef77909c7</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <DocumentationFile>C:\projects\spendmanagement\spendmanagement-readmodel\src\API\bin\Debug\net6.0\Spents.ReadModel.xml</DocumentationFile>
+    <DocumentationFile>C:\Projetos\spendmanagement\spendmanagement-readmodel\src\API\SpendManagement.ReadModel.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <NoWarn>1701;1702;1591</NoWarn>
+    <NoWarn>1701;1702;1591;1573</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <NoWarn>1701;1702;1591</NoWarn>
+    <NoWarn>1701;1702;1591;1573</NoWarn>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="SpendManagement.ReadModel.xml" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MediatR" Version="12.0.1" />
