@@ -1,4 +1,4 @@
-﻿namespace Application.UseCases.Common
+﻿namespace Application.Common
 {
     public sealed class PageFilter
     {

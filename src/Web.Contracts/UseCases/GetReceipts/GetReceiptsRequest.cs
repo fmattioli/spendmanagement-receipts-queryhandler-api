@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Application.UseCases.GetReceipts
+namespace Web.Contracts.UseCases.GetReceipts
 {
-    public record GetReceiptsRequest 
+    public record GetReceiptsRequest
     {
         public GetReceiptsRequest()
         {
-            this.PageFilter = new PageFilterRequest { Page = 1, PageSize = 60, };
+            PageFilter = new PageFilterRequest { Page = 1, PageSize = 60, };
         }
 
         [BindProperty(Name = "")]
@@ -37,15 +37,15 @@ namespace Application.UseCases.GetReceipts
         [FromQuery(Name = "page")]
         public int Page
         {
-            get => this.page;
-            set => this.page = (value < LowerBoundPageNumber) ? LowerBoundPageNumber : value;
+            get => page;
+            set => page = value < LowerBoundPageNumber ? LowerBoundPageNumber : value;
         }
 
         [FromQuery(Name = "pageSize")]
         public int PageSize
         {
-            get => this.pageSize;
-            set => this.pageSize = (value < 1) ? 1 : value;
+            get => pageSize;
+            set => pageSize = value < 1 ? 1 : value;
         }
     }
 }

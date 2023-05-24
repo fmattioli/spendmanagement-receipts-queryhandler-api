@@ -1,5 +1,4 @@
 ﻿using Domain.ValueObjects;
-
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Domain.Entities

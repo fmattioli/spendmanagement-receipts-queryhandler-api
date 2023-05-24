@@ -7,9 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="UseCases\GetReceipts\Validators\**" />
-    <EmbeddedResource Remove="UseCases\GetReceipts\Validators\**" />
-    <None Remove="UseCases\GetReceipts\Validators\**" />
+    <Compile Remove="GetReceipts\Validators\**" />
+    <EmbeddedResource Remove="GetReceipts\Validators\**" />
+    <None Remove="GetReceipts\Validators\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\Web.Contracts\Web.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

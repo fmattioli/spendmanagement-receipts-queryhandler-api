@@ -1,4 +1,4 @@
-﻿namespace Application.UseCases.Common
+﻿namespace Web.Contracts.UseCases.GetReceipts
 {
     public class PagedResult<T>
     {

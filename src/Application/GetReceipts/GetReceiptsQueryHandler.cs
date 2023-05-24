@@ -1,8 +1,9 @@
-﻿using Application.UseCases.Converters;
+﻿using Application.Converters;
 using Domain.Interfaces;
 using MediatR;
+using Web.Contracts.UseCases.GetReceipts;
 
-namespace Application.UseCases.GetReceipts
+namespace Application.GetReceipts
 {
     public class GetReceiptsQueryHandler : IRequestHandler<GetReceiptsQuery, GetReceiptsResponse>
     {

@@ -1,4 +1,4 @@
-﻿using Application.UseCases.GetReceipts;
+﻿using Application.GetReceipts;
 
 namespace API.Extensions
 {
@@ -13,4 +13,4 @@ namespace API.Extensions
             return services;
         }
     }
-}
+} 

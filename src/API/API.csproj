@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CrossCutting\CrossCutting.csproj" />
+    <ProjectReference Include="..\Web.Contracts\Web.Contracts.csproj" />
   </ItemGroup>
 
 </Project>
