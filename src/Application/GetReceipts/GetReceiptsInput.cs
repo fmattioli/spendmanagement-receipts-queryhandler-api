@@ -1,6 +1,6 @@
-﻿using Application.UseCases.Common;
+﻿using Application.Common;
 
-namespace Application.UseCases.GetReceipts
+namespace Application.GetReceipts
 {
     public class GetReceiptsInput
     {

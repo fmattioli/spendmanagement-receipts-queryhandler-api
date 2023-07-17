@@ -14,7 +14,7 @@ namespace API.Filters
                 Message = context.Exception.Message
             };
 
-            context.Result = new JsonResult(error) { StatusCode = 500 };
+            context.Result = new JsonResult(error) { StatusCode = 500, Value = error.Message };
         }
     }
 }
