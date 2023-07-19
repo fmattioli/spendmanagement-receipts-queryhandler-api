@@ -1,4 +1,4 @@
-# spendmanagement-eventhandler
+# spendmanagement-readmodel
 This application has te purpose to be a readmodel from the spendmanagement project. This application read data from a nosql database and project it to the user.
 
 # Related projects
