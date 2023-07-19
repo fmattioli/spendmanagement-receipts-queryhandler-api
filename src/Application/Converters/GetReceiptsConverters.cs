@@ -1,9 +1,9 @@
-﻿using Application.GetReceipts;
+﻿using Application.Queries.Receipt.GetReceipts;
 using Domain.Entities;
 using Domain.Queries;
 using Domain.Queries.GetReceipts;
 using Domain.ValueObjects;
-using Web.Contracts.UseCases.Common;
+using Web.Contracts.Receipt;
 using Web.Contracts.UseCases.GetReceipts;
 
 namespace Application.Converters
@@ -20,7 +20,7 @@ namespace Application.Converters
                 ReceiptDateFinal = request.ReceiptDateFinal,
                 ReceiptIds = request.ReceiptIds,
                 ReceiptItemIds = request.ReceiptItemIds,
-                PageFilter = new Common.PageFilter
+                PageFilter = new Queries.Common.PageFilter
                 {
                     PageNumber = request.PageFilter.Page,
                     PageSize = request.PageFilter.PageSize

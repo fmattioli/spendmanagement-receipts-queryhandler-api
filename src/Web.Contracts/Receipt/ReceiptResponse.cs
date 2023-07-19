@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Web.Contracts.UseCases.Common
+namespace Web.Contracts.Receipt
 {
     public class ReceiptResponse
     {

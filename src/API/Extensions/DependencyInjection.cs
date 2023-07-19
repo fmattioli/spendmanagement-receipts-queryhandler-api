@@ -1,4 +1,4 @@
-﻿using Application.GetReceipts;
+﻿using Application.Queries.Receipt.GetReceipts;
 
 namespace API.Extensions
 {

@@ -7,9 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="GetReceipts\Validators\**" />
-    <EmbeddedResource Remove="GetReceipts\Validators\**" />
-    <None Remove="GetReceipts\Validators\**" />
+    <Compile Remove="Queries\Receipt\GetReceipts\Validators\**" />
+    <EmbeddedResource Remove="Queries\Receipt\GetReceipts\Validators\**" />
+    <None Remove="Queries\Receipt\GetReceipts\Validators\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +21,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\Web.Contracts\Web.Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Queries\Category\" />
   </ItemGroup>
 
 </Project>

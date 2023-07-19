@@ -1,5 +1,5 @@
-﻿using Application.GetReceipt;
-using Application.GetReceipts;
+﻿using Application.Queries.Receipt.GetReceipt;
+using Application.Queries.Receipt.GetReceipts;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,7 +21,7 @@ namespace API.Controllers
         /// </summary>
         /// <returns>Return a list of receipts based on pre determined filters.</returns>
         [HttpGet]
-        [Route("getReceipts", Name = nameof(ReceiptController.GetReceipts))]
+        [Route("getReceipts", Name = nameof(GetReceipts))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
