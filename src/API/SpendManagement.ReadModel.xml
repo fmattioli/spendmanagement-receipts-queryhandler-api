@@ -4,7 +4,21 @@
         <name>API</name>
     </assembly>
     <members>
-        <member name="M:API.Controllers.ReceiptController.GetReceipts(Web.Contracts.UseCases.GetReceipts.GetReceiptsRequest,System.Threading.CancellationToken)">
+        <member name="M:API.Controllers.CategoryController.GetCategories(Application.Queries.Category.GetCategories.GetCategoriesRequest,System.Threading.CancellationToken)">
+            <summary>
+            GET categories based on previously informeted filters.
+            Required at least a filter as parameters.
+            </summary>
+            <returns>Return a list of categories based on pre determined filters.</returns>
+        </member>
+        <member name="M:API.Controllers.CategoryController.GetCategory(System.Guid,System.Threading.CancellationToken)">
+            <summary>
+            GET category by Id
+            Required an Id as parameter.
+            </summary>
+            <returns>Return a category based on their Id.</returns>
+        </member>
+        <member name="M:API.Controllers.ReceiptController.GetReceipts(Application.Queries.Receipt.GetReceipts.GetReceiptsRequest,System.Threading.CancellationToken)">
             <summary>
             GET receipts based on previously informeted filters.
             Required at least a filter as parameters.

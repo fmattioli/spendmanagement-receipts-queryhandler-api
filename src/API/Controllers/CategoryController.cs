@@ -1,4 +1,5 @@
-﻿using Application.Queries.Receipt.GetReceipt;
+﻿using Application.Queries.Category.GetCategories;
+using Application.Queries.Receipt.GetReceipt;
 using Application.Queries.Receipt.GetReceipts;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -7,39 +8,39 @@ namespace API.Controllers
 {
     [Route("api/v1")]
     [ApiController]
-    public class ReceiptController : ControllerBase
+    public class CategoryController : Controller
     {
         private readonly IMediator _mediator;
 
-        public ReceiptController(IMediator mediator) => _mediator = mediator;
+        public CategoryController(IMediator mediator) => _mediator = mediator;
 
         /// <summary>
-        /// GET receipts based on previously informeted filters.
+        /// GET categories based on previously informeted filters.
         /// Required at least a filter as parameters.
         /// </summary>
-        /// <returns>Return a list of receipts based on pre determined filters.</returns>
+        /// <returns>Return a list of categories based on pre determined filters.</returns>
         [HttpGet]
-        [Route("getReceipts", Name = nameof(GetReceipts))]
+        [Route("getCategories", Name = nameof(GetCategories))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetReceipts([FromRoute] GetReceiptsRequest getReceiptsRequest, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetCategories([FromRoute] GetCategoriesRequest getReceiptsRequest, CancellationToken cancellationToken)
         {
-            var receipts = await _mediator.Send(new GetReceiptsQuery(getReceiptsRequest), cancellationToken);
+            var receipts = await _mediator.Send(new GetCategoriesQuery(getReceiptsRequest), cancellationToken);
             return Ok(receipts);
         }
 
         /// <summary>
-        /// GET receipt by Id
+        /// GET category by Id
         /// Required an Id as parameter.
         /// </summary>
-        /// <returns>Return a receipt based on their Id.</returns>
+        /// <returns>Return a category based on their Id.</returns>
         [HttpGet]
-        [Route("getReceipt/{Id:guid}", Name = nameof(GetReceipt))]
+        [Route("getCategory/{Id:guid}", Name = nameof(GetCategory))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetReceipt([FromRoute] Guid Id, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetCategory([FromRoute] Guid Id, CancellationToken cancellationToken)
         {
             var receipts = await _mediator.Send(new GetReceiptQuery(Id), cancellationToken);
             return Ok(receipts);

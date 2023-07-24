@@ -23,8 +23,4 @@
     <ProjectReference Include="..\Web.Contracts\Web.Contracts.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Queries\Category\" />
-  </ItemGroup>
-
 </Project>

@@ -1,6 +1,6 @@
 ﻿using Domain.Entities;
-using Domain.Queries;
 using Domain.Queries.GetReceipts;
+using Domain.QueriesFilters.PageFilters;
 
 namespace Domain.Interfaces
 {

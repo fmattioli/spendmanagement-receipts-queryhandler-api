@@ -1,14 +1,13 @@
 ﻿using Application.Queries.Receipt.GetReceipts;
 using Domain.Entities;
-using Domain.Queries;
 using Domain.Queries.GetReceipts;
+using Domain.QueriesFilters.PageFilters;
 using Domain.ValueObjects;
 using Web.Contracts.Receipt;
-using Web.Contracts.UseCases.GetReceipts;
 
 namespace Application.Converters
 {
-    public static class GetReceiptsConverters
+    public static class ReceiptMapper
     {
         public static GetReceiptsInput ToInput(this GetReceiptsRequest request)
         {
