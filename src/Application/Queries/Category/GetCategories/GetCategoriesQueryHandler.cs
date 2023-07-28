@@ -1,5 +1,5 @@
-﻿using Domain.Interfaces;
-
+﻿using Application.Mappers;
+using Domain.Interfaces;
 using MediatR;
 
 namespace Application.Queries.Category.GetCategories
@@ -15,7 +15,9 @@ namespace Application.Queries.Category.GetCategories
 
         public async Task<GetCategoriesResponse> Handle(GetCategoriesQuery request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var domainFilters = request.GetReceiptsRequest.ToDomainFilters();
+            var categoriesQueryResult = await _categoryRepository.GetCategoriesAsync(domainFilters);
+            return categoriesQueryResult.ToResponse();
         }
     }
 }

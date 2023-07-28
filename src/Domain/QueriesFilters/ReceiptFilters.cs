@@ -2,9 +2,9 @@
 
 namespace Domain.Queries.GetReceipts
 {
-    public class ReceiptsFilters
+    public class ReceiptFilters
     {
-        public ReceiptsFilters(IEnumerable<Guid> receiptIds, 
+        public ReceiptFilters(IEnumerable<Guid> receiptIds, 
             IEnumerable<Guid> receiptItemIds,
             IEnumerable<string> establishmentNames,
             IEnumerable<string> itemNames,

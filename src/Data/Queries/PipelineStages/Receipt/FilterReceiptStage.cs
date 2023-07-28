@@ -1,16 +1,15 @@
-﻿using Domain.Entities;
-using Domain.Queries.GetReceipts;
+﻿using Domain.Queries.GetReceipts;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Text.RegularExpressions;
 
-namespace Data.Queries.PipelineStages
+namespace Data.Queries.PipelineStages.Receipt
 {
     internal static class FilterReceiptStage
     {
-        internal static PipelineDefinition<Receipt, BsonDocument> FilterReceipts(
-            this PipelineDefinition<Receipt, BsonDocument> pipelineDefinition,
-            ReceiptsFilters queryFilter)
+        internal static PipelineDefinition<Domain.Entities.Receipt, BsonDocument> FilterReceipts(
+            this PipelineDefinition<Domain.Entities.Receipt, BsonDocument> pipelineDefinition,
+            ReceiptFilters queryFilter)
         {
             var matchFilter = BuildMatchFilter(queryFilter);
 
@@ -22,7 +21,7 @@ namespace Data.Queries.PipelineStages
             return pipelineDefinition;
         }
 
-        private static FilterDefinition<BsonDocument> BuildMatchFilter(ReceiptsFilters queryFilter)
+        private static FilterDefinition<BsonDocument> BuildMatchFilter(ReceiptFilters queryFilter)
         {
             var filters = new List<FilterDefinition<BsonDocument>>
             {
@@ -42,7 +41,7 @@ namespace Data.Queries.PipelineStages
         }
 
         private static FilterDefinition<BsonDocument> MatchByReceiptIds(
-            ReceiptsFilters queryFilter)
+            ReceiptFilters queryFilter)
         {
             if (!queryFilter.ReceiptIds.Any())
             {
@@ -60,7 +59,7 @@ namespace Data.Queries.PipelineStages
         }
 
         private static FilterDefinition<BsonDocument> MatchByReceiptDate(
-            ReceiptsFilters queryFilter)
+            ReceiptFilters queryFilter)
         {
             if (queryFilter.ReceiptDate == DateTime.MinValue && queryFilter.ReceiptDateFinal == DateTime.MinValue)
             {
@@ -95,7 +94,7 @@ namespace Data.Queries.PipelineStages
         }
 
         private static FilterDefinition<BsonDocument> MatchByEstablishmentNames(
-            ReceiptsFilters queryFilter)
+            ReceiptFilters queryFilter)
         {
             if (!queryFilter.EstablishmentNames.Any())
             {

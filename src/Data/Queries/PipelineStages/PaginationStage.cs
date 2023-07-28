@@ -7,9 +7,9 @@ namespace Data.Queries.PipelineStages
 {
     internal static class PaginationStage
     {
-        public static PipelineDefinition<Receipt, BsonDocument> Paginate(
-            this PipelineDefinition<Receipt, BsonDocument> pipelineDefinition,
-            ReceiptsFilters queryFilter)
+        public static PipelineDefinition<Domain.Entities.Receipt, BsonDocument> Paginate(
+            this PipelineDefinition<Domain.Entities.Receipt, BsonDocument> pipelineDefinition,
+            ReceiptFilters queryFilter)
         {
             var skipCount = (queryFilter.PageFilter.PageSize * (queryFilter.PageFilter.PageNumber - 1));
             var pageSizeLimit = queryFilter.PageFilter.PageSize;
