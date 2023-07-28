@@ -1,4 +1,5 @@
 ﻿using Application.Queries.Category.GetCategories;
+using Application.Queries.Category.GetCategory;
 using Application.Queries.Receipt.GetReceipt;
 using Application.Queries.Receipt.GetReceipts;
 using MediatR;
@@ -24,10 +25,10 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetCategories([FromRoute] GetCategoriesRequest getReceiptsRequest, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetCategories([FromRoute] GetCategoriesRequest getCategoriesRequest, CancellationToken cancellationToken)
         {
-            var receipts = await _mediator.Send(new GetCategoriesQuery(getReceiptsRequest), cancellationToken);
-            return Ok(receipts);
+            var categories = await _mediator.Send(new GetCategoriesQuery(getCategoriesRequest), cancellationToken);
+            return Ok(categories);
         }
 
         /// <summary>
@@ -42,8 +43,8 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetCategory([FromRoute] Guid Id, CancellationToken cancellationToken)
         {
-            var receipts = await _mediator.Send(new GetReceiptQuery(Id), cancellationToken);
-            return Ok(receipts);
+            var category = await _mediator.Send(new GetCategoryQuery(Id), cancellationToken);
+            return Ok(category);
         }
     }
 }

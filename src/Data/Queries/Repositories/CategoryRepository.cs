@@ -10,7 +10,7 @@ namespace Data.Queries.Repositories
     {
         private readonly IMongoCollection<Category> categoryCollection;
 
-        public CategoryRepository(IMongoDatabase mongoDb) : base(mongoDb, "Receipts")
+        public CategoryRepository(IMongoDatabase mongoDb) : base(mongoDb, "Categories")
         {
             categoryCollection = mongoDb.GetCollection<Category>("Categories");
         }

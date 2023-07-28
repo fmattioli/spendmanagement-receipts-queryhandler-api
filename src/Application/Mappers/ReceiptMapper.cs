@@ -27,6 +27,19 @@ namespace Application.Converters
             };
         }
 
+        public static ReceiptsFilters ToDomainFilters(this GetReceiptsRequest getReceiptsInput)
+        {
+            return new ReceiptsFilters(
+                getReceiptsInput.ReceiptIds,
+                getReceiptsInput.ReceiptItemIds,
+                getReceiptsInput.EstablishmentNames,
+                getReceiptsInput.ItemNames,
+                getReceiptsInput.ReceiptDate,
+                getReceiptsInput.ReceiptDateFinal,
+                getReceiptsInput.PageFilter.Page,
+                getReceiptsInput.PageFilter.PageSize);
+        }
+        
         public static ReceiptsFilters ToDomainFilters(this GetReceiptsInput getReceiptsInput)
         {
             return new ReceiptsFilters(

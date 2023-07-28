@@ -12,11 +12,12 @@ namespace Application.Queries.Category.GetCategories
         [BindProperty(Name = "")]
         public PageFilterRequest PageFilter { get; set; }
 
-        [FromQuery]
-        public IEnumerable<Guid> ReceiptIds { get; set; } = new List<Guid>();
-        [FromQuery]
-        public IEnumerable<Guid> ReceiptItemIds { get; set; } = new List<Guid>();
+        [FromQuery(Name = "categoryIds")]
+        public IEnumerable<Guid> CategoryIds { get; set; } = new List<Guid>();
+        [FromQuery(Name = "categoryNames")]
+        public IEnumerable<string> CategoryNames { get; set; } = new List<string>();
     }
+
     public record PageFilterRequest
     {
         private const int LowerBoundPageNumber = 1;
