@@ -8,7 +8,8 @@ namespace CrossCutting.Extensions
     {
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
-            services.AddTransient<IReceiptRepository, ReceiptRepository>();
+            services.AddScoped<IReceiptRepository, ReceiptRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
             return services;
         }
     }

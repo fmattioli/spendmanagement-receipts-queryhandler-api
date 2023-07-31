@@ -1,8 +1,8 @@
 ﻿using Data.Queries.PipelineStages;
 using Domain.Entities;
 using Domain.Interfaces;
-using Domain.Queries;
 using Domain.Queries.GetReceipts;
+using Domain.QueriesFilters.PageFilters;
 using MongoDB.Bson;
 using MongoDB.Driver;
 

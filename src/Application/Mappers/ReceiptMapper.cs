@@ -1,14 +1,13 @@
-﻿using Application.GetReceipts;
+﻿using Application.Queries.Receipt.GetReceipts;
 using Domain.Entities;
-using Domain.Queries;
 using Domain.Queries.GetReceipts;
+using Domain.QueriesFilters.PageFilters;
 using Domain.ValueObjects;
-using Web.Contracts.UseCases.Common;
-using Web.Contracts.UseCases.GetReceipts;
+using Web.Contracts.Receipt;
 
 namespace Application.Converters
 {
-    public static class GetReceiptsConverters
+    public static class ReceiptMapper
     {
         public static GetReceiptsInput ToInput(this GetReceiptsRequest request)
         {
@@ -20,7 +19,7 @@ namespace Application.Converters
                 ReceiptDateFinal = request.ReceiptDateFinal,
                 ReceiptIds = request.ReceiptIds,
                 ReceiptItemIds = request.ReceiptItemIds,
-                PageFilter = new Common.PageFilter
+                PageFilter = new Queries.Common.PageFilter
                 {
                     PageNumber = request.PageFilter.Page,
                     PageSize = request.PageFilter.PageSize

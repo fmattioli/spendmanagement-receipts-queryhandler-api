@@ -1,6 +1,6 @@
-﻿using Application.Common;
+﻿using Application.Queries.Common;
 
-namespace Application.GetReceipts
+namespace Application.Queries.Receipt.GetReceipts
 {
     public class GetReceiptsInput
     {

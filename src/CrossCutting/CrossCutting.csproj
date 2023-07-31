@@ -7,8 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Extensions\Filters\" />
-    <Folder Include="Extensions\Validators\" />
+    <Compile Remove="Extensions\Filters\**" />
+    <Compile Remove="Extensions\Validators\**" />
+    <EmbeddedResource Remove="Extensions\Filters\**" />
+    <EmbeddedResource Remove="Extensions\Validators\**" />
+    <None Remove="Extensions\Filters\**" />
+    <None Remove="Extensions\Validators\**" />
   </ItemGroup>
 
   <ItemGroup>

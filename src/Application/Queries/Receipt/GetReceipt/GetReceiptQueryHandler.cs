@@ -1,9 +1,9 @@
 ﻿using Application.Converters;
 using Domain.Interfaces;
 using MediatR;
-using Web.Contracts.UseCases.Common;
+using Web.Contracts.Receipt;
 
-namespace Application.GetReceipt
+namespace Application.Queries.Receipt.GetReceipt
 {
     public class GetReceiptQueryHandler : IRequestHandler<GetReceiptQuery, ReceiptResponse>
     {
@@ -11,7 +11,7 @@ namespace Application.GetReceipt
 
         public GetReceiptQueryHandler(IReceiptRepository receiptRepository)
         {
-            this._receiptRepository = receiptRepository;
+            _receiptRepository = receiptRepository;
         }
 
         public async Task<ReceiptResponse> Handle(GetReceiptQuery request, CancellationToken cancellationToken)

@@ -1,4 +1,6 @@
-﻿namespace Domain.Queries.GetReceipts
+﻿using Domain.QueriesFilters.PageFilters;
+
+namespace Domain.Queries.GetReceipts
 {
     public class ReceiptsFilters
     {
@@ -27,12 +29,5 @@
         public DateTime? ReceiptDate { get; set; }
         public DateTime? ReceiptDateFinal { get; set; }
         public PageFilter PageFilter { get; set; }
-    }
-
-    public enum DateTimeFilters
-    {
-        ByInternal,
-        ByReceiptDateInitial,
-        ByReceiptDateFinal,
     }
 }
