@@ -47,14 +47,14 @@ namespace Data.Queries.PipelineStages.Category
                 return FilterDefinition<BsonDocument>.Empty;
             }
 
-            var receiptItemIds = queryFilter.CategoryIds
+            var categoriesIds = queryFilter.CategoryIds
                 .Select(x => new BsonBinaryData(x, GuidRepresentation.Standard));
 
-            var receiptIds = new BsonDocument(
+            var categories = new BsonDocument(
                 "_id",
-                new BsonDocument("$in", new BsonArray(receiptItemIds)));
+                new BsonDocument("$in", new BsonArray(categoriesIds)));
 
-            return new BsonDocumentFilterDefinition<BsonDocument>(receiptIds);
+            return new BsonDocumentFilterDefinition<BsonDocument>(categories);
         }
 
         private static FilterDefinition<BsonDocument> MatchByCategoryNames(

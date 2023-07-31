@@ -1,4 +1,5 @@
-﻿using Data.Queries.PipelineStages.Category;
+﻿using Data.Queries.PipelineStages;
+using Data.Queries.PipelineStages.Category;
 using Domain.Entities;
 using Domain.Interfaces;
 using Domain.QueriesFilters;
@@ -18,9 +19,17 @@ namespace Data.Queries.Repositories
             categoryCollection = mongoDb.GetCollection<Category>("Categories");
         }
 
-        public Task<PagedResultFilter<Category>> GetCategoriesAsync(CategoryFilters queryFilter)
+        public async Task<PagedResultFilter<Category>> GetCategoriesAsync(CategoryFilters queryFilter)
         {
-            throw new NotImplementedException();
+            var results = await BuildAndExecutePipeline(queryFilter);
+
+            return new PagedResultFilter<Category>
+            {
+                Results = results,
+                PageNumber = queryFilter.PageNumber,
+                PageSizeLimit = queryFilter.PageSize,
+                TotalResults = results.Count(),
+            };
         }
 
         private async Task<IEnumerable<Category>> BuildAndExecutePipeline(CategoryFilters queryFilter)
@@ -29,7 +38,7 @@ namespace Data.Queries.Repositories
                             .For<Category>()
                             .As<Category, Category, BsonDocument>()
                             .FilterCategories(queryFilter)
-                            //.Paginate(queryFilter)
+                            .Paginate(queryFilter.PageSize, queryFilter.PageNumber)
                             .Sort(
                                 Builders<BsonDocument>.Sort.Ascending(
                                     new StringFieldDefinition<BsonDocument>(

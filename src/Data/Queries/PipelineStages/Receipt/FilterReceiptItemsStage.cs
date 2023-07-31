@@ -25,6 +25,7 @@ namespace Data.Queries.PipelineStages.Receipt
         {
             var filters = new List<FilterDefinition<BsonDocument>>
             {
+                MatchByReceiptItemIds(queryFilter),
                 MatchByItemNames(queryFilter),
             };
 
@@ -56,10 +57,10 @@ namespace Data.Queries.PipelineStages.Receipt
             return new BsonDocumentFilterDefinition<BsonDocument>(filter);
         }
 
-        private static FilterDefinition<BsonDocument> MatchByReceiptIds(
+        private static FilterDefinition<BsonDocument> MatchByReceiptItemIds(
             ReceiptFilters queryFilter)
         {
-            if (!queryFilter.ReceiptIds.Any())
+            if (!queryFilter.ReceiptItemIds.Any())
             {
                 return FilterDefinition<BsonDocument>.Empty;
             }

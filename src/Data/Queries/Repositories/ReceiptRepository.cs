@@ -25,8 +25,8 @@ namespace Data.Queries.Repositories
             return new PagedResultFilter<Receipt>
             {
                 Results = results,
-                PageNumber = queryFilter.PageFilter.PageNumber,
-                PageSizeLimit = queryFilter.PageFilter.PageSize,
+                PageNumber = queryFilter.PageNumber,
+                PageSizeLimit = queryFilter.PageSize,
                 TotalResults = results.Count(),
             };
         }
@@ -38,7 +38,7 @@ namespace Data.Queries.Repositories
                             .As<Receipt, Receipt, BsonDocument>()
                             .FilterReceipts(queryFilter)
                             .FilterReceiptItems(queryFilter)
-                            .Paginate(queryFilter)
+                            .Paginate(queryFilter.PageSize, queryFilter.PageNumber)
                             .Sort(
                                 Builders<BsonDocument>.Sort.Ascending(
                                     new StringFieldDefinition<BsonDocument>(
