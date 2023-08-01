@@ -1,16 +1,15 @@
-﻿using Domain.Entities;
-using Domain.Queries.GetReceipts;
+﻿using Domain.Queries.GetReceipts;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Text.RegularExpressions;
 
-namespace Data.Queries.PipelineStages
+namespace Data.Queries.PipelineStages.Receipt
 {
     internal static class FilterReceiptItemsStage
     {
-        internal static PipelineDefinition<Receipt, BsonDocument> FilterReceiptItems(
-            this PipelineDefinition<Receipt, BsonDocument> pipelineDefinition,
-            ReceiptsFilters queryFilter)
+        internal static PipelineDefinition<Domain.Entities.Receipt, BsonDocument> FilterReceiptItems(
+            this PipelineDefinition<Domain.Entities.Receipt, BsonDocument> pipelineDefinition,
+            ReceiptFilters queryFilter)
         {
             var matchFilter = BuildMatchFilter(queryFilter);
 
@@ -22,10 +21,11 @@ namespace Data.Queries.PipelineStages
             return pipelineDefinition;
         }
 
-        private static FilterDefinition<BsonDocument> BuildMatchFilter(ReceiptsFilters queryFilter)
+        private static FilterDefinition<BsonDocument> BuildMatchFilter(ReceiptFilters queryFilter)
         {
             var filters = new List<FilterDefinition<BsonDocument>>
             {
+                MatchByReceiptItemIds(queryFilter),
                 MatchByItemNames(queryFilter),
             };
 
@@ -40,7 +40,7 @@ namespace Data.Queries.PipelineStages
         }
 
         private static FilterDefinition<BsonDocument> MatchByItemNames(
-            ReceiptsFilters queryFilter)
+            ReceiptFilters queryFilter)
         {
             if (!queryFilter.ItemNames.Any())
             {
@@ -57,10 +57,10 @@ namespace Data.Queries.PipelineStages
             return new BsonDocumentFilterDefinition<BsonDocument>(filter);
         }
 
-        private static FilterDefinition<BsonDocument> MatchByReceiptIds(
-            ReceiptsFilters queryFilter)
+        private static FilterDefinition<BsonDocument> MatchByReceiptItemIds(
+            ReceiptFilters queryFilter)
         {
-            if (!queryFilter.ReceiptIds.Any())
+            if (!queryFilter.ReceiptItemIds.Any())
             {
                 return FilterDefinition<BsonDocument>.Empty;
             }

@@ -1,18 +1,17 @@
-﻿using Domain.Entities;
-using Domain.Queries.GetReceipts;
+﻿using Domain.Queries.GetReceipts;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Data.Queries.PipelineStages
 {
-    internal static class PaginationStage
+    public static class PaginationStage
     {
-        public static PipelineDefinition<Receipt, BsonDocument> Paginate(
-            this PipelineDefinition<Receipt, BsonDocument> pipelineDefinition,
-            ReceiptsFilters queryFilter)
+        public static PipelineDefinition<T, BsonDocument> Paginate<T>(
+            this PipelineDefinition<T, BsonDocument> pipelineDefinition,
+            int pageSize, int pageNumber) where T : class
         {
-            var skipCount = (queryFilter.PageFilter.PageSize * (queryFilter.PageFilter.PageNumber - 1));
-            var pageSizeLimit = queryFilter.PageFilter.PageSize;
+            var skipCount = (pageSize * (pageNumber - 1));
+            var pageSizeLimit = pageSize;
 
             return pipelineDefinition
                 .Skip(skipCount)

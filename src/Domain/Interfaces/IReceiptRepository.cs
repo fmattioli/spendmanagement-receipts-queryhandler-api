@@ -6,6 +6,6 @@ namespace Domain.Interfaces
 {
     public interface IReceiptRepository : IBaseRepository<Receipt>
     {
-        Task<PagedResultFilter<Receipt>> GetReceiptsAsync(ReceiptsFilters queryFilter);
+        Task<PagedResultFilter<Receipt>> GetReceiptsAsync(ReceiptFilters queryFilter);
     }
 }

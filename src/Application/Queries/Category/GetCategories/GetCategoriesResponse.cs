@@ -1,6 +1,9 @@
-﻿namespace Application.Queries.Category.GetCategories
+﻿using Web.Contracts.Category;
+using Web.Contracts.UseCases.GetReceipts;
+
+namespace Application.Queries.Category.GetCategories
 {
-    public class GetCategoriesResponse
+    public class GetCategoriesResponse : PagedResult<CategoryResponse>
     {
     }
 }

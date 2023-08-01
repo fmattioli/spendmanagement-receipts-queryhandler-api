@@ -9,34 +9,16 @@ namespace Application.Converters
 {
     public static class ReceiptMapper
     {
-        public static GetReceiptsInput ToInput(this GetReceiptsRequest request)
+        public static ReceiptFilters ToDomainFilters(this GetReceiptsRequest getReceiptsInput)
         {
-            return new GetReceiptsInput
-            {
-                EstablishmentNames = request.EstablishmentNames,
-                ItemNames = request.ItemNames,
-                ReceiptDate = request.ReceiptDate,
-                ReceiptDateFinal = request.ReceiptDateFinal,
-                ReceiptIds = request.ReceiptIds,
-                ReceiptItemIds = request.ReceiptItemIds,
-                PageFilter = new Queries.Common.PageFilter
-                {
-                    PageNumber = request.PageFilter.Page,
-                    PageSize = request.PageFilter.PageSize
-                }
-            };
-        }
-
-        public static ReceiptsFilters ToDomainFilters(this GetReceiptsInput getReceiptsInput)
-        {
-            return new ReceiptsFilters(
+            return new ReceiptFilters(
                 getReceiptsInput.ReceiptIds,
                 getReceiptsInput.ReceiptItemIds,
                 getReceiptsInput.EstablishmentNames,
                 getReceiptsInput.ItemNames,
                 getReceiptsInput.ReceiptDate,
                 getReceiptsInput.ReceiptDateFinal,
-                getReceiptsInput.PageFilter.PageNumber,
+                getReceiptsInput.PageFilter.Page,
                 getReceiptsInput.PageFilter.PageSize);
         }
 
@@ -78,7 +60,7 @@ namespace Application.Converters
                     ItemPrice = receiptItem.ItemPrice,
                     Observation = receiptItem.Observation,
                     Quantity = receiptItem.Quantity,
-                    ReceiptId = receiptItem.ReceiptId
+                    CategoryId = receiptItem.CategoryId,
                 }
             };
         }

@@ -15,8 +15,7 @@ namespace Application.Queries.Receipt.GetReceipts
 
         public async Task<GetReceiptsResponse> Handle(GetReceiptsQuery request, CancellationToken cancellationToken)
         {
-            var getReceiptsInput = request.GetReceiptsRequest.ToInput();
-            var domainFilters = getReceiptsInput.ToDomainFilters();
+            var domainFilters = request.GetReceiptsRequest.ToDomainFilters();
             var receiptQueryResult = await receiptRepository.GetReceiptsAsync(domainFilters);
             return receiptQueryResult.ToResponse();
         }
