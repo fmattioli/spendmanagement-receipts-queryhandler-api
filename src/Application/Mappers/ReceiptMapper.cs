@@ -59,6 +59,7 @@ namespace Application.Converters
                     ItemName = receiptItem.ItemName,
                     ItemPrice = receiptItem.ItemPrice,
                     Observation = receiptItem.Observation,
+                    TotalPrice = receiptItem.TotalPrice,
                     Quantity = receiptItem.Quantity,
                     CategoryId = receiptItem.CategoryId,
                 }
