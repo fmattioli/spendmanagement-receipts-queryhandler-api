@@ -1,4 +1,5 @@
-﻿using Application.Mappers;
+﻿using Application.Extensions;
+using Application.Mappers;
 using Domain.Interfaces;
 using MediatR;
 using Web.Contracts.Category;
@@ -16,8 +17,8 @@ namespace Application.Queries.Category.GetCategory
         public async Task<CategoryResponse> Handle(GetCategoryQuery request, CancellationToken cancellationToken)
         {
             var categoryEntity = await categoryRepository.FindOneAsync(x => x.Id == request.CategoryId);
-            var response = categoryEntity.ToCategoryResponse();
-            return response;
+            categoryEntity.ValidateIfEntityIsValid();
+            return categoryEntity.ToCategoryResponse();
         }
     }
 }
