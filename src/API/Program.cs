@@ -1,8 +1,9 @@
 using API.Extensions;
-using API.Filters;
 using Crosscutting.Cofig;
 using CrossCutting.Extensions;
 using CrossCutting.Extensions.Logging;
+using CrossCutting.Middlewares;
+
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,7 +27,8 @@ builder.Services
     .AddRepositories()
     .AddMongo(applicationSettings.MongoSettings)
     .AddLoggingDependency()
-    .AddControllers(c => c.Filters.Add(typeof(ExceptionFilter)));
+    .AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -37,6 +39,8 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
+
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

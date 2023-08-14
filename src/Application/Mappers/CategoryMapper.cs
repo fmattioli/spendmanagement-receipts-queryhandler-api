@@ -1,13 +1,8 @@
-﻿using Application.Converters;
-using Application.Queries.Category.GetCategories;
-using Application.Queries.Receipt.GetReceipts;
-
+﻿using Application.Queries.Category.GetCategories;
 using Domain.Entities;
 using Domain.QueriesFilters;
 using Domain.QueriesFilters.PageFilters;
-
 using Web.Contracts.Category;
-using Web.Contracts.Receipt;
 
 namespace Application.Mappers
 {
