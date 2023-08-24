@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Web.Contracts.Receipt
+﻿namespace Web.Contracts.Receipt
 {
     public class ReceiptResponse
     {
