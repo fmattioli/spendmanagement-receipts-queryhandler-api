@@ -6,7 +6,15 @@
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>SpendManagement.ReadModel.WebContracts</PackageId>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
+    <PackageIcon>27566574.jpg</PackageIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="27566574.jpg">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
