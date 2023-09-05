@@ -1,14 +1,17 @@
-﻿using Application.Queries.Category.GetCategories;
+﻿using Application.Claims;
+using Application.Queries.Category.GetCategories;
 using Application.Queries.Category.GetCategory;
-using Application.Queries.Receipt.GetReceipt;
-using Application.Queries.Receipt.GetReceipts;
+using CrossCutting.Filters;
+
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
     [Route("api/v1")]
     [ApiController]
+    [Authorize]
     public class CategoryController : Controller
     {
         private readonly IMediator _mediator;
@@ -25,6 +28,7 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ClaimsAuthorize(ClaimTypes.Category, "Read")]
         public async Task<IActionResult> GetCategories([FromRoute] GetCategoriesRequest getCategoriesRequest, CancellationToken cancellationToken)
         {
             var categories = await _mediator.Send(new GetCategoriesQuery(getCategoriesRequest), cancellationToken);
@@ -41,6 +45,7 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ClaimsAuthorize(ClaimTypes.Category, "Read")]
         public async Task<IActionResult> GetCategory([FromRoute] Guid Id, CancellationToken cancellationToken)
         {
             var category = await _mediator.Send(new GetCategoryQuery(Id), cancellationToken);
