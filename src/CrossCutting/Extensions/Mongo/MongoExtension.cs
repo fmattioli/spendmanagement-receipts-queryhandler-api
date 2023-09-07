@@ -5,7 +5,7 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 
-namespace CrossCutting.Extensions
+namespace CrossCutting.Extensions.Mongo
 {
     public static class MongoExtension
     {

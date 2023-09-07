@@ -2,7 +2,7 @@
 using Domain.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CrossCutting.Extensions
+namespace CrossCutting.Extensions.Mongo
 {
     public static class RepositoriesExtension
     {
