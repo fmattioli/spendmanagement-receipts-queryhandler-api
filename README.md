@@ -7,7 +7,6 @@ This application has the purpose of being a readmodel for the spendmanagement pr
 > https://github.com/fmattioli/spendmanagement-domain <br/>
 > https://github.com/fmattioli/spendmanagement-eventhandler <br/>
 > https://github.com/fmattioli/spendmanagement-identity <br/>
-> https://github.com/fmattioli/spendmanagement-eventsourcing <br/>
 
 # Related packages
 > https://github.com/fmattioli/spendmanagement-contracts <br/>
