@@ -3,6 +3,7 @@ using Crosscutting.Cofig;
 using CrossCutting.Extensions.HealthCheckers;
 using CrossCutting.Extensions.Logging;
 using CrossCutting.Extensions.Mongo;
+using CrossCutting.Extensions.Tracing;
 using CrossCutting.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,7 @@ var applicationSettings = builder.Configuration.GetSection("Settings").Get<Setti
 
 // Add services to the container.
 builder.Services
+    .AddTracing()
     .AddDependencyInjection()
     .AddRepositories()
     .AddMongo(applicationSettings.MongoSettings)
