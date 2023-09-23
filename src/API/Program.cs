@@ -8,12 +8,6 @@ using CrossCutting.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.ConfigureLogging(logging =>
-{
-    logging.ClearProviders();
-    logging.AddFilter("Microsoft", LogLevel.Critical);
-});
-
 builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
 var applicationSettings = builder.Configuration.GetSection("Settings").Get<Settings>();
