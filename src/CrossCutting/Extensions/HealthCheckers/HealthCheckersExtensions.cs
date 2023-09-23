@@ -15,7 +15,7 @@ namespace CrossCutting.Extensions.HealthCheckers
                 .AddMongoDb(settings.MongoSettings.ConnectionString, name: "MongoDB")
                 .AddUrlGroup(new Uri(settings.SpendManagementIdentity.Url + UrlHealthCheck), name: "SpendManagement.Identity");
 
-            services.AddHealthChecksUI()
+            services.AddHealthChecksUI(setupSettings: setup => setup.SetEvaluationTimeInSeconds(60))
                 .AddInMemoryStorage();
 
             return services;
