@@ -1,4 +1,4 @@
-﻿namespace Crosscutting.Config
+﻿namespace CrossCutting.Config
 {
     public class SpendManagementIdentitySettings
     {
