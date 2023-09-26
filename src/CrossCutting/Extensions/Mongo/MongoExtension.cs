@@ -1,8 +1,6 @@
-﻿using Crosscutting.Config;
+﻿using CrossCutting.Config;
+
 using Microsoft.Extensions.DependencyInjection;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 
 namespace CrossCutting.Extensions.Mongo
@@ -11,11 +9,7 @@ namespace CrossCutting.Extensions.Mongo
     {
         public static IServiceCollection AddMongo(this IServiceCollection services, MongoSettings mongoSettings)
         {
-
-            services.AddSingleton<IMongoClient>(sp =>
-            {
-                return new MongoClient(mongoSettings.ConnectionString);
-            });
+            services.AddSingleton<IMongoClient>(_ => new MongoClient(mongoSettings.ConnectionString));
 
             services.AddSingleton(sp =>
             {

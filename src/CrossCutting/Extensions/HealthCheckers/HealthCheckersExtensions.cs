@@ -11,11 +11,13 @@ namespace CrossCutting.Extensions.HealthCheckers
         private const string UrlHealthCheck = "/health";
         public static IServiceCollection AddHealthCheckers(this IServiceCollection services, Settings settings)
         {
-            services.AddHealthChecks()
+            services
+                .AddHealthChecks()
                 .AddMongoDb(settings.MongoSettings.ConnectionString, name: "MongoDB")
                 .AddUrlGroup(new Uri(settings.SpendManagementIdentity.Url + UrlHealthCheck), name: "SpendManagement.Identity");
 
-            services.AddHealthChecksUI(setupSettings: setup => setup.SetEvaluationTimeInSeconds(60))
+            services
+                .AddHealthChecksUI()
                 .AddInMemoryStorage();
 
             return services;
