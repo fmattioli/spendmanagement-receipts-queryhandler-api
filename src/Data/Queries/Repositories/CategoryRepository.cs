@@ -4,7 +4,6 @@ using Domain.Entities;
 using Domain.Interfaces;
 using Domain.QueriesFilters;
 using Domain.QueriesFilters.PageFilters;
-
 using MongoDB.Bson;
 using MongoDB.Driver;
 
@@ -42,7 +41,7 @@ namespace Data.Queries.Repositories
                             .Sort(
                                 Builders<BsonDocument>.Sort.Ascending(
                                     new StringFieldDefinition<BsonDocument>(
-                                        $"{nameof(Receipt.Id)}")));
+                                        nameof(Receipt.Id))));
 
             var resultsPipeline = pipelineDefinition.As<Category, BsonDocument, Category>();
 
