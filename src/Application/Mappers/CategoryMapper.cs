@@ -21,9 +21,9 @@ namespace Application.Mappers
         public static CategoryFilters ToDomainFilters(this GetCategoriesRequest getCategoriesRequest)
         {
             return new CategoryFilters(
-                getCategoriesRequest.CategoryIds, 
-                getCategoriesRequest.CategoryNames, 
-                (short)getCategoriesRequest.PageFilter.Page, 
+                getCategoriesRequest.CategoryIds,
+                getCategoriesRequest.CategoryNames,
+                (short)getCategoriesRequest.PageFilter.Page,
                 (short)getCategoriesRequest.PageFilter.PageSize);
         }
 

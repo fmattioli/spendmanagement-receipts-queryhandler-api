@@ -16,8 +16,11 @@ namespace Application.Queries.Category.GetCategory
 
         public async Task<CategoryResponse> Handle(GetCategoryQuery request, CancellationToken cancellationToken)
         {
-            var categoryEntity = await categoryRepository.FindOneAsync(x => x.Id == request.CategoryId);
+            var categoryEntity = await categoryRepository
+                .FindOneAsync(x => x.Id == request.CategoryId);
+
             categoryEntity.ValidateIfEntityIsValid();
+
             return categoryEntity.ToCategoryResponse();
         }
     }
