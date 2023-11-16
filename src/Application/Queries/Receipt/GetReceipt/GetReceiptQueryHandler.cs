@@ -1,4 +1,6 @@
 ﻿using Application.Converters;
+using Application.Extensions;
+
 using Domain.Interfaces;
 using MediatR;
 using Web.Contracts.Receipt;
@@ -16,7 +18,10 @@ namespace Application.Queries.Receipt.GetReceipt
 
         public async Task<ReceiptResponse> Handle(GetReceiptQuery request, CancellationToken cancellationToken)
         {
-            var receiptEntity = await _receiptRepository.FindOneAsync(x => x.Id == request.ReceiptId);
+            var receiptEntity = await _receiptRepository
+                .FindOneAsync(x => x.Id == request.ReceiptId)
+                .ValidateIfEntityIsValid();
+
             var response = receiptEntity.ToReceiptResponse();
             return response;
         }
