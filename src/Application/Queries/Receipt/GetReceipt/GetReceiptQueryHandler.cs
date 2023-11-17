@@ -19,9 +19,10 @@ namespace Application.Queries.Receipt.GetReceipt
         public async Task<ReceiptResponse> Handle(GetReceiptQuery request, CancellationToken cancellationToken)
         {
             var receiptEntity = await _receiptRepository
-                .FindOneAsync(x => x.Id == request.ReceiptId)
-                .ValidateIfEntityIsValid();
+                .FindOneAsync(x => x.Id == request.ReceiptId);
 
+            receiptEntity.ValidateIfEntityIsValid();
+            
             var response = receiptEntity.ToReceiptResponse();
             return response;
         }
