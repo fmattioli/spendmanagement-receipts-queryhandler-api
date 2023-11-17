@@ -22,7 +22,7 @@ namespace Application.Queries.Receipt.GetReceipt
                 .FindOneAsync(x => x.Id == request.ReceiptId);
 
             receiptEntity.ValidateIfEntityIsValid();
-
+            
             var response = receiptEntity.ToReceiptResponse();
             return response;
         }
