@@ -27,25 +27,24 @@ namespace Application.Mappers
                 (short)getCategoriesRequest.PageFilter.PageSize);
         }
 
-        public static GetCategoriesResponse ToResponse(this PagedResultFilter<Category> receipts)
+        public static GetCategoriesResponse ToResponse(this PagedResultFilter<Category> categories)
         {
             return new GetCategoriesResponse
             {
-                PageNumber = receipts.PageNumber,
-                PageSize = receipts.PageSize,
-                PageSizeLimit = receipts.PageSizeLimit,
-                Results = receipts.Results.SelectMany(x => x.ToResponseItems()),
-                TotalPages = receipts.TotalPages,
-                TotalResults = receipts.TotalResults
+                PageNumber = categories.PageNumber,
+                PageSize = categories.PageSize,
+                PageSizeLimit = categories.PageSizeLimit,
+                Results = categories.Results.SelectMany(x => x.ToCategoryResponseItems()),
+                TotalPages = categories.TotalPages,
+                TotalResults = categories.TotalResults
             };
         }
 
-        public static IEnumerable<CategoryResponse> ToResponseItems(this Category category)
+        public static IEnumerable<CategoryResponse> ToCategoryResponseItems(this Category category)
         {
             return new List<CategoryResponse>
             {
-                new CategoryResponse
-                {
+                new() {
                     Name = category.Name,
                     Id = category.Id,
                 }
