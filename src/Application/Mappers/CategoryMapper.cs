@@ -44,8 +44,7 @@ namespace Application.Mappers
         {
             return new List<CategoryResponse>
             {
-                new CategoryResponse
-                {
+                new() {
                     Name = category.Name,
                     Id = category.Id,
                 }
