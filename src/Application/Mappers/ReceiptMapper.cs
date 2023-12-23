@@ -35,17 +35,14 @@ namespace Application.Converters
             };
         }
 
-        public static IEnumerable<ReceiptResponse> ToResponseItems(this Receipt receipt)
+        public static ReceiptResponse ToReceiptResponse(this Receipt receipt)
         {
-            return new List<ReceiptResponse>
+            return new ReceiptResponse
             {
-                new ReceiptResponse
-                {
-                    EstablishmentName = receipt.EstablishmentName,
-                    Id = receipt.Id,
-                    ReceiptDate = receipt.ReceiptDate,
-                    ReceiptItems = receipt.ReceiptItems.SelectMany(x => x.ToDomainReceiptItems())
-                }
+                Id = receipt.Id,
+                EstablishmentName = receipt.EstablishmentName,
+                ReceiptDate = receipt.ReceiptDate,
+                ReceiptItems = receipt.ReceiptItems.SelectMany(x => x.ToDomainReceiptItems())
             };
         }
 
@@ -53,8 +50,7 @@ namespace Application.Converters
         {
             return new List<ReceiptItemResponse>()
             {
-                new ReceiptItemResponse
-                {
+                new() {
                     Id = receiptItem.Id,
                     ItemName = receiptItem.ItemName,
                     ItemPrice = receiptItem.ItemPrice,
@@ -66,14 +62,16 @@ namespace Application.Converters
             };
         }
 
-        public static ReceiptResponse ToReceiptResponse(this Receipt receipt)
+        public static IEnumerable<ReceiptResponse> ToResponseItems(this Receipt receipt)
         {
-            return new ReceiptResponse
+            return new List<ReceiptResponse>
             {
-               Id = receipt.Id,
-               EstablishmentName = receipt.EstablishmentName,
-               ReceiptDate = receipt.ReceiptDate,
-               ReceiptItems = receipt.ReceiptItems.SelectMany(x => x.ToDomainReceiptItems())
+                new() {
+                    EstablishmentName = receipt.EstablishmentName,
+                    Id = receipt.Id,
+                    ReceiptDate = receipt.ReceiptDate,
+                    ReceiptItems = receipt.ReceiptItems.SelectMany(x => x.ToDomainReceiptItems())
+                }
             };
         }
     }

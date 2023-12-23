@@ -9,11 +9,11 @@ using MongoDB.Driver;
 
 namespace Data.Queries.Repositories
 {
-    public class ReceiptRepository : BaseRepository<Receipt>, IReceiptRepository
+    public class ReceiptRepository : IReceiptRepository
     {
         private readonly IMongoCollection<Receipt> receiptCollection;
 
-        public ReceiptRepository(IMongoDatabase mongoDb) : base(mongoDb, "Receipts")
+        public ReceiptRepository(IMongoDatabase mongoDb)
         {
             receiptCollection = mongoDb.GetCollection<Receipt>("Receipts");
         }
@@ -42,7 +42,7 @@ namespace Data.Queries.Repositories
                             .Sort(
                                 Builders<BsonDocument>.Sort.Ascending(
                                     new StringFieldDefinition<BsonDocument>(
-                                        $"{nameof(Receipt.Id)}")));
+                                        nameof(Receipt.Id))));
 
             var resultsPipeline = pipelineDefinition.As<Receipt, BsonDocument, Receipt>();
 

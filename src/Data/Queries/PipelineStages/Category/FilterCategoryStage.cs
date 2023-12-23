@@ -36,7 +36,7 @@ namespace Data.Queries.PipelineStages.Category
                 return FilterDefinition<BsonDocument>.Empty;
             }
 
-            return filters.Count == 1 ? filters.First() : Builders<BsonDocument>.Filter.And(filters);
+            return filters.Count == 1 ? filters[0] : Builders<BsonDocument>.Filter.And(filters);
         }
 
         private static FilterDefinition<BsonDocument> MatchByCategoriesIds(
