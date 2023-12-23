@@ -1,8 +1,6 @@
 ﻿using Application.Claims;
 using Application.Queries.Category.GetCategories;
-using Application.Queries.Category.GetCategory;
 using CrossCutting.Filters;
-
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +10,7 @@ namespace API.Controllers
     [Route("api/v1")]
     [ApiController]
     [Authorize]
-    public class CategoryController : Controller
+    public class CategoryController : ControllerBase
     {
         private readonly IMediator _mediator;
 
@@ -33,23 +31,6 @@ namespace API.Controllers
         {
             var categories = await _mediator.Send(new GetCategoriesQuery(getCategoriesRequest), cancellationToken);
             return Ok(categories);
-        }
-
-        /// <summary>
-        /// GET category by Id
-        /// Required an Id as parameter.
-        /// </summary>
-        /// <returns>Return a category based on their Id.</returns>
-        [HttpGet]
-        [Route("getCategory/{Id:guid}", Name = nameof(GetCategory))]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ClaimsAuthorize(ClaimTypes.Category, "Read")]
-        public async Task<IActionResult> GetCategory([FromRoute] Guid Id, CancellationToken cancellationToken)
-        {
-            var category = await _mediator.Send(new GetCategoryQuery(Id), cancellationToken);
-            return Ok(category);
         }
     }
 }

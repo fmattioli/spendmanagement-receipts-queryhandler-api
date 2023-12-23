@@ -9,11 +9,11 @@ using MongoDB.Driver;
 
 namespace Data.Queries.Repositories
 {
-    public class CategoryRepository : BaseRepository<Category>, ICategoryRepository
+    public class CategoryRepository : ICategoryRepository
     {
         private readonly IMongoCollection<Category> categoryCollection;
 
-        public CategoryRepository(IMongoDatabase mongoDb) : base(mongoDb, "Categories")
+        public CategoryRepository(IMongoDatabase mongoDb)
         {
             categoryCollection = mongoDb.GetCollection<Category>("Categories");
         }

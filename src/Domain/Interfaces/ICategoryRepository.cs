@@ -4,7 +4,7 @@ using Domain.QueriesFilters.PageFilters;
 
 namespace Domain.Interfaces
 {
-    public interface ICategoryRepository : IBaseRepository<Category>
+    public interface ICategoryRepository
     {
         Task<PagedResultFilter<Category>> GetCategoriesAsync(CategoryFilters queryFilter);
     }

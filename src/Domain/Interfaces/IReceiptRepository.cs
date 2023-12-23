@@ -4,7 +4,7 @@ using Domain.QueriesFilters.PageFilters;
 
 namespace Domain.Interfaces
 {
-    public interface IReceiptRepository : IBaseRepository<Receipt>
+    public interface IReceiptRepository
     {
         Task<PagedResultFilter<Receipt>> GetReceiptsAsync(ReceiptFilters queryFilter);
     }
