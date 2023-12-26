@@ -9,14 +9,9 @@ using MongoDB.Driver;
 
 namespace Data.Queries.Repositories
 {
-    public class CategoryRepository : ICategoryRepository
+    public class CategoryRepository(IMongoDatabase mongoDb) : ICategoryRepository
     {
-        private readonly IMongoCollection<Category> categoryCollection;
-
-        public CategoryRepository(IMongoDatabase mongoDb)
-        {
-            categoryCollection = mongoDb.GetCollection<Category>("Categories");
-        }
+        private readonly IMongoCollection<Category> categoryCollection = mongoDb.GetCollection<Category>("Categories");
 
         public async Task<PagedResultFilter<Category>> GetCategoriesAsync(CategoryFilters queryFilter)
         {

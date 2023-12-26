@@ -4,14 +4,10 @@ using MediatR;
 
 namespace Application.Queries.Category.GetCategories
 {
-    public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, GetCategoriesResponse>
+    public class GetCategoriesQueryHandler(ICategoryRepository categoryRepository)
+                : IRequestHandler<GetCategoriesQuery, GetCategoriesResponse>
     {
-        private readonly ICategoryRepository _categoryRepository;
-
-        public GetCategoriesQueryHandler(ICategoryRepository categoryRepository)
-        {
-            this._categoryRepository = categoryRepository;
-        }
+        private readonly ICategoryRepository _categoryRepository = categoryRepository;
 
         public async Task<GetCategoriesResponse> Handle(GetCategoriesQuery request, CancellationToken cancellationToken)
         {

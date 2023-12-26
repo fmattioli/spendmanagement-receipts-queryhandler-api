@@ -9,14 +9,9 @@ using MongoDB.Driver;
 
 namespace Data.Queries.Repositories
 {
-    public class ReceiptRepository : IReceiptRepository
+    public class ReceiptRepository(IMongoDatabase mongoDb) : IReceiptRepository
     {
-        private readonly IMongoCollection<Receipt> receiptCollection;
-
-        public ReceiptRepository(IMongoDatabase mongoDb)
-        {
-            receiptCollection = mongoDb.GetCollection<Receipt>("Receipts");
-        }
+        private readonly IMongoCollection<Receipt> receiptCollection = mongoDb.GetCollection<Receipt>("Receipts");
 
         public async Task<PagedResultFilter<Receipt>> GetReceiptsAsync(ReceiptFilters queryFilter)
         {

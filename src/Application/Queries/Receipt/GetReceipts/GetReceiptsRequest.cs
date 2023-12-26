@@ -15,15 +15,15 @@ namespace Application.Queries.Receipt.GetReceipts
         [FromQuery]
         public IEnumerable<Guid> ReceiptIds { get; set; } = new List<Guid>();
         [FromQuery]
-        public IEnumerable<Guid> ReceiptItemIds { get; set; } = new List<Guid>();
-        [FromQuery]
         public IEnumerable<string> EstablishmentNames { get; set; } = new List<string>();
-        [FromQuery]
-        public IEnumerable<string> ItemNames { get; set; } = new List<string>();
         [FromQuery]
         public DateTime ReceiptDate { get; set; }
         [FromQuery]
         public DateTime ReceiptDateFinal { get; set; }
+        [FromQuery]
+        public IEnumerable<Guid> ReceiptItemIds { get; set; } = new List<Guid>();
+        [FromQuery]
+        public IEnumerable<string> ReceiptItemNames { get; set; } = new List<string>();
     }
 
     public record PageFilterRequest
@@ -35,14 +35,14 @@ namespace Application.Queries.Receipt.GetReceipts
         private int pageSize = 60;
 
         [FromQuery(Name = "page")]
-        public int Page
+        internal int Page
         {
             get => page;
             set => page = value < LowerBoundPageNumber ? LowerBoundPageNumber : value;
         }
 
         [FromQuery(Name = "pageSize")]
-        public int PageSize
+        internal int PageSize
         {
             get => pageSize;
             set => pageSize = value < 1 ? 1 : value;

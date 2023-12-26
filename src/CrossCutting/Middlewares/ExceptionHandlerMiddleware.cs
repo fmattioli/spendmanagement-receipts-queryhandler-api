@@ -6,13 +6,9 @@ using System.Net;
 
 namespace CrossCutting.Middlewares
 {
-    public class ExceptionHandlerMiddleware : AbstractExceptionHandlerMiddleware
+    public class ExceptionHandlerMiddleware(RequestDelegate next, ILogger logger) : AbstractExceptionHandlerMiddleware(next)
     {
-        private readonly ILogger _logger;
-        public ExceptionHandlerMiddleware(RequestDelegate next, ILogger logger) : base(next)
-        {
-            _logger = logger;
-        }
+        private readonly ILogger _logger = logger;
 
         public override (HttpStatusCode code, string message) GetResponse(Exception exception)
         {

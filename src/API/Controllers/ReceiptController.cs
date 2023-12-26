@@ -10,11 +10,9 @@ namespace API.Controllers
     [Route("api/v1")]
     [ApiController]
     [Authorize]
-    public class ReceiptController : ControllerBase
+    public class ReceiptController(IMediator mediator) : ControllerBase
     {
-        private readonly IMediator _mediator;
-
-        public ReceiptController(IMediator mediator) => _mediator = mediator;
+        private readonly IMediator _mediator = mediator;
 
         /// <summary>
         /// GET receipts based on previously informeted filters.

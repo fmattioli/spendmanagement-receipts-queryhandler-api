@@ -31,7 +31,7 @@ namespace Data.Queries.PipelineStages.Category
 
             filters.RemoveAll(x => x == FilterDefinition<BsonDocument>.Empty);
 
-            if (!filters.Any())
+            if (filters.Count == 0)
             {
                 return FilterDefinition<BsonDocument>.Empty;
             }
@@ -65,12 +65,12 @@ namespace Data.Queries.PipelineStages.Category
                 return FilterDefinition<BsonDocument>.Empty;
             }
 
-            var establishmentNames = queryFilter.CategoryNames
-                .Select(x => new BsonRegularExpression(new Regex(x, RegexOptions.IgnoreCase)));
+            var categoryNames = queryFilter.CategoryNames
+                .Select(categoryName => new BsonRegularExpression(new Regex(categoryName.Trim(), RegexOptions.IgnoreCase)));
 
             var filter = new BsonDocument(
                 "Name",
-                new BsonDocument("$in", BsonArray.Create(establishmentNames)));
+                new BsonDocument("$in", BsonArray.Create(categoryNames)));
 
             return new BsonDocumentFilterDefinition<BsonDocument>(filter);
         }
