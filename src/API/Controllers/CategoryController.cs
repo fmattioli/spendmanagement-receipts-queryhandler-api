@@ -10,11 +10,9 @@ namespace API.Controllers
     [Route("api/v1")]
     [ApiController]
     [Authorize]
-    public class CategoryController : ControllerBase
+    public class CategoryController(IMediator mediator) : Controller
     {
-        private readonly IMediator _mediator;
-
-        public CategoryController(IMediator mediator) => _mediator = mediator;
+        private readonly IMediator _mediator = mediator;
 
         /// <summary>
         /// GET categories based on previously informeted filters.

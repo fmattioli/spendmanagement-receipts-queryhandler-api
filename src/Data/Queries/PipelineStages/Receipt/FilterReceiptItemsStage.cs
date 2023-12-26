@@ -31,23 +31,23 @@ namespace Data.Queries.PipelineStages.Receipt
 
             filters.RemoveAll(x => x == FilterDefinition<BsonDocument>.Empty);
 
-            if (!filters.Any())
+            if (filters.Count == 0)
             {
                 return FilterDefinition<BsonDocument>.Empty;
             }
 
-            return filters.Count == 1 ? filters.First() : Builders<BsonDocument>.Filter.And(filters);
+            return filters.Count == 1 ? filters[0] : Builders<BsonDocument>.Filter.And(filters);
         }
 
         private static FilterDefinition<BsonDocument> MatchByItemNames(
             ReceiptFilters queryFilter)
         {
-            if (!queryFilter.ItemNames.Any())
+            if (!queryFilter.ReceiptItemNames.Any())
             {
                 return FilterDefinition<BsonDocument>.Empty;
             }
 
-            var itemNames = queryFilter.ItemNames
+            var itemNames = queryFilter.ReceiptItemNames
                 .Select(x => new BsonRegularExpression(new Regex(x, RegexOptions.IgnoreCase)));
 
             var filter = new BsonDocument(

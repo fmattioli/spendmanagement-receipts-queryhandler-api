@@ -32,12 +32,12 @@ namespace Data.Queries.PipelineStages.Receipt
 
             filters.RemoveAll(x => x == FilterDefinition<BsonDocument>.Empty);
 
-            if (!filters.Any())
+            if (filters.Count == 0)
             {
                 return FilterDefinition<BsonDocument>.Empty;
             }
 
-            return filters.Count == 1 ? filters.First() : Builders<BsonDocument>.Filter.And(filters);
+            return filters.Count == 1 ? filters[0] : Builders<BsonDocument>.Filter.And(filters);
         }
 
         private static FilterDefinition<BsonDocument> MatchByReceiptIds(
@@ -48,14 +48,14 @@ namespace Data.Queries.PipelineStages.Receipt
                 return FilterDefinition<BsonDocument>.Empty;
             }
 
-            var receiptItemIds = queryFilter.ReceiptIds
+            var receiptIds = queryFilter.ReceiptIds
                 .Select(x => new BsonBinaryData(x, GuidRepresentation.Standard));
 
-            var receiptIds = new BsonDocument(
+            var receiptFilter = new BsonDocument(
                 "_id",
-                new BsonDocument("$in", new BsonArray(receiptItemIds)));
+                new BsonDocument("$in", new BsonArray(receiptIds)));
 
-            return new BsonDocumentFilterDefinition<BsonDocument>(receiptIds);
+            return new BsonDocumentFilterDefinition<BsonDocument>(receiptFilter);
         }
 
         private static FilterDefinition<BsonDocument> MatchByReceiptDate(

@@ -15,7 +15,7 @@ namespace Application.Converters
                 getReceiptsInput.ReceiptIds,
                 getReceiptsInput.ReceiptItemIds,
                 getReceiptsInput.EstablishmentNames,
-                getReceiptsInput.ItemNames,
+                getReceiptsInput.ReceiptItemNames,
                 getReceiptsInput.ReceiptDate,
                 getReceiptsInput.ReceiptDateFinal,
                 getReceiptsInput.PageFilter.Page,

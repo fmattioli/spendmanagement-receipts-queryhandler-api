@@ -19,7 +19,7 @@ var applicationSettings = builder.Configuration.GetSection("Settings").Get<Setti
 
 // Add services to the container.
 builder.Services
-    .AddTracing(applicationSettings.TracingSettings)
+    .AddTracing(applicationSettings!.TracingSettings)
     .AddDependencyInjection()
     .AddRepositories()
     .AddMongo(applicationSettings.MongoSettings)

@@ -4,14 +4,9 @@ using MediatR;
 
 namespace Application.Queries.Receipt.GetReceipts
 {
-    public class GetReceiptsQueryHandler : IRequestHandler<GetReceiptsQuery, GetReceiptsResponse>
+    public class GetReceiptsQueryHandler(IReceiptRepository receiptRepository) : IRequestHandler<GetReceiptsQuery, GetReceiptsResponse>
     {
-        private readonly IReceiptRepository receiptRepository;
-
-        public GetReceiptsQueryHandler(IReceiptRepository receiptRepository)
-        {
-            this.receiptRepository = receiptRepository;
-        }
+        private readonly IReceiptRepository receiptRepository = receiptRepository;
 
         public async Task<GetReceiptsResponse> Handle(GetReceiptsQuery request, CancellationToken cancellationToken)
         {
