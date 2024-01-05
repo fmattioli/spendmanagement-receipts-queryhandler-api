@@ -399,3 +399,4 @@ FodyWeavers.xsd
 
 *.env
 
+*appsettings.Docker.json
