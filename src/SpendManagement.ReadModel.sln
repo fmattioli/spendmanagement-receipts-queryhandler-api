@@ -19,13 +19,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{FE3E1405-D80C-4605-83B7-8405AE1C9313}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Contracts", "Web.Contracts\Web.Contracts.csproj", "{D9C040AF-E97F-4FB2-ABE4-738E66DADDC5}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{01B2639A-7E0D-49E6-8A17-F8FBF53F40DE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpendManagament.ReadModel.UnitTests", "..\tests\SpendManagament.ReadModel.UnitTests\SpendManagament.ReadModel.UnitTests.csproj", "{7DF7D087-2DEB-44B5-83E7-0CFE4B151A42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpendManagement.ReadModel.IntegrationTests", "..\tests\SpendManagement.ReadModel.IntegrationTests\SpendManagement.ReadModel.IntegrationTests.csproj", "{BBCBA826-B79D-494D-83F0-60F378E8DA7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpendManagement.ReadModel.IntegrationTests", "..\tests\SpendManagement.ReadModel.IntegrationTests\SpendManagement.ReadModel.IntegrationTests.csproj", "{BBCBA826-B79D-494D-83F0-60F378E8DA7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,10 +51,6 @@ Global
 		{FE3E1405-D80C-4605-83B7-8405AE1C9313}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE3E1405-D80C-4605-83B7-8405AE1C9313}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE3E1405-D80C-4605-83B7-8405AE1C9313}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D9C040AF-E97F-4FB2-ABE4-738E66DADDC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D9C040AF-E97F-4FB2-ABE4-738E66DADDC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D9C040AF-E97F-4FB2-ABE4-738E66DADDC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D9C040AF-E97F-4FB2-ABE4-738E66DADDC5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7DF7D087-2DEB-44B5-83E7-0CFE4B151A42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7DF7D087-2DEB-44B5-83E7-0CFE4B151A42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DF7D087-2DEB-44B5-83E7-0CFE4B151A42}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -75,7 +69,6 @@ Global
 		{23FBA869-6427-4EF0-B2B5-523D2C3F7166} = {4DDF49CC-BDE2-4FEF-88D3-5FD04BAD34C7}
 		{B134F399-C56C-476A-952C-85839ECCAE66} = {CEA3AB70-0769-4C22-8724-8A4901DA4F13}
 		{FE3E1405-D80C-4605-83B7-8405AE1C9313} = {5B7F5F20-8105-4210-B5FB-E8B05B3CB274}
-		{D9C040AF-E97F-4FB2-ABE4-738E66DADDC5} = {CEA3AB70-0769-4C22-8724-8A4901DA4F13}
 		{7DF7D087-2DEB-44B5-83E7-0CFE4B151A42} = {01B2639A-7E0D-49E6-8A17-F8FBF53F40DE}
 		{BBCBA826-B79D-494D-83F0-60F378E8DA7C} = {01B2639A-7E0D-49E6-8A17-F8FBF53F40DE}
 	EndGlobalSection

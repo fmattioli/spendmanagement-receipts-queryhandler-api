@@ -1,5 +1,5 @@
-﻿using Web.Contracts.Category;
-using Web.Contracts.UseCases.GetReceipts;
+﻿using SpendManagement.WebContracts.Category;
+using SpendManagement.WebContracts.Common;
 
 namespace Application.Queries.Category.GetCategories
 {

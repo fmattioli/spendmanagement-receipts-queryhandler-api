@@ -1,5 +1,5 @@
-﻿using Web.Contracts.Receipt;
-using Web.Contracts.UseCases.GetReceipts;
+﻿using SpendManagement.WebContracts.Common;
+using SpendManagement.WebContracts.Receipt;
 
 namespace Application.Queries.Receipt.GetReceipts
 {
