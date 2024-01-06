@@ -3,6 +3,9 @@ using Domain.Entities;
 using Domain.Queries.GetReceipts;
 using Domain.QueriesFilters.PageFilters;
 using Domain.ValueObjects;
+
+using SpendManagement.WebContracts.Receipt;
+
 using Web.Contracts.Receipt;
 
 namespace Application.Converters

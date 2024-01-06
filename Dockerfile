@@ -12,7 +12,6 @@ COPY ["src/API/API.csproj", "API/"]
 COPY ["src/CrossCutting/CrossCutting.csproj", "CrossCutting/"]
 COPY ["src/Application/Application.csproj", "Application/"]
 COPY ["src/Domain/Domain.csproj", "Domain/"]
-COPY ["src/Web.Contracts/Web.Contracts.csproj", "Web.Contracts/"]
 COPY ["src/Data/Data.csproj", "Data/"]
 RUN dotnet restore "API/API.csproj"
 COPY . .

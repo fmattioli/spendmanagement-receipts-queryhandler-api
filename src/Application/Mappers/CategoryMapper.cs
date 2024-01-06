@@ -2,7 +2,7 @@
 using Domain.Entities;
 using Domain.QueriesFilters;
 using Domain.QueriesFilters.PageFilters;
-using Web.Contracts.Category;
+using SpendManagement.WebContracts.Category;
 
 namespace Application.Mappers
 {

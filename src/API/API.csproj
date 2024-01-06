@@ -33,7 +33,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CrossCutting\CrossCutting.csproj" />
-    <ProjectReference Include="..\Web.Contracts\Web.Contracts.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="appsettings.Docker.json">
