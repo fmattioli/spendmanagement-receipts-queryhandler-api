@@ -60,7 +60,6 @@ namespace Application.Converters
                     Observation = receiptItem.Observation,
                     TotalPrice = receiptItem.TotalPrice,
                     Quantity = receiptItem.Quantity,
-                    CategoryId = receiptItem.CategoryId,
                 }
             };
         }
