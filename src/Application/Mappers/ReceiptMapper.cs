@@ -71,8 +71,11 @@ namespace Application.Converters
                 new() {
                     EstablishmentName = receipt.EstablishmentName,
                     Id = receipt.Id,
+                    CategoryId = receipt.CategoryId,
                     ReceiptDate = receipt.ReceiptDate,
-                    ReceiptItems = receipt.ReceiptItems.SelectMany(x => x.ToDomainReceiptItems())
+                    ReceiptItems = receipt.ReceiptItems.SelectMany(x => x.ToDomainReceiptItems()),
+                    Total = receipt.Total,
+                    Discount = receipt.Discount
                 }
             };
         }
