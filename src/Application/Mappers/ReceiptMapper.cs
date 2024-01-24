@@ -16,6 +16,7 @@ namespace Application.Converters
         {
             return new ReceiptFilters(
                 getReceiptsInput.ReceiptIds,
+                getReceiptsInput.CategoryIds,
                 getReceiptsInput.ReceiptItemIds,
                 getReceiptsInput.EstablishmentNames,
                 getReceiptsInput.ReceiptItemNames,
@@ -43,9 +44,12 @@ namespace Application.Converters
             return new ReceiptResponse
             {
                 Id = receipt.Id,
+                CategoryId = receipt.CategoryId,
                 EstablishmentName = receipt.EstablishmentName,
                 ReceiptDate = receipt.ReceiptDate,
-                ReceiptItems = receipt.ReceiptItems.SelectMany(x => x.ToDomainReceiptItems())
+                ReceiptItems = receipt.ReceiptItems.SelectMany(x => x.ToDomainReceiptItems()),
+                Discount = receipt.Discount,
+                Total = receipt.Total,
             };
         }
 
@@ -56,6 +60,7 @@ namespace Application.Converters
                 new() {
                     Id = receiptItem.Id,
                     ItemName = receiptItem.ItemName,
+                    ItemDiscount = receiptItem.ItemDiscount,
                     ItemPrice = receiptItem.ItemPrice,
                     Observation = receiptItem.Observation,
                     TotalPrice = receiptItem.TotalPrice,
