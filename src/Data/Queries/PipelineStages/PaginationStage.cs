@@ -10,6 +10,7 @@ namespace Data.Queries.PipelineStages
             this PipelineDefinition<T, BsonDocument> pipelineDefinition,
             int pageSize, int pageNumber) where T : class
         {
+
             var skipCount = (pageSize * (pageNumber - 1));
             var pageSizeLimit = pageSize;
 
