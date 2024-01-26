@@ -63,7 +63,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Fixtures
 
     public record Category([property: BsonId] Guid Id, string? Name, DateTime CreatedDate);
 
-    public record Receipt([property: BsonId] Guid Id, string? EstablishmentName, DateTime ReceiptDate, IEnumerable<ReceiptItem>? ReceiptItems);
+    public record Receipt([property: BsonId] Guid Id, Guid CategoryId, string? EstablishmentName, DateTime ReceiptDate, IEnumerable<ReceiptItem>? ReceiptItems);
 
-    public record ReceiptItem(Guid Id, Guid CategoryId, string ItemName, short Quantity, decimal ItemPrice, decimal TotalPrice, string Observation);
+    public record ReceiptItem(Guid Id, string ItemName, short Quantity, decimal ItemPrice, decimal TotalPrice, string Observation);
 }
