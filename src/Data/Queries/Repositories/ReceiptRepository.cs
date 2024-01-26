@@ -15,18 +15,21 @@ namespace Data.Queries.Repositories
 
         public async Task<PagedResultFilter<Receipt>> GetReceiptsAsync(ReceiptFilters queryFilter)
         {
-            var results = await BuildAndExecutePipeline(queryFilter);
+            var filteredResults = await GetResultsAsync(queryFilter);
+            var totaResults = await GetTotalResultsCountAsync(queryFilter);
+
+            var aggregateCountResult = totaResults?.Count ?? 0;
 
             return new PagedResultFilter<Receipt>
             {
-                Results = results,
+                Results = filteredResults,
                 PageNumber = queryFilter.PageNumber,
                 PageSizeLimit = queryFilter.PageSize,
-                TotalResults = results.Count(),
+                TotalResults = (int)aggregateCountResult
             };
         }
 
-        private async Task<IEnumerable<Receipt>> BuildAndExecutePipeline(ReceiptFilters queryFilter)
+        private async Task<IEnumerable<Receipt>> GetResultsAsync(ReceiptFilters queryFilter)
         {
             var pipelineDefinition = PipelineDefinitionBuilder
                             .For<Receipt>()
@@ -46,6 +49,25 @@ namespace Data.Queries.Repositories
                                   new AggregateOptions { AllowDiskUse = true, MaxTime = Timeout.InfiniteTimeSpan, });
 
             return await aggregation.ToListAsync();
+        }
+
+        private async Task<AggregateCountResult> GetTotalResultsCountAsync(ReceiptFilters queryFilter)
+        {
+            var pipelineDefinition = PipelineDefinitionBuilder
+                .For<Receipt>()
+                .As<Receipt, Receipt, BsonDocument>()
+                .FilterReceipts(queryFilter)
+                .FilterReceiptItems(queryFilter);
+
+            PipelineDefinition<Receipt, AggregateCountResult> totalResultsCountPipeline;
+
+            totalResultsCountPipeline = pipelineDefinition.Count();
+
+            var aggregation = await this.receiptCollection.AggregateAsync(
+                                  totalResultsCountPipeline,
+                                  new AggregateOptions { AllowDiskUse = true });
+
+            return await aggregation.FirstOrDefaultAsync();
         }
     }
 }

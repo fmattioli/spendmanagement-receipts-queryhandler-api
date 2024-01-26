@@ -11,22 +11,25 @@ namespace Data.Queries.Repositories
 {
     public class CategoryRepository(IMongoDatabase mongoDb) : ICategoryRepository
     {
-        private readonly IMongoCollection<Category> categoryCollection = mongoDb.GetCollection<Category>("Categories");
+        private readonly IMongoCollection<Category> _categoryCollection = mongoDb.GetCollection<Category>("Categories");
 
         public async Task<PagedResultFilter<Category>> GetCategoriesAsync(CategoryFilters queryFilter)
         {
-            var results = await BuildAndExecutePipeline(queryFilter);
+            var resultsFiltered = await GetResultsAsync(queryFilter);
+            var totaResults = await GetTotalResultsCountAsync(queryFilter);
+
+            var aggregateCountResult = totaResults?.Count ?? 0;
 
             return new PagedResultFilter<Category>
             {
-                Results = results,
+                Results = resultsFiltered,
                 PageNumber = queryFilter.PageNumber,
                 PageSizeLimit = queryFilter.PageSize,
-                TotalResults = results.Count(),
+                TotalResults = (int)aggregateCountResult
             };
         }
 
-        private async Task<IEnumerable<Category>> BuildAndExecutePipeline(CategoryFilters queryFilter)
+        private async Task<IEnumerable<Category>> GetResultsAsync(CategoryFilters queryFilter)
         {
             var pipelineDefinition = PipelineDefinitionBuilder
                             .For<Category>()
@@ -40,11 +43,29 @@ namespace Data.Queries.Repositories
 
             var resultsPipeline = pipelineDefinition.As<Category, BsonDocument, Category>();
 
-            var aggregation = await categoryCollection.AggregateAsync(
+            var aggregation = await _categoryCollection.AggregateAsync(
                                   resultsPipeline,
                                   new AggregateOptions { AllowDiskUse = true, MaxTime = Timeout.InfiniteTimeSpan, });
 
             return await aggregation.ToListAsync();
+        }
+
+        private async Task<AggregateCountResult> GetTotalResultsCountAsync(CategoryFilters queryFilter)
+        {
+            var pipelineDefinition = PipelineDefinitionBuilder
+                .For<Category>()
+                .As<Category, Category, BsonDocument>()
+                .FilterCategories(queryFilter);
+
+            PipelineDefinition<Category, AggregateCountResult> totalResultsCountPipeline;
+
+            totalResultsCountPipeline = pipelineDefinition.Count();
+
+            var aggregation = await this._categoryCollection.AggregateAsync(
+                                  totalResultsCountPipeline,
+                                  new AggregateOptions { AllowDiskUse = true });
+
+            return await aggregation.FirstOrDefaultAsync();
         }
     }
 }

@@ -8,8 +8,8 @@ namespace Application.Queries.Receipt.GetReceipts
         {
             PageFilter = new PageFilterRequest { Page = 1, PageSize = 60, };
         }
-
-        [BindProperty(Name = "")]
+        
+        [FromQuery]
         public PageFilterRequest PageFilter { get; set; }
 
         [FromQuery]
@@ -42,15 +42,13 @@ namespace Application.Queries.Receipt.GetReceipts
 
         private int pageSize = 60;
 
-        [FromQuery(Name = "page")]
-        internal int Page
+        public int Page
         {
             get => page;
             set => page = value < LowerBoundPageNumber ? LowerBoundPageNumber : value;
         }
 
-        [FromQuery(Name = "pageSize")]
-        internal int PageSize
+        public int PageSize
         {
             get => pageSize;
             set => pageSize = value < 1 ? 1 : value;
