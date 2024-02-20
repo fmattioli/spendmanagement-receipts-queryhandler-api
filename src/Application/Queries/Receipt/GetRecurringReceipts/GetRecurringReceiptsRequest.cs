@@ -1,15 +1,15 @@
 ﻿using Application.Queries.Common;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Application.Queries.Receipt.GetReceipts
+namespace Application.Queries.Receipt.GetRecurringReceipts
 {
-    public record GetReceiptsRequest
+    public class GetRecurringReceiptsRequest
     {
-        public GetReceiptsRequest()
+        public GetRecurringReceiptsRequest()
         {
             PageFilter = new PageFilterRequest { Page = 1, PageSize = 60, };
         }
-        
+
         [FromQuery]
         public PageFilterRequest PageFilter { get; set; }
 
@@ -21,17 +21,5 @@ namespace Application.Queries.Receipt.GetReceipts
 
         [FromQuery]
         public IEnumerable<string> EstablishmentNames { get; set; } = new List<string>();
-
-        [FromQuery]
-        public DateTime ReceiptDate { get; set; }
-
-        [FromQuery]
-        public DateTime ReceiptDateFinal { get; set; }
-
-        [FromQuery]
-        public IEnumerable<Guid> ReceiptItemIds { get; set; } = new List<Guid>();
-
-        [FromQuery]
-        public IEnumerable<string> ReceiptItemNames { get; set; } = new List<string>();
     }
 }

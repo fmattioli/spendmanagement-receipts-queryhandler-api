@@ -18,5 +18,12 @@
             </summary>
             <returns>Return a list of receipts based on pre determined filters.</returns>
         </member>
+        <member name="M:API.Controllers.ReceiptController.GetRecurringReceipts(Application.Queries.Receipt.GetRecurringReceipts.GetRecurringReceiptsRequest,System.Threading.CancellationToken)">
+            <summary>
+            GET recurring receipts based on previously informeted filters.
+            Required at least a filter as parameters.
+            </summary>
+            <returns>Return a list of receipts based on pre determined filters.</returns>
+        </member>
     </members>
 </doc>
