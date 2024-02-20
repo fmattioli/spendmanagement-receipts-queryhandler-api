@@ -1,9 +1,23 @@
 ﻿namespace Application.Queries.Common
 {
-    public sealed class PageFilter
+    public record PageFilterRequest
     {
-        public int PageNumber { get; set; }
+        private const int LowerBoundPageNumber = 1;
 
-        public int PageSize { get; set; }
+        private int page;
+
+        private int pageSize = 60;
+
+        public int Page
+        {
+            get => page;
+            set => page = value < LowerBoundPageNumber ? LowerBoundPageNumber : value;
+        }
+
+        public int PageSize
+        {
+            get => pageSize;
+            set => pageSize = value < 1 ? 1 : value;
+        }
     }
 }

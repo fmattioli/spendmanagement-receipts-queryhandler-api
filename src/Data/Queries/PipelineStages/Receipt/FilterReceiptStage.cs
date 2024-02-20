@@ -5,9 +5,9 @@ using System.Text.RegularExpressions;
 
 namespace Data.Queries.PipelineStages.Receipt
 {
-    internal static class FilterReceiptStage
+    public static class FilterReceiptStage
     {
-        internal static PipelineDefinition<Domain.Entities.Receipt, BsonDocument> FilterReceipts(
+        public static PipelineDefinition<Domain.Entities.Receipt, BsonDocument> FilterReceipts(
             this PipelineDefinition<Domain.Entities.Receipt, BsonDocument> pipelineDefinition,
             ReceiptFilters queryFilter)
         {

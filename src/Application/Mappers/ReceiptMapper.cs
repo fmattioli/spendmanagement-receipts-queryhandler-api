@@ -1,9 +1,11 @@
 ﻿using Application.Queries.Receipt.GetReceipts;
+using Application.Queries.Receipt.GetRecurringReceipts;
 using Domain.Entities;
 using Domain.Queries.GetReceipts;
+using Domain.QueriesFilters;
 using Domain.QueriesFilters.PageFilters;
 using Domain.ValueObjects;
-
+using SpendManagement.WebContracts.Common;
 using SpendManagement.WebContracts.Receipt;
 
 using Web.Contracts.Receipt;
@@ -26,16 +28,39 @@ namespace Application.Converters
                 getReceiptsInput.PageFilter.PageSize);
         }
 
-        public static GetReceiptsResponse ToResponse(this PagedResultFilter<Receipt> receipts)
+        public static RecurringReceiptFilters ToDomainFilters(this GetRecurringReceiptsRequest getReceiptsInput)
         {
-            return new GetReceiptsResponse
+            return new RecurringReceiptFilters(
+                getReceiptsInput.ReceiptIds,
+                getReceiptsInput.CategoryIds,
+                getReceiptsInput.EstablishmentNames,
+                getReceiptsInput.PageFilter.Page,
+                getReceiptsInput.PageFilter.PageSize);
+        }
+
+        public static PagedResult<ReceiptResponse> ToResponse(this PagedResultFilter<Receipt> receipts)
+        {
+            return new PagedResult<ReceiptResponse>
             {
                 PageNumber = receipts.PageNumber,
                 PageSize = receipts.PageSize,
                 PageSizeLimit = receipts.PageSizeLimit,
-                Results = receipts.Results.SelectMany(x => x.ToResponseItems()),
+                Results = receipts.Results.SelectMany(x => x.ToReceiptResponseItems()),
                 TotalPages = receipts.TotalPages,
                 TotalResults = receipts.TotalResults
+            };
+        }
+        
+        public static PagedResult<RecurringReceiptResponse> ToResponse(this PagedResultFilter<RecurringReceipt> recurringReceipts)
+        {
+            return new PagedResult<RecurringReceiptResponse>
+            {
+                PageNumber = recurringReceipts.PageNumber,
+                PageSize = recurringReceipts.PageSize,
+                PageSizeLimit = recurringReceipts.PageSizeLimit,
+                Results = recurringReceipts.Results.SelectMany(x => x.ToRecurringReceiptResponseItems()),
+                TotalPages = recurringReceipts.TotalPages,
+                TotalResults = recurringReceipts.TotalResults
             };
         }
 
@@ -69,7 +94,7 @@ namespace Application.Converters
             };
         }
 
-        public static IEnumerable<ReceiptResponse> ToResponseItems(this Receipt receipt)
+        public static IEnumerable<ReceiptResponse> ToReceiptResponseItems(this Receipt receipt)
         {
             return new List<ReceiptResponse>
             {
@@ -81,6 +106,22 @@ namespace Application.Converters
                     ReceiptItems = receipt.ReceiptItems.SelectMany(x => x.ToDomainReceiptItems()),
                     Total = receipt.Total,
                     Discount = receipt.Discount
+                }
+            };
+        }
+
+        public static IEnumerable<RecurringReceiptResponse> ToRecurringReceiptResponseItems(this RecurringReceipt receipt)
+        {
+            return new List<RecurringReceiptResponse>
+            {
+                new() {
+                    EstablishmentName = receipt.EstablishmentName,
+                    Id = receipt.Id,
+                    CategoryId = receipt.CategoryId,
+                    DateEndRecurrence = receipt.DateEndRecurrence,
+                    DateInitialRecurrence = receipt.DateInitialRecurrence,
+                    Observation = receipt.Observation,
+                    RecurrenceTotalPrice = receipt.RecurrenceTotalPrice
                 }
             };
         }
