@@ -1,5 +1,7 @@
 ﻿using Domain.QueriesFilters.PageFilters;
 
+using MongoDB.Bson.Serialization.Attributes;
+
 namespace Domain.Queries.GetReceipts
 {
     public class ReceiptFilters(IEnumerable<Guid> receiptIds,
@@ -17,7 +19,9 @@ namespace Domain.Queries.GetReceipts
         public IEnumerable<Guid> ReceiptItemIds { get; set; } = receiptItemIds;
         public IEnumerable<string> EstablishmentNames { get; set; } = establishmentNames;
         public IEnumerable<string> ReceiptItemNames { get; set; } = itemNames;
-        public DateTime? ReceiptDate { get; set; } = receiptDate;
-        public DateTime? ReceiptDateFinal { get; set; } = receiptDateFinal;
+        [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
+        public DateTime ReceiptDate { get; set; } = receiptDate;
+        [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
+        public DateTime ReceiptDateFinal { get; set; } = receiptDateFinal;
     }
 }

@@ -26,6 +26,7 @@ namespace Data.Queries.PipelineStages.Receipt
             var filters = new List<FilterDefinition<BsonDocument>>
             {
                 MatchByReceiptIds(queryFilter),
+                MatchByCategoryIds(queryFilter),
                 MatchByEstablishmentNames(queryFilter),
                 MatchByReceiptDate(queryFilter)
             };
@@ -57,6 +58,24 @@ namespace Data.Queries.PipelineStages.Receipt
 
             return new BsonDocumentFilterDefinition<BsonDocument>(receiptFilter);
         }
+        
+        private static FilterDefinition<BsonDocument> MatchByCategoryIds(
+            ReceiptFilters queryFilter)
+        {
+            if (!queryFilter.CategoryIds.Any())
+            {
+                return FilterDefinition<BsonDocument>.Empty;
+            }
+
+            var categoryIds = queryFilter.CategoryIds
+                .Select(x => new BsonBinaryData(x, GuidRepresentation.Standard));
+
+            var receiptFilter = new BsonDocument(
+                "CategoryId",
+                new BsonDocument("$in", new BsonArray(categoryIds)));
+
+            return new BsonDocumentFilterDefinition<BsonDocument>(receiptFilter);
+        }
 
         private static FilterDefinition<BsonDocument> MatchByReceiptDate(
             ReceiptFilters queryFilter)
@@ -66,29 +85,13 @@ namespace Data.Queries.PipelineStages.Receipt
                 return FilterDefinition<BsonDocument>.Empty;
             }
 
-            var query = queryFilter.ReceiptDate switch
-            {
-                _ when queryFilter.ReceiptDate != DateTime.MinValue && queryFilter.ReceiptDateFinal != DateTime.MinValue =>
-                    new BsonDocument("ReceiptDate",
-                    new BsonDocument
-                    {
-                        { "$gte", queryFilter.ReceiptDate },
-                        { "$lt", queryFilter.ReceiptDateFinal!.Value.AddHours(23).AddMinutes(59) },
-                    }),
-                _ when queryFilter.ReceiptDate != DateTime.MinValue && queryFilter.ReceiptDateFinal == DateTime.MinValue =>
-                    new BsonDocument("ReceiptDate",
-                    new BsonDocument
-                    {
-                        { "$gte", queryFilter.ReceiptDate },
-                    }),
-                _ when queryFilter.ReceiptDateFinal != DateTime.MinValue && queryFilter.ReceiptDate == DateTime.MinValue =>
-                     new BsonDocument("ReceiptDate",
-                     new BsonDocument
-                     {
-                        { "$lte", queryFilter.ReceiptDateFinal!.Value.AddHours(23).AddMinutes(59) },
-                     }),
-                _ => throw new Exception("Invalid filter provided"),
-            };
+            var query = new BsonDocument("ReceiptDate",
+                new BsonDocument
+                {
+                    { "$gte", new DateTime(queryFilter.ReceiptDate.Year, queryFilter.ReceiptDate.Month, queryFilter.ReceiptDate.Day, 0, 0, 0, DateTimeKind.Utc) },
+                    { "$lte", new DateTime(queryFilter.ReceiptDateFinal.Year, queryFilter.ReceiptDateFinal.Month, queryFilter.ReceiptDateFinal.Day, 23, 59, 59, DateTimeKind.Utc) },
+                });
+                
 
             return new BsonDocumentFilterDefinition<BsonDocument>(query);
         }
