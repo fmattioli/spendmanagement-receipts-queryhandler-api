@@ -48,6 +48,39 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
         }
 
         [Fact]
+        private async Task OnGivenAValidCategoryIdAsReceiptFilter_ShouldBeReturnedAValidReceiptsFromDataBase()
+        {
+            //Arrange
+            var categoryId = _fixture.Create<Guid>();
+
+            var receipt = _fixture.Build<Fixtures.Receipt>()
+                .With(x => x.CategoryId, categoryId)
+                .Create();
+
+            await _mongoDBFixture.InsertReceiptAsync(receipt);
+
+            var receiptFilter = _fixture
+                .Build<GetReceiptsRequest>()
+                .With(x => x.CategoryIds, new List<Guid> { categoryId })
+                .Create();
+
+            //Act
+            var (StatusCode, Content) = await GetAsync("/getReceipts",
+                receiptFilter,
+                [
+                    nameof(receiptFilter.CategoryIds)
+                ]);
+
+            //Assert
+            StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var receiptResponse = JsonConvert.DeserializeObject<GetReceiptsResponse>(Content);
+
+            receiptResponse?.Results.Should().NotBeNull();
+            receiptResponse?.Results.Should().Contain(x => x.Id.Equals(categoryId));
+        }
+
+        [Fact]
         private async Task OnGivenAValidEstabilishmentNameAsReceiptFilter_ShouldBeReturnedAValidReceiptsFromDataBase()
         {
             //Arrange

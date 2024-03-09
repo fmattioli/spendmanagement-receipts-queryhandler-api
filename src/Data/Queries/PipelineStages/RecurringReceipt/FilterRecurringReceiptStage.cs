@@ -79,7 +79,7 @@ namespace Data.Queries.PipelineStages.RecurringReceipt
         private static FilterDefinition<BsonDocument> MatchByRecurringReceiptCategoryIds(
             RecurringReceiptFilters queryFilter)
         {
-            if (!queryFilter.ReceiptIds.Any())
+            if (!queryFilter.CategoryIds.Any())
             {
                 return FilterDefinition<BsonDocument>.Empty;
             }
@@ -88,7 +88,7 @@ namespace Data.Queries.PipelineStages.RecurringReceipt
                 .Select(x => new BsonBinaryData(x, GuidRepresentation.Standard));
 
             var receiptFilter = new BsonDocument(
-                "_id",
+                "CategoryId",
                 new BsonDocument("$in", new BsonArray(categoryIds)));
 
             return new BsonDocumentFilterDefinition<BsonDocument>(receiptFilter);
