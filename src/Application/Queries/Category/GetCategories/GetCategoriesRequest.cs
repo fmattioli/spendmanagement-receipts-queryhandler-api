@@ -6,7 +6,7 @@ namespace Application.Queries.Category.GetCategories
     {
         public GetCategoriesRequest()
         {
-            PageFilter = new PageFilterRequest { Page = 1, PageSize = 60, };
+            PageFilter = new PageFilterRequest { PageNumber = 1, PageSize = 60, };
         }
 
         [FromQuery]
@@ -26,7 +26,7 @@ namespace Application.Queries.Category.GetCategories
 
         private int pageSize = 60;
 
-        public int Page
+        public int PageNumber
         {
             get => page;
             set => page = value < LowerBoundPageNumber ? LowerBoundPageNumber : value;

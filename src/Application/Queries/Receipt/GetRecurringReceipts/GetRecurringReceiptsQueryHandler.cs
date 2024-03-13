@@ -14,7 +14,7 @@ namespace Application.Queries.Receipt.GetRecurringReceipts
         {
             var domainFilters = request.GetRecurringReceiptsRequest.ToDomainFilters();
             var recurringReceiptQueryResult = await recurringReceiptRepository.GetRecurringReceiptsAsync(domainFilters);
-            return recurringReceiptQueryResult.ToResponse();
+            return recurringReceiptQueryResult.ToResponse(request.GetRecurringReceiptsRequest.PageFilter);
         }
     }
 }

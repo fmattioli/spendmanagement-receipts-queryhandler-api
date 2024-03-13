@@ -13,7 +13,7 @@ namespace Application.Queries.Category.GetCategories
         {
             var domainFilters = request.GetReceiptsRequest.ToDomainFilters();
             var categoriesQueryResult = await _categoryRepository.GetCategoriesAsync(domainFilters);
-            return categoriesQueryResult.ToResponse();
+            return categoriesQueryResult.ToResponse(request.GetReceiptsRequest.PageFilter);
         }
     }
 }

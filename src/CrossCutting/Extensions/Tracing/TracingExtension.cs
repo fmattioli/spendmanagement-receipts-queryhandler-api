@@ -14,11 +14,11 @@ namespace CrossCutting.Extensions.Tracing
             services.AddOpenTelemetry().WithTracing(tcb =>
             {
                 tcb
-                .AddSource(Constants.ApplicationName)
+                .AddSource(ReadModelConstants.ApplicationName)
                 .SetResourceBuilder(
                     ResourceBuilder
                     .CreateDefault()
-                    .AddService(serviceName: Constants.ApplicationName))
+                    .AddService(serviceName: ReadModelConstants.ApplicationName))
                 .AddAspNetCoreInstrumentation()
                 .AddHttpClientInstrumentation()
                 .AddOtlpExporter(opt =>
@@ -28,7 +28,7 @@ namespace CrossCutting.Extensions.Tracing
                 });
             });
 
-            services.AddSingleton(TracerProvider.Default.GetTracer(Constants.ApplicationName));
+            services.AddSingleton(TracerProvider.Default.GetTracer(ReadModelConstants.ApplicationName));
             return services;
         }
     }

@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using SpendManagement.WebContracts.Common;
-using SpendManagement.WebContracts.Receipt;
+using Web.Contracts.Receipt;
 
 namespace Application.Queries.Receipt.GetReceipts
 {
