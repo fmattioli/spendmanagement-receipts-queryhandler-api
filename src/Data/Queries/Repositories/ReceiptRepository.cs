@@ -18,13 +18,14 @@ namespace Data.Queries.Repositories
             var filteredResults = await GetResultsAsync(queryFilter);
             var totaResults = await GetTotalResultsCountAsync(queryFilter);
 
+            var receiptsTotal = filteredResults.Sum(x => x.Total);
             var aggregateCountResult = totaResults?.Count ?? 0;
 
             return new PagedResultFilter<Receipt>
             {
+                PageSize = queryFilter.PageSize,
                 Results = filteredResults,
-                PageNumber = queryFilter.PageNumber,
-                PageSizeLimit = queryFilter.PageSize,
+                ReceiptsTotalAmount = receiptsTotal,
                 TotalResults = (int)aggregateCountResult
             };
         }

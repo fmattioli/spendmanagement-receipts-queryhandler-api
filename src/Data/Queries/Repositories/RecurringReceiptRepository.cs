@@ -22,9 +22,8 @@ namespace Data.Queries.Repositories
 
             return new PagedResultFilter<RecurringReceipt>
             {
+                PageSize = queryFilter.PageSize,
                 Results = filteredResults,
-                PageNumber = queryFilter.PageNumber,
-                PageSizeLimit = queryFilter.PageSize,
                 TotalResults = (int)aggregateCountResult
             };
         }

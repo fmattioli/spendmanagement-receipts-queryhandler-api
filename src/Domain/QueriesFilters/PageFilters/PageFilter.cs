@@ -1,15 +1,9 @@
 ﻿namespace Domain.QueriesFilters.PageFilters
 {
-    public class PageFilter
+    public class PageFilter(int pageNumber, int pageSize)
     {
-        public PageFilter(int pageNumber, int pageSize)
-        {
-            PageNumber = pageNumber;
-            PageSize = pageSize;
-        }
-
-        public int PageNumber { get; set; }
-        public int PageSize { get; set; }
+        public int PageNumber { get; set; } = pageNumber;
+        public int PageSize { get; set; } = pageSize;
         public int Skip => PageSize * (PageNumber - 1);
     }
 }

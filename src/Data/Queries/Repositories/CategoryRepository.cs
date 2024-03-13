@@ -23,8 +23,7 @@ namespace Data.Queries.Repositories
             return new PagedResultFilter<Category>
             {
                 Results = resultsFiltered,
-                PageNumber = queryFilter.PageNumber,
-                PageSizeLimit = queryFilter.PageSize,
+                PageSize = queryFilter.PageSize,
                 TotalResults = (int)aggregateCountResult
             };
         }

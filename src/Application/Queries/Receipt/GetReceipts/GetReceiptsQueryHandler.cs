@@ -2,7 +2,7 @@
 using Domain.Interfaces;
 using MediatR;
 using SpendManagement.WebContracts.Common;
-using SpendManagement.WebContracts.Receipt;
+using Web.Contracts.Receipt;
 
 namespace Application.Queries.Receipt.GetReceipts
 {
@@ -14,7 +14,7 @@ namespace Application.Queries.Receipt.GetReceipts
         {
             var domainFilters = request.GetReceiptsRequest.ToDomainFilters();
             var receiptQueryResult = await receiptRepository.GetReceiptsAsync(domainFilters);
-            return receiptQueryResult.ToResponse();
+            return receiptQueryResult.ToResponse(request.GetReceiptsRequest.PageFilter);
         }
     }
 }

@@ -2,7 +2,7 @@
 using Domain.Entities;
 using Domain.QueriesFilters;
 using Domain.QueriesFilters.PageFilters;
-using SpendManagement.WebContracts.Category;
+using Web.Contracts.Category;
 
 namespace Application.Mappers
 {
@@ -23,17 +23,16 @@ namespace Application.Mappers
             return new CategoryFilters(
                 getCategoriesRequest.CategoryIds,
                 getCategoriesRequest.CategoryNames,
-                (short)getCategoriesRequest.PageFilter.Page,
+                (short)getCategoriesRequest.PageFilter.PageNumber,
                 (short)getCategoriesRequest.PageFilter.PageSize);
         }
 
-        public static GetCategoriesResponse ToResponse(this PagedResultFilter<Category> categories)
+        public static GetCategoriesResponse ToResponse(this PagedResultFilter<Category> categories, PageFilterRequest pageFilter)
         {
             return new GetCategoriesResponse
             {
-                PageNumber = categories.PageNumber,
-                PageSize = categories.PageSize,
-                PageSizeLimit = categories.PageSizeLimit,
+                PageNumber = pageFilter.PageNumber,
+                PageSize = pageFilter.PageSize,
                 Results = categories.Results.SelectMany(x => x.ToCategoryResponseItems()),
                 TotalPages = categories.TotalPages,
                 TotalResults = categories.TotalResults

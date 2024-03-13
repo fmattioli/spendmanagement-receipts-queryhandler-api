@@ -4,6 +4,7 @@ using Application.Converters;
 using FluentAssertions;
 using Domain.Entities;
 using Domain.QueriesFilters.PageFilters;
+using Application.Queries.Common;
 
 namespace SpendManagament.ReadModel.UnitTests.Mappers
 {
@@ -33,7 +34,11 @@ namespace SpendManagament.ReadModel.UnitTests.Mappers
             var receiptsPagedFilter = _fixture.Create<PagedResultFilter<Receipt>>();
 
             // Act
-            var result = receiptsPagedFilter.ToResponse();
+            var result = receiptsPagedFilter.ToResponse(new PageFilterRequest
+            {
+                Page = 1,
+                PageSize = 2
+            });
 
             // Assert
             result.Should().NotBeNull();

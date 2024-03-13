@@ -36,7 +36,7 @@ namespace SpendManagament.ReadModel.UnitTests.Mappers
             result.Should().NotBeNull();
             result.CategoryIds.Should().BeEquivalentTo(getCategoriesRequest.CategoryIds);
             result.CategoryNames.Should().BeEquivalentTo(getCategoriesRequest.CategoryNames);
-            result.PageNumber.Should().Be(getCategoriesRequest.PageFilter.Page);
+            result.PageNumber.Should().Be(getCategoriesRequest.PageFilter.PageNumber);
             result.PageSize.Should().Be(getCategoriesRequest.PageFilter.PageSize);
         }
 
@@ -47,16 +47,18 @@ namespace SpendManagament.ReadModel.UnitTests.Mappers
             var categoriesPagedFilter = _fixture.Create<PagedResultFilter<Category>>();
 
             // Act
-            var result = categoriesPagedFilter.ToResponse();
+            var result = categoriesPagedFilter.ToResponse(new PageFilterRequest
+            {
+                PageNumber = 1,
+                PageSize = categoriesPagedFilter.PageSize
+            });
 
             // Assert
             result.Should().NotBeNull();
             result.Results.Should().HaveCount(categoriesPagedFilter.Results.Count());
             result.TotalResults.Should().Be(categoriesPagedFilter.TotalResults);
             result.TotalPages.Should().Be(categoriesPagedFilter.TotalPages);
-            result.PageSizeLimit.Should().Be(categoriesPagedFilter.PageSizeLimit);
             result.PageSize.Should().Be(categoriesPagedFilter.PageSize);
-            result.PageNumber.Should().Be(categoriesPagedFilter.PageNumber);
         }
     }
 }
