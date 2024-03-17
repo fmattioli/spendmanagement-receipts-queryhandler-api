@@ -1,5 +1,5 @@
-﻿using SpendManagement.WebContracts.Common;
-using Web.Contracts.Category;
+﻿using SpendManagement.WebContracts.Category;
+using SpendManagement.WebContracts.Common;
 
 namespace Application.Queries.Category.GetCategories
 {

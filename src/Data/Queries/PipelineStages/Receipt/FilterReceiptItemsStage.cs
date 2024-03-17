@@ -21,6 +21,14 @@ namespace Data.Queries.PipelineStages.Receipt
             return pipelineDefinition;
         }
 
+        internal static PipelineDefinition<Domain.Entities.Receipt, BsonDocument> MakeSumTotalReceipts(
+            this PipelineDefinition<Domain.Entities.Receipt, BsonDocument> pipelineDefinition)
+        {
+            return pipelineDefinition
+                .AppendStage(GetTotalDecimal())
+                .AppendStage(GroupTotalGeral());
+        }
+
         private static FilterDefinition<BsonDocument> BuildMatchFilter(ReceiptFilters queryFilter)
         {
             var filters = new List<FilterDefinition<BsonDocument>>
@@ -73,6 +81,23 @@ namespace Data.Queries.PipelineStages.Receipt
                 new BsonDocument("$in", new BsonArray(receiptItemIds)));
 
             return new BsonDocumentFilterDefinition<BsonDocument>(receiptIds);
+        }
+
+        private static PipelineStageDefinition<BsonDocument, BsonDocument> GetTotalDecimal()
+        {
+            return new BsonDocument("$addFields", new BsonDocument
+            {
+                { "TotalDecimal", new BsonDocument("$toDecimal", "$Total") }
+            });
+        }
+
+        private static PipelineStageDefinition<BsonDocument, BsonDocument> GroupTotalGeral()
+        {
+            return new BsonDocument("$group", new BsonDocument
+            {
+                { "_id", "1" },
+                { "total", new BsonDocument("$sum", "$TotalDecimal") }
+            });
         }
     }
 }
