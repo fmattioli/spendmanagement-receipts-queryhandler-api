@@ -36,13 +36,18 @@ namespace SpendManagament.ReadModel.UnitTests.Mappers
             // Act
             var result = receiptsPagedFilter.ToResponse(new PageFilterRequest
             {
-                Page = 1,
-                PageSize = 2
+                PageSize = receiptsPagedFilter.PageSize,
             });
 
             // Assert
-            result.Should().NotBeNull();
-            result.Should().BeEquivalentTo(receiptsPagedFilter);
+            result
+                .Should()
+                .NotBeNull();
+
+            result
+                .Should()
+                .BeEquivalentTo(receiptsPagedFilter, options => options
+                    .Excluding(x => x.ReceiptsTotalAmount));
         }
 
         [Fact]

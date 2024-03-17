@@ -17,16 +17,15 @@ namespace Data.Queries.Repositories
         {
             var filteredResults = await GetResultsAsync(queryFilter);
             var totaResults = await GetTotalResultsCountAsync(queryFilter);
+            var receiptsTotal = await GetReceiptsTotalAmount(queryFilter);
 
-            var receiptsTotal = filteredResults.Sum(x => x.Total);
-            var aggregateCountResult = totaResults?.Count ?? 0;
 
             return new PagedResultFilter<Receipt>
             {
                 PageSize = queryFilter.PageSize,
                 Results = filteredResults,
                 ReceiptsTotalAmount = receiptsTotal,
-                TotalResults = (int)aggregateCountResult
+                TotalResults = (int)totaResults
             };
         }
 
@@ -52,13 +51,14 @@ namespace Data.Queries.Repositories
             return await aggregation.ToListAsync();
         }
 
-        private async Task<AggregateCountResult> GetTotalResultsCountAsync(ReceiptFilters queryFilter)
+        private async Task<long> GetTotalResultsCountAsync(ReceiptFilters queryFilter)
         {
             var pipelineDefinition = PipelineDefinitionBuilder
                 .For<Receipt>()
                 .As<Receipt, Receipt, BsonDocument>()
                 .FilterReceipts(queryFilter)
                 .FilterReceiptItems(queryFilter);
+                
 
             PipelineDefinition<Receipt, AggregateCountResult> totalResultsCountPipeline;
 
@@ -68,7 +68,26 @@ namespace Data.Queries.Repositories
                                   totalResultsCountPipeline,
                                   new AggregateOptions { AllowDiskUse = true });
 
-            return await aggregation.FirstOrDefaultAsync();
+            var totaResults = await aggregation.FirstOrDefaultAsync();
+            return totaResults?.Count ?? 0;
+        }
+        
+        private async Task<decimal> GetReceiptsTotalAmount(ReceiptFilters queryFilter)
+        {
+            var pipelineDefinition = PipelineDefinitionBuilder
+                .For<Receipt>()
+                .As<Receipt, Receipt, BsonDocument>()
+                .FilterReceipts(queryFilter)
+                .FilterReceiptItems(queryFilter)
+                .MakeSumTotalReceipts();
+
+            var aggregateOptions = new AggregateOptions { AllowDiskUse = true };
+
+            var aggregation = await receiptCollection.AggregateAsync(pipelineDefinition, aggregateOptions);
+
+            var document = await aggregation.FirstOrDefaultAsync();
+
+            return document["total"].AsDecimal;
         }
     }
 }

@@ -7,7 +7,7 @@ using Domain.QueriesFilters;
 using Domain.QueriesFilters.PageFilters;
 using Domain.ValueObjects;
 using SpendManagement.WebContracts.Common;
-using Web.Contracts.Receipt;
+using SpendManagement.WebContracts.Receipt;
 
 namespace Application.Converters
 {
