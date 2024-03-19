@@ -1,5 +1,5 @@
 using API.Extensions;
-using Crosscutting.Cofig;
+using CrossCutting.Config;
 using CrossCutting.Extensions.HealthCheckers;
 using CrossCutting.Extensions.Logging;
 using CrossCutting.Extensions.Mongo;
@@ -8,14 +8,14 @@ using CrossCutting.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var enviroment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
 builder.Configuration
     .AddJsonFile("appsettings.json", false, reloadOnChange: true)
-    .AddJsonFile($"appsettings.{enviroment}.json", true, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{environment}.json", true, reloadOnChange: true)
     .AddEnvironmentVariables();
 
-var applicationSettings = builder.Configuration.GetSection("Settings").Get<Settings>();
+var applicationSettings = builder.Configuration.GetApplicationSettings(builder.Environment);
 
 builder.Logging
     .ClearProviders()
@@ -27,7 +27,7 @@ builder.Services
     .AddTracing(applicationSettings!.TracingSettings)
     .AddDependencyInjection()
     .AddRepositories()
-    .AddMongo(applicationSettings.MongoSettings)
+    .AddMongo(applicationSettings.MongoSettings!)
     .AddAuthorization(applicationSettings.TokenAuth)
     .AddHealthCheckers(applicationSettings)
     .AddLoggingDependency()

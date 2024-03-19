@@ -49,7 +49,7 @@ namespace Application.Converters
                 TotalResults = receipts.TotalResults
             };
         }
-        
+
         public static PagedResult<RecurringReceiptResponse> ToResponse(this PagedResultFilter<RecurringReceipt> recurringReceipts, PageFilterRequest pageFilter)
         {
             return new PagedResult<RecurringReceiptResponse>
