@@ -1,4 +1,4 @@
-﻿using Application.Queries.Receipt.GetReceipts;
+﻿using Application.Queries.Receipt.GetVariableReceipts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -12,7 +12,7 @@ namespace API.Extensions
         {
             services.AddMediatR(
                     x => x.RegisterServicesFromAssemblies(
-                        typeof(GetReceiptsQuery).Assembly));
+                        typeof(GetVariableReceiptsQuery).Assembly));
 
             return services;
         }

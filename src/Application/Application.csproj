@@ -7,9 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Queries\Receipt\GetReceipts\Validators\**" />
-    <EmbeddedResource Remove="Queries\Receipt\GetReceipts\Validators\**" />
-    <None Remove="Queries\Receipt\GetReceipts\Validators\**" />
+    <Compile Remove="Queries\Receipt\GetVariableReceipts\Validators\**" />
+    <EmbeddedResource Remove="Queries\Receipt\GetVariableReceipts\Validators\**" />
+    <None Remove="Queries\Receipt\GetVariableReceipts\Validators\**" />
   </ItemGroup>
 
   <ItemGroup>

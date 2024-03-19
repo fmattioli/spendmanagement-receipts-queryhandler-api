@@ -1,4 +1,4 @@
-﻿using Application.Queries.Receipt.GetReceipts;
+﻿using Application.Queries.Receipt.GetVariableReceipts;
 using AutoFixture;
 using Application.Converters;
 using FluentAssertions;
@@ -6,7 +6,7 @@ using Domain.Entities;
 using Domain.QueriesFilters.PageFilters;
 using Application.Queries.Common;
 
-namespace SpendManagament.ReadModel.UnitTests.Mappers
+namespace SpendManagement.ReadModel.UnitTests.Mappers
 {
     public class ReceiptMapperTests
     {
@@ -16,7 +16,7 @@ namespace SpendManagament.ReadModel.UnitTests.Mappers
         public void ToDomainFilters_WhenCalled_ReturnsEquivalentReceiptFilters()
         {
             // Arrange
-            var receiptFilters = _fixture.Create<GetReceiptsRequest>();
+            var receiptFilters = _fixture.Create<GetVariableReceiptsRequest>();
 
             // Act
             var result = receiptFilters?.ToDomainFilters();

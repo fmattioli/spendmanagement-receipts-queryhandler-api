@@ -1,40 +1,40 @@
-﻿using Application.Queries.Receipt.GetReceipts;
+﻿using Application.Queries.Receipt.GetVariableReceipts;
 using AutoFixture;
 using Domain.Interfaces;
 using Domain.Queries.GetReceipts;
 using Domain.QueriesFilters.PageFilters;
 using Moq;
 
-namespace SpendManagament.ReadModel.UnitTests.Queries.Receipt
+namespace SpendManagement.ReadModel.UnitTests.Queries.Receipt
 {
     public class ReceiptQueriesTests
     {
         private readonly Fixture _fixture = new();
         private readonly Mock<IReceiptRepository> mockReceiptRepository = new();
-        private readonly GetReceiptsQueryHandler _receiptsQueryHandler;
+        private readonly GetVariableReceiptsQueryHandler _receiptsQueryHandler;
 
         public ReceiptQueriesTests()
         {
-            _receiptsQueryHandler = new GetReceiptsQueryHandler(mockReceiptRepository.Object);
+            _receiptsQueryHandler = new GetVariableReceiptsQueryHandler(mockReceiptRepository.Object);
         }
 
         [Fact]
         public async Task OnGivenAValidFilter_ShouldBeReturnedReceiptsFromDatabase()
         {
             //Arrange
-            var filter = _fixture.Create<GetReceiptsQuery>();
+            var filter = _fixture.Create<GetVariableReceiptsQuery>();
 
             var receipts = _fixture.Create<PagedResultFilter<Domain.Entities.Receipt>>();
 
             mockReceiptRepository
-                .Setup(x => x.GetReceiptsAsync(It.IsAny<ReceiptFilters>()))
+                .Setup(x => x.GetVariableReceiptsAsync(It.IsAny<ReceiptFilters>()))
                 .Returns(Task.FromResult(receipts));
 
             //Act
             await _receiptsQueryHandler.Handle(filter, CancellationToken.None);
 
             //Assert
-            mockReceiptRepository.Verify(x => x.GetReceiptsAsync(It.IsAny<ReceiptFilters>()), Times.Once);
+            mockReceiptRepository.Verify(x => x.GetVariableReceiptsAsync(It.IsAny<ReceiptFilters>()), Times.Once);
             mockReceiptRepository.VerifyNoOtherCalls();
         }
     }

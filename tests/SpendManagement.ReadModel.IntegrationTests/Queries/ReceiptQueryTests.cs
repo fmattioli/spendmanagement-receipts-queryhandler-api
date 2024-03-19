@@ -1,4 +1,4 @@
-﻿using Application.Queries.Receipt.GetReceipts;
+﻿using Application.Queries.Receipt.GetVariableReceipts;
 using AutoFixture;
 using FluentAssertions;
 using Newtonsoft.Json;
@@ -27,7 +27,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
             await _mongoDBFixture.InsertReceiptAsync(receipt);
 
             var receiptFilter = _fixture
-                .Build<GetReceiptsRequest>()
+                .Build<GetVariableReceiptsRequest>()
                 .With(x => x.ReceiptIds, new List<Guid> { receiptId })
                 .Create();
 
@@ -41,7 +41,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
             //Assert
             StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var receiptResponse = JsonConvert.DeserializeObject<GetReceiptsResponse>(Content);
+            var receiptResponse = JsonConvert.DeserializeObject<GetVariableReceiptsResponse>(Content);
 
             receiptResponse?.Results.Should().NotBeNull();
             receiptResponse?.Results.Should().Contain(x => x.Id.Equals(receiptId));
@@ -60,7 +60,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
             await _mongoDBFixture.InsertReceiptAsync(receipt);
 
             var receiptFilter = _fixture
-                .Build<GetReceiptsRequest>()
+                .Build<GetVariableReceiptsRequest>()
                 .With(x => x.CategoryIds, new List<Guid> { categoryId })
                 .Create();
 
@@ -74,7 +74,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
             //Assert
             StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var receiptResponse = JsonConvert.DeserializeObject<GetReceiptsResponse>(Content);
+            var receiptResponse = JsonConvert.DeserializeObject<GetVariableReceiptsResponse>(Content);
 
             receiptResponse?.Results.Should().NotBeNull();
             receiptResponse?.Results.Should().Contain(x => x.Id.Equals(categoryId));
@@ -93,7 +93,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
             await _mongoDBFixture.InsertReceiptAsync(receipt);
 
             var receiptFilter = _fixture
-                .Build<GetReceiptsRequest>()
+                .Build<GetVariableReceiptsRequest>()
                 .With(x => x.EstablishmentNames, new List<string> { establishmentName })
                 .Create();
 
@@ -107,7 +107,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
             //Assert
             StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var receiptResponse = JsonConvert.DeserializeObject<GetReceiptsResponse>(Content);
+            var receiptResponse = JsonConvert.DeserializeObject<GetVariableReceiptsResponse>(Content);
 
             receiptResponse?.Results.Should().NotBeNull();
             receiptResponse?.Results.Should().Contain(x => x.EstablishmentName.Equals(establishmentName));
@@ -133,7 +133,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
             await _mongoDBFixture.InsertReceiptAsync(receiptOne, receiptTwo);
 
             var receiptFilter = _fixture
-                .Build<GetReceiptsRequest>()
+                .Build<GetVariableReceiptsRequest>()
                 .With(x => x.ReceiptDate, dateIni)
                 .With(x => x.ReceiptDateFinal, dateFinal)
                 .Create();
@@ -149,7 +149,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
             //Assert
             StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var receiptResponse = JsonConvert.DeserializeObject<GetReceiptsResponse>(Content);
+            var receiptResponse = JsonConvert.DeserializeObject<GetVariableReceiptsResponse>(Content);
 
             receiptResponse?.Results.Should().NotBeNull();
             var results = receiptResponse?.Results.Where(x => x.ReceiptDate >= dateIni && x.ReceiptDate <= dateFinal);
@@ -173,7 +173,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
             await _mongoDBFixture.InsertReceiptAsync(receipt);
 
             var receiptFilter = _fixture
-                .Build<GetReceiptsRequest>()
+                .Build<GetVariableReceiptsRequest>()
                 .With(x => x.ReceiptItemIds, new List<Guid> { receiptItemId })
                 .Create();
 
@@ -187,7 +187,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
             //Assert
             StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var receiptResponse = JsonConvert.DeserializeObject<GetReceiptsResponse>(Content);
+            var receiptResponse = JsonConvert.DeserializeObject<GetVariableReceiptsResponse>(Content);
 
             receiptResponse?.Results
                 .Should()
@@ -217,7 +217,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
             await _mongoDBFixture.InsertReceiptAsync(receipt);
 
             var receiptFilter = _fixture
-                .Build<GetReceiptsRequest>()
+                .Build<GetVariableReceiptsRequest>()
                 .With(x => x.ReceiptItemNames, new List<string> { receiptItemName })
                 .Create();
 
@@ -231,7 +231,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
             //Assert
             StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var receiptResponse = JsonConvert.DeserializeObject<GetReceiptsResponse>(Content);
+            var receiptResponse = JsonConvert.DeserializeObject<GetVariableReceiptsResponse>(Content);
 
             receiptResponse?.Results
                 .Should()

@@ -1,15 +1,15 @@
 ﻿using Application.Queries.Common;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Application.Queries.Receipt.GetReceipts
+namespace Application.Queries.Receipt.GetVariableReceipts
 {
-    public record GetReceiptsRequest
+    public record GetVariableReceiptsRequest
     {
-        public GetReceiptsRequest()
+        public GetVariableReceiptsRequest()
         {
             PageFilter = new PageFilterRequest { Page = 1, PageSize = 60, };
         }
-        
+
         [FromQuery]
         public PageFilterRequest PageFilter { get; set; }
 

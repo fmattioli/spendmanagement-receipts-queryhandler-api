@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{01B2639A-7E0D-49E6-8A17-F8FBF53F40DE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpendManagament.ReadModel.UnitTests", "..\tests\SpendManagament.ReadModel.UnitTests\SpendManagament.ReadModel.UnitTests.csproj", "{7DF7D087-2DEB-44B5-83E7-0CFE4B151A42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpendManagement.ReadModel.UnitTests", "..\tests\SpendManagament.ReadModel.UnitTests\SpendManagement.ReadModel.UnitTests.csproj", "{7DF7D087-2DEB-44B5-83E7-0CFE4B151A42}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpendManagement.ReadModel.IntegrationTests", "..\tests\SpendManagement.ReadModel.IntegrationTests\SpendManagement.ReadModel.IntegrationTests.csproj", "{BBCBA826-B79D-494D-83F0-60F378E8DA7C}"
 EndProject

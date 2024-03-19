@@ -1,5 +1,5 @@
 ﻿using Application.Queries.Common;
-using Application.Queries.Receipt.GetReceipts;
+using Application.Queries.Receipt.GetVariableReceipts;
 using Application.Queries.Receipt.GetRecurringReceipts;
 using Domain.Entities;
 using Domain.Queries.GetReceipts;
@@ -13,18 +13,18 @@ namespace Application.Converters
 {
     public static class ReceiptMapper
     {
-        public static ReceiptFilters ToDomainFilters(this GetReceiptsRequest getReceiptsInput)
+        public static ReceiptFilters ToDomainFilters(this GetVariableReceiptsRequest getVariableReceiptsInput)
         {
             return new ReceiptFilters(
-                getReceiptsInput.ReceiptIds,
-                getReceiptsInput.CategoryIds,
-                getReceiptsInput.ReceiptItemIds,
-                getReceiptsInput.EstablishmentNames,
-                getReceiptsInput.ReceiptItemNames,
-                getReceiptsInput.ReceiptDate,
-                getReceiptsInput.ReceiptDateFinal,
-                getReceiptsInput.PageFilter.Page,
-                getReceiptsInput.PageFilter.PageSize);
+                getVariableReceiptsInput.ReceiptIds,
+                getVariableReceiptsInput.CategoryIds,
+                getVariableReceiptsInput.ReceiptItemIds,
+                getVariableReceiptsInput.EstablishmentNames,
+                getVariableReceiptsInput.ReceiptItemNames,
+                getVariableReceiptsInput.ReceiptDate,
+                getVariableReceiptsInput.ReceiptDateFinal,
+                getVariableReceiptsInput.PageFilter.Page,
+                getVariableReceiptsInput.PageFilter.PageSize);
         }
 
         public static RecurringReceiptFilters ToDomainFilters(this GetRecurringReceiptsRequest getReceiptsInput)
