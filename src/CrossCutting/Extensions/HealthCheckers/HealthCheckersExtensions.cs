@@ -1,4 +1,4 @@
-﻿using Crosscutting.Cofig;
+﻿using CrossCutting.Config;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -13,7 +13,7 @@ namespace CrossCutting.Extensions.HealthCheckers
         {
             services
                 .AddHealthChecks()
-                .AddMongoDb(settings.MongoSettings.ConnectionString, name: "MongoDB")
+                .AddMongoDb(settings!.MongoSettings!.ConnectionString, name: "MongoDB")
                 .AddUrlGroup(new Uri(settings.SpendManagementIdentity.Url + UrlHealthCheck), name: "SpendManagement.Identity");
 
             services
