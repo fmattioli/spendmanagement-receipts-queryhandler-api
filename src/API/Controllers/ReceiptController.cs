@@ -1,5 +1,5 @@
 ﻿using Application.Claims;
-using Application.Queries.Receipt.GetReceipts;
+using Application.Queries.Receipt.GetVariableReceipts;
 using Application.Queries.Receipt.GetRecurringReceipts;
 using CrossCutting.Filters;
 using MediatR;
@@ -16,27 +16,27 @@ namespace API.Controllers
         private readonly IMediator _mediator = mediator;
 
         /// <summary>
-        /// GET receipts based on previously informeted filters.
-        /// Required at least a filter as parameters.
+        /// GET variable expenses based on previously informed filters.
+        /// Required at least one filter as parameters.
         /// </summary>
-        /// <returns>Return a list of receipts based on pre determined filters.</returns>
+        /// <returns>Returns a list of expenses receipts based on predetermined filters.</returns>
         [HttpGet]
-        [Route("getReceipts", Name = nameof(GetReceipts))]
+        [Route("getVariableReceipts", Name = nameof(GetVariableReceipts))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ClaimsAuthorize(ClaimTypes.Receipt, "Read")]
-        public async Task<IActionResult> GetReceipts([FromRoute] GetReceiptsRequest getReceiptsRequest, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetVariableReceipts([FromRoute] GetVariableReceiptsRequest getVariableReceiptsRequest, CancellationToken cancellationToken)
         {
-            var receipts = await _mediator.Send(new GetReceiptsQuery(getReceiptsRequest), cancellationToken);
+            var receipts = await _mediator.Send(new GetVariableReceiptsQuery(getVariableReceiptsRequest), cancellationToken);
             return Ok(receipts);
         }
 
         /// <summary>
-        /// GET recurring receipts based on previously informeted filters.
-        /// Required at least a filter as parameters.
+        /// GET recurring expenses based on previously informed filters.
+        /// Required at least one filter as parameters.s
         /// </summary>
-        /// <returns>Return a list of receipts based on pre determined filters.</returns>
+        /// <returns>Returns a list of expenses receipts based on predetermined filters.</returns>
         [HttpGet]
         [Route("getRecurringReceipts", Name = nameof(GetRecurringReceipts))]
         [ProducesResponseType(StatusCodes.Status200OK)]

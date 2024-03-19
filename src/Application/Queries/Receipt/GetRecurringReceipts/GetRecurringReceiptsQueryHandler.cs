@@ -6,9 +6,9 @@ using SpendManagement.WebContracts.Receipt;
 
 namespace Application.Queries.Receipt.GetRecurringReceipts
 {
-    public class GetRecurringReceiptsQueryHandler(IRecurringReceiptRepository receiptRepository) : IRequestHandler<GetRecurringReceiptsQuery, PagedResult<RecurringReceiptResponse>>
+    public class GetRecurringReceiptsQueryHandler(IReceiptRepository receiptRepository) : IRequestHandler<GetRecurringReceiptsQuery, PagedResult<RecurringReceiptResponse>>
     {
-        private readonly IRecurringReceiptRepository recurringReceiptRepository = receiptRepository;
+        private readonly IReceiptRepository recurringReceiptRepository = receiptRepository;
 
         public async Task<PagedResult<RecurringReceiptResponse>> Handle(GetRecurringReceiptsQuery request, CancellationToken cancellationToken)
         {
