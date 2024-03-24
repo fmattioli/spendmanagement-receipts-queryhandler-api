@@ -113,5 +113,32 @@ namespace Data.Queries.PipelineStages.Receipt
 
             return new BsonDocumentFilterDefinition<BsonDocument>(filter);
         }
+
+        public static PipelineDefinition<Domain.Entities.Receipt, BsonDocument> MakeSumTotalReceipts(
+            this PipelineDefinition<Domain.Entities.Receipt, BsonDocument> pipelineDefinition)
+        {
+            return pipelineDefinition
+                .AppendStage(GetTotalDecimal())
+                .AppendStage(GroupTotalGeral());
+        }
+
+        private static PipelineStageDefinition<BsonDocument, BsonDocument> GetTotalDecimal()
+        {
+            return new BsonDocument("$addFields", new BsonDocument
+            {
+                { "TotalDecimal", new BsonDocument("$toDecimal", "$Total") }
+            });
+        }
+
+        private static PipelineStageDefinition<BsonDocument, BsonDocument> GroupTotalGeral()
+        {
+            return new BsonDocument("$group", new BsonDocument
+            {
+                { "_id", "1" },
+                { "total", new BsonDocument("$sum", "$TotalDecimal") }
+            });
+        }
+
+
     }
 }

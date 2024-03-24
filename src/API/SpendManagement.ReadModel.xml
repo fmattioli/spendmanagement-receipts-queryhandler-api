@@ -11,19 +11,19 @@
             </summary>
             <returns>Return a list of categories based on pre determined filters.</returns>
         </member>
-        <member name="M:API.Controllers.ReceiptController.GetReceipts(Application.Queries.Receipt.GetReceipts.GetReceiptsRequest,System.Threading.CancellationToken)">
+        <member name="M:API.Controllers.ReceiptController.GetVariableReceipts(Application.Queries.Receipt.GetVariableReceipts.GetVariableReceiptsRequest,System.Threading.CancellationToken)">
             <summary>
-            GET receipts based on previously informeted filters.
-            Required at least a filter as parameters.
+            GET variable expenses based on previously informed filters.
+            Required at least one filter as parameters.
             </summary>
-            <returns>Return a list of receipts based on pre determined filters.</returns>
+            <returns>Returns a list of expenses receipts based on predetermined filters.</returns>
         </member>
         <member name="M:API.Controllers.ReceiptController.GetRecurringReceipts(Application.Queries.Receipt.GetRecurringReceipts.GetRecurringReceiptsRequest,System.Threading.CancellationToken)">
             <summary>
-            GET recurring receipts based on previously informeted filters.
-            Required at least a filter as parameters.
+            GET recurring expenses based on previously informed filters.
+            Required at least one filter as parameters.s
             </summary>
-            <returns>Return a list of receipts based on pre determined filters.</returns>
+            <returns>Returns a list of expenses receipts based on predetermined filters.</returns>
         </member>
     </members>
 </doc>

@@ -97,7 +97,7 @@ namespace Data.Queries.Repositories
                             .Sort(
                                 Builders<BsonDocument>.Sort.Ascending(
                                     new StringFieldDefinition<BsonDocument>(
-                                        nameof(Receipt.Id))));
+                                        nameof(Receipt.ReceiptDate))));
 
             var resultsPipeline = pipelineDefinition.As<Receipt, BsonDocument, Receipt>();
 

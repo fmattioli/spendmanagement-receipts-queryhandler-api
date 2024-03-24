@@ -32,7 +32,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
                 .Create();
 
             //Act
-            var (StatusCode, Content) = await GetAsync("/getReceipts",
+            var (StatusCode, Content) = await GetAsync("/getVariableReceipts",
                 receiptFilter,
                 [
                     nameof(receiptFilter.ReceiptIds)
@@ -45,6 +45,51 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
 
             receiptResponse?.Results.Should().NotBeNull();
             receiptResponse?.Results.Should().Contain(x => x.Id.Equals(receiptId));
+        }
+
+        [Fact]
+        private async Task OnGivenAValidReceiptIdGuidsAsReceiptFilter_ShouldBeReturnedAValidReceiptsFromDataBase()
+        {
+            //Arrange
+            var receiptItemId = _fixture.Create<Guid>();
+
+            var receiptItem = _fixture.Build<Fixtures.ReceiptItem>()
+                .With(x => x.Id, receiptItemId)
+                .Create();
+
+            var receipt = _fixture.Build<Fixtures.Receipt>()
+                .With(x => x.ReceiptItems, new List<ReceiptItem> { receiptItem })
+                .Create();
+
+            await _mongoDBFixture.InsertReceiptAsync(receipt);
+
+            var receiptFilter = _fixture
+                .Build<GetVariableReceiptsRequest>()
+                .With(x => x.ReceiptIds, new List<Guid> { receipt.Id })
+                .With(x => x.ReceiptItemIds, new List<Guid> { receiptItemId })
+                .Create();
+
+            //Act
+            var (StatusCode, Content) = await GetAsync("/getVariableReceipts",
+                receiptFilter,
+                [
+                    nameof(receiptFilter.ReceiptIds)
+                ]);
+
+            //Assert
+            StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var receiptResponse = JsonConvert.DeserializeObject<GetVariableReceiptsResponse>(Content);
+
+            receiptResponse?.Results
+                .Should()
+                .NotBeNull();
+
+            var foundItems = receiptResponse?
+                .Results
+                .SelectMany(r => r.ReceiptItems.Where(receiptItem => receiptItem.Id == receiptItemId));
+
+            foundItems.Should().NotBeNull();
         }
 
         [Fact]
@@ -65,7 +110,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
                 .Create();
 
             //Act
-            var (StatusCode, Content) = await GetAsync("/getReceipts",
+            var (StatusCode, Content) = await GetAsync("/getVariableReceipts",
                 receiptFilter,
                 [
                     nameof(receiptFilter.CategoryIds)
@@ -76,8 +121,13 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
 
             var receiptResponse = JsonConvert.DeserializeObject<GetVariableReceiptsResponse>(Content);
 
-            receiptResponse?.Results.Should().NotBeNull();
-            receiptResponse?.Results.Should().Contain(x => x.Id.Equals(categoryId));
+            receiptResponse?.Results
+                .Should()
+                .NotBeNull();
+
+            receiptResponse?.Results
+                .Should()
+                .Contain(x => x.CategoryId == categoryId);
         }
 
         [Fact]
@@ -98,7 +148,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
                 .Create();
 
             //Act
-            var (StatusCode, Content) = await GetAsync("/getReceipts",
+            var (StatusCode, Content) = await GetAsync("/getVariableReceipts",
                 receiptFilter,
                 [
                     nameof(receiptFilter.EstablishmentNames)
@@ -139,7 +189,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
                 .Create();
 
             //Act
-            var (StatusCode, Content) = await GetAsync("/getReceipts",
+            var (StatusCode, Content) = await GetAsync("/getVariableReceipts",
                 receiptFilter,
                 [
                     nameof(receiptFilter.ReceiptDate),
@@ -178,7 +228,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
                 .Create();
 
             //Act
-            var (StatusCode, Content) = await GetAsync("/getReceipts",
+            var (StatusCode, Content) = await GetAsync("/getVariableReceipts",
                 receiptFilter,
                 [
                     nameof(receiptFilter.ReceiptItemIds)
@@ -222,7 +272,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
                 .Create();
 
             //Act
-            var (StatusCode, Content) = await GetAsync("/getReceipts",
+            var (StatusCode, Content) = await GetAsync("/getVariableReceipts",
                 receiptFilter,
                 [
                     nameof(receiptFilter.ReceiptItemNames)
@@ -242,6 +292,115 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
                 .SelectMany(r => r.ReceiptItems.Where(receiptItem => receiptItem.ItemName == receiptItemName));
 
             foundItems.Should().NotBeNull();
+        }
+
+        [Fact]
+        private async Task OnGivenAValidReceiptIdGuidsAsRecurringReceiptFilter_ShouldBeReturnedAValidReceiptsFromDataBase()
+        {
+            //Arrange
+            var receiptId = _fixture.Create<Guid>();
+
+            var receiptItem = _fixture.Build<ReceiptItem>()
+                .With(x => x.Id, receiptId)
+                .Create();
+
+            var receipt = _fixture.Build<RecurringReceipt>()
+                .Create();
+
+            await _mongoDBFixture.InsertRecurringReceiptAsync(receipt);
+
+            var receiptFilter = _fixture
+                .Build<GetVariableReceiptsRequest>()
+                .With(x => x.ReceiptItemIds, new List<Guid> { receiptId })
+                .Create();
+
+            //Act
+            var (StatusCode, Content) = await GetAsync("/getRecurringReceipts",
+                receiptFilter,
+                [
+                    nameof(receiptFilter.ReceiptIds)
+                ]);
+
+            //Assert
+            StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var receiptResponse = JsonConvert.DeserializeObject<GetVariableReceiptsResponse>(Content);
+
+            receiptResponse?.Results
+                .Should()
+                .NotBeNull();
+
+            var foundItems = receiptResponse?
+                .Results
+                .SelectMany(r => r.ReceiptItems.Where(receiptItem => receiptItem.Id == receiptId));
+
+            foundItems.Should().NotBeNull();
+        }
+
+        [Fact]
+        private async Task OnGivenAValidCategoryIdAsRecurringReceiptFilter_ShouldBeReturnedAValidReceiptsFromDataBase()
+        {
+            //Arrange
+            var categoryId = _fixture.Create<Guid>();
+
+            var receipt = _fixture.Build<RecurringReceipt>()
+                .With(x => x.CategoryId, categoryId)
+                .Create();
+
+            await _mongoDBFixture.InsertRecurringReceiptAsync(receipt);
+
+            var receiptFilter = _fixture
+                .Build<GetVariableReceiptsRequest>()
+                .With(x => x.CategoryIds, new List<Guid> { categoryId })
+                .Create();
+
+            //Act
+            var (StatusCode, Content) = await GetAsync("/getRecurringReceipts",
+                receiptFilter,
+                [
+                    nameof(receiptFilter.CategoryIds)
+                ]);
+
+            //Assert
+            StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var receiptResponse = JsonConvert.DeserializeObject<GetVariableReceiptsResponse>(Content);
+
+            receiptResponse?.Results.Should().NotBeNull();
+            receiptResponse?.Results.Should().Contain(x => x.CategoryId.Equals(categoryId));
+        }
+
+        [Fact]
+        private async Task OnGivenAValidEstablishmentNameAsRecurringReceiptFilter_ShouldBeReturnedAValidReceiptsFromDataBase()
+        {
+            //Arrange
+            var establishmentName = _fixture.Create<string>();
+
+            var receipt = _fixture.Build<RecurringReceipt>()
+                .With(x => x.EstablishmentName, establishmentName)
+                .Create();
+
+            await _mongoDBFixture.InsertRecurringReceiptAsync(receipt);
+
+            var receiptFilter = _fixture
+                .Build<GetVariableReceiptsRequest>()
+                .With(x => x.EstablishmentNames, new List<string> { establishmentName })
+                .Create();
+
+            //Act
+            var (StatusCode, Content) = await GetAsync("/getRecurringReceipts",
+                receiptFilter,
+                [
+                    nameof(receiptFilter.EstablishmentNames)
+                ]);
+
+            //Assert
+            StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var receiptResponse = JsonConvert.DeserializeObject<GetVariableReceiptsResponse>(Content);
+
+            receiptResponse?.Results.Should().NotBeNull();
+            receiptResponse?.Results.Should().Contain(x => x.EstablishmentName.Equals(establishmentName));
         }
     }
 }
