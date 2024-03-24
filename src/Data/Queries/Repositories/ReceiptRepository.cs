@@ -144,7 +144,10 @@ namespace Data.Queries.Repositories
 
             var document = await aggregation.FirstOrDefaultAsync();
 
-            return document["total"].AsDecimal;
+            if (document != null && document.Contains("total"))
+                return document["total"].AsDecimal;
+
+            return 0;
         }
     }
 }
