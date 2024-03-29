@@ -15,7 +15,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
         private readonly MongoDBFixture _mongoDBFixture = mongoDBFixture;
 
         [Fact]
-        private async Task OnGivenAValidGuidsAsCategoryFilter_ShouldBeReturnedAValidCategoryFromDataBase()
+        private async Task OnGivenAValidGuidsAsCategoryFilter_ShouldBeReturnedAValidCategory()
         {
             //Arrange
             var categoryId = _fixture.Create<Guid>();
@@ -44,7 +44,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
         }
 
         [Fact]
-        private async Task OnGivenAValidNamesAsCategoryFilter_ShouldBeReturnedAValidCategoryFromDataBase()
+        private async Task OnGivenAValidNamesAsCategoryFilter_ShouldBeReturnedAValidCategory()
         {
             //Arrange
             var categoryName = _fixture.Create<string>();

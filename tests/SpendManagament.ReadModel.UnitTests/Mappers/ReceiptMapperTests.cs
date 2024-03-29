@@ -2,9 +2,10 @@
 using AutoFixture;
 using Application.Converters;
 using FluentAssertions;
-using Domain.Entities;
-using Domain.QueriesFilters.PageFilters;
+using Receipts.ReadModel;
+using Receipts.ReadModel.QueriesFilters.PageFilters;
 using Application.Queries.Common;
+using Receipts.ReadModel.Entities;
 
 namespace SpendManagement.ReadModel.UnitTests.Mappers
 {

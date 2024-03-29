@@ -1,9 +1,10 @@
 ﻿using AutoFixture;
-using Domain.Entities;
+using Receipts.ReadModel;
 using Application.Mappers;
 using FluentAssertions;
 using Application.Queries.Category.GetCategories;
-using Domain.QueriesFilters.PageFilters;
+using Receipts.ReadModel.QueriesFilters.PageFilters;
+using Receipts.ReadModel.Entities;
 namespace SpendManagament.ReadModel.UnitTests.Mappers
 {
     public class CategoryMapperTests

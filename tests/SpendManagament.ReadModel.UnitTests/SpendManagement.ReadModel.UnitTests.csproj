@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\API\API.csproj" />
+    <ProjectReference Include="..\..\src\Receipts.ReadModel.API\Receipts.ReadModel.API.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+﻿using Receipts.ReadModel;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 using SpendManagement.ReadModel.IntegrationTests.Configuration;
