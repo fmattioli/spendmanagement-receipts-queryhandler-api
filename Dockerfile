@@ -24,4 +24,4 @@ RUN dotnet publish "src/Receipts.ReadModel.API/Receipts.ReadModel.API.csproj" -c
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "API.dll"]
+ENTRYPOINT ["dotnet", "Receipts.ReadModel.API.dll"]
