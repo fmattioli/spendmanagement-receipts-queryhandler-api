@@ -1,18 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
+﻿using Flurl;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 using SpendManagement.ReadModel.IntegrationTests.Configuration;
-using Flurl;
+using System.IdentityModel.Tokens.Jwt;
 using System.Net;
+using System.Security.Claims;
+using System.Text;
 
 namespace SpendManagement.ReadModel.IntegrationTests.Helpers
 {
     public class BaseTests
     {
         private readonly HttpClient _httpClient;
-        public const string APIVersion = "api/v1";
+        public const string APIVersion = "Receipts.ReadModel.API/v1";
 
         public BaseTests()
         {
@@ -97,8 +97,8 @@ namespace SpendManagement.ReadModel.IntegrationTests.Helpers
         {
             return
             [
-                new(Application.Claims.ClaimTypes.Receipt, "Read"),
-                new(Application.Claims.ClaimTypes.Category, "Read"),
+                new(Receipts.ReadModel.Application.ClaimTypes.Receipt, "Read"),
+                new(Receipts.ReadModel.Application.ClaimTypes.Category, "Read"),
             ];
         }
     }

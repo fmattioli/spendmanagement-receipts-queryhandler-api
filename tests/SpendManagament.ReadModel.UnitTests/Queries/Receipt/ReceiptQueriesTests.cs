@@ -1,11 +1,12 @@
 ﻿using Application.Queries.Receipt.GetRecurringReceipts;
 using Application.Queries.Receipt.GetVariableReceipts;
 using AutoFixture;
-using Domain.Interfaces;
-using Domain.Queries.GetReceipts;
-using Domain.QueriesFilters;
-using Domain.QueriesFilters.PageFilters;
+using Receipts.ReadModel.Interfaces;
+using Receipts.ReadModel.Queries.GetReceipts;
+using Receipts.ReadModel.QueriesFilters;
+using Receipts.ReadModel.QueriesFilters.PageFilters;
 using Moq;
+using Receipts.ReadModel.Entities;
 
 namespace SpendManagement.ReadModel.UnitTests.Queries.Receipt
 {
@@ -28,7 +29,7 @@ namespace SpendManagement.ReadModel.UnitTests.Queries.Receipt
             //Arrange
             var filter = _fixture.Create<GetVariableReceiptsQuery>();
 
-            var receipts = _fixture.Create<PagedResultFilter<Domain.Entities.Receipt>>();
+            var receipts = _fixture.Create<PagedResultFilter<Receipts.ReadModel.Entities.Receipt>>();
 
             mockReceiptRepository
                 .Setup(x => x.GetVariableReceiptsAsync(It.IsAny<ReceiptFilters>()))
@@ -48,7 +49,7 @@ namespace SpendManagement.ReadModel.UnitTests.Queries.Receipt
             //Arrange
             var filter = _fixture.Create<GetRecurringReceiptsQuery>();
 
-            var receipts = _fixture.Create<PagedResultFilter<Domain.Entities.RecurringReceipt>>();
+            var receipts = _fixture.Create<PagedResultFilter<RecurringReceipt>>();
 
             mockReceiptRepository
                 .Setup(x => x.GetRecurringReceiptsAsync(It.IsAny<RecurringReceiptFilters>()))

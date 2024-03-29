@@ -8,18 +8,18 @@ EXPOSE 8080
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["src/API/API.csproj", "API/"]
-COPY ["src/CrossCutting/CrossCutting.csproj", "CrossCutting/"]
-COPY ["src/Application/Application.csproj", "Application/"]
-COPY ["src/Domain/Domain.csproj", "Domain/"]
-COPY ["src/Data/Data.csproj", "Data/"]
+COPY ["src/Receipts.ReadModel.API/Receipts.ReadModel.API.csproj", "Receipts.ReadModel.API/"]
+COPY ["src/Receipts.ReadModel.CrossCutting/Receipts.ReadModel.CrossCutting.csproj", "Receipts.ReadModel.CrossCutting/"]
+COPY ["src/Receipts.ReadModel.Application/Receipts.ReadModel.Application.csproj", "Receipts.ReadModel.Application/"]
+COPY ["src/Receipts.ReadModel/Receipts.ReadModel.csproj", "Receipts.ReadModel/"]
+COPY ["src/Receipts.ReadModel.Data/Receipts.ReadModel.Data.csproj", "Receipts.ReadModel.Data/"]
 RUN dotnet restore "API/API.csproj"
 COPY . .
 
-RUN dotnet build "src/API/API.csproj" -c Release -o /app/build
+RUN dotnet build "src/Receipts.ReadModel.API/Receipts.ReadModel.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "src/API/API.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "src/Receipts.ReadModel.API/Receipts.ReadModel.API.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app

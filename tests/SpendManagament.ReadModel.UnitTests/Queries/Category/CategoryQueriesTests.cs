@@ -1,8 +1,8 @@
 ﻿using Application.Queries.Category.GetCategories;
 using AutoFixture;
-using Domain.Interfaces;
-using Domain.QueriesFilters;
-using Domain.QueriesFilters.PageFilters;
+using Receipts.ReadModel.Interfaces;
+using Receipts.ReadModel.QueriesFilters;
+using Receipts.ReadModel.QueriesFilters.PageFilters;
 using Moq;
 
 namespace SpendManagament.ReadModel.UnitTests.Queries.Category
@@ -19,12 +19,12 @@ namespace SpendManagament.ReadModel.UnitTests.Queries.Category
         }
 
         [Fact]
-        public async Task OnGivenAValidFilter_ShouldBeReturnedCategoriesFromDatabase()
+        public async Task OnGivenAValidFilter_ShouldBeReturnedCategories()
         {
             //Arrange
             var filter = _fixture.Create<GetCategoriesQuery>();
 
-            var categories = _fixture.Create<PagedResultFilter<Domain.Entities.Category>>();
+            var categories = _fixture.Create<PagedResultFilter<Receipts.ReadModel.Entities.Category>>();
 
             mockCategoryRepository
                 .Setup(x => x.GetCategoriesAsync(It.IsAny<CategoryFilters>()))

@@ -15,7 +15,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
         private readonly MongoDBFixture _mongoDBFixture = mongoDBFixture;
 
         [Fact]
-        private async Task OnGivenAValidGuidsAsReceiptFilter_ShouldBeReturnedAValidReceiptsFromDataBase()
+        private async Task OnGivenAValidGuidsAsReceiptFilter_ShouldBeReturnedAValidReceipts()
         {
             //Arrange
             var receiptId = _fixture.Create<Guid>();
@@ -48,7 +48,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
         }
 
         [Fact]
-        private async Task OnGivenAValidReceiptIdGuidsAsReceiptFilter_ShouldBeReturnedAValidReceiptsFromDataBase()
+        private async Task OnGivenAValidReceiptIdGuidsAsReceiptFilter_ShouldBeReturnedAValidReceipts()
         {
             //Arrange
             var receiptItemId = _fixture.Create<Guid>();
@@ -93,7 +93,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
         }
 
         [Fact]
-        private async Task OnGivenAValidCategoryIdAsReceiptFilter_ShouldBeReturnedAValidReceiptsFromDataBase()
+        private async Task OnGivenAValidCategoryIdAsReceiptFilter_ShouldBeReturnedAValidReceipts()
         {
             //Arrange
             var categoryId = _fixture.Create<Guid>();
@@ -131,7 +131,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
         }
 
         [Fact]
-        private async Task OnGivenAValidEstabilishmentNameAsReceiptFilter_ShouldBeReturnedAValidReceiptsFromDataBase()
+        private async Task OnGivenAValidEstabilishmentNameAsReceiptFilter_ShouldBeReturnedAValidReceipts()
         {
             //Arrange
             var establishmentName = _fixture.Create<string>();
@@ -164,7 +164,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
         }
 
         [Fact]
-        private async Task OnGivenAValidReceiptDatesAsReceiptFilter_ShouldBeReturnedAValidReceiptsFromDataBase()
+        private async Task OnGivenAValidReceiptDatesAsReceiptFilter_ShouldBeReturnedAValidReceipts()
         {
             //Arrange
             var dateIni = DateTime.UtcNow;
@@ -207,7 +207,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
         }
 
         [Fact]
-        private async Task OnGivenAValidReceiptItemsGuidsAsReceiptFilter_ShouldBeReturnedAValidReceiptsFromDataBase()
+        private async Task OnGivenAValidReceiptItemsGuidsAsReceiptFilter_ShouldBeReturnedAValidReceipts()
         {
             //Arrange
             var receiptItemId = _fixture.Create<Guid>();
@@ -251,7 +251,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
         }
 
         [Fact]
-        private async Task OnGivenAValidReceiptItemsNamesAsReceiptFilter_ShouldBeReturnedAValidReceiptsFromDataBase()
+        private async Task OnGivenAValidReceiptItemsNamesAsReceiptFilter_ShouldBeReturnedAValidReceipts()
         {
             //Arrange
             var receiptItemName = _fixture.Create<string>();
@@ -295,7 +295,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
         }
 
         [Fact]
-        private async Task OnGivenAValidReceiptIdGuidsAsRecurringReceiptFilter_ShouldBeReturnedAValidReceiptsFromDataBase()
+        private async Task OnGivenAValidReceiptIdGuidsAsRecurringReceiptFilter_ShouldBeReturnedAValidReceipts()
         {
             //Arrange
             var receiptId = _fixture.Create<Guid>();
@@ -338,7 +338,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
         }
 
         [Fact]
-        private async Task OnGivenAValidCategoryIdAsRecurringReceiptFilter_ShouldBeReturnedAValidReceiptsFromDataBase()
+        private async Task OnGivenAValidCategoryIdAsRecurringReceiptFilter_ShouldBeReturnedAValidReceipts()
         {
             //Arrange
             var categoryId = _fixture.Create<Guid>();
@@ -371,7 +371,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
         }
 
         [Fact]
-        private async Task OnGivenAValidEstablishmentNameAsRecurringReceiptFilter_ShouldBeReturnedAValidReceiptsFromDataBase()
+        private async Task OnGivenAValidEstablishmentNameAsRecurringReceiptFilter_ShouldBeReturnedAValidReceipts()
         {
             //Arrange
             var establishmentName = _fixture.Create<string>();
