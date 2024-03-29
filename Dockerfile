@@ -13,7 +13,7 @@ COPY ["src/Receipts.ReadModel.CrossCutting/Receipts.ReadModel.CrossCutting.cspro
 COPY ["src/Receipts.ReadModel.Application/Receipts.ReadModel.Application.csproj", "Receipts.ReadModel.Application/"]
 COPY ["src/Receipts.ReadModel/Receipts.ReadModel.csproj", "Receipts.ReadModel/"]
 COPY ["src/Receipts.ReadModel.Data/Receipts.ReadModel.Data.csproj", "Receipts.ReadModel.Data/"]
-RUN dotnet restore "API/API.csproj"
+RUN dotnet restore "Receipts.ReadModel.API/Receipts.ReadModel.API.csproj"
 COPY . .
 
 RUN dotnet build "src/Receipts.ReadModel.API/Receipts.ReadModel.API.csproj" -c Release -o /app/build
