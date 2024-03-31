@@ -40,12 +40,11 @@ namespace Application.Converters
 
         public static PagedResult<ReceiptResponse> ToResponse(this PagedResultFilter<Receipt> receipts, PageFilterRequest pageFilter)
         {
-            var results = receipts.Results.SelectMany(x => x.ToReceiptResponseItems());
             return new PagedResult<ReceiptResponse>
             {
                 PageNumber = pageFilter.Page,
                 PageSize = pageFilter.PageSize,
-                Results = results.OrderByDescending(x => x.ReceiptDate),
+                Results = receipts.Results.SelectMany(x => x.ToReceiptResponseItems()),
                 TotalAmount = (double)receipts.ReceiptsTotalAmount,
                 TotalPages = receipts.TotalPages,
                 TotalResults = receipts.TotalResults

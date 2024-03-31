@@ -22,12 +22,11 @@ namespace Receipts.ReadModel.Data.Queries.Repositories
             var totaResults = await GetTotalResultsCountAsync(queryFilter);
             var receiptsTotal = await GetReceiptsTotalAmount(queryFilter);
 
-            var orderedResults = filteredResults.OrderByDescending(x => x.ReceiptDate);
 
             return new PagedResultFilter<Receipt>
             {
                 PageSize = queryFilter.PageSize,
-                Results = orderedResults,
+                Results = filteredResults,
                 ReceiptsTotalAmount = receiptsTotal,
                 TotalResults = (int)totaResults
             };
@@ -38,13 +37,12 @@ namespace Receipts.ReadModel.Data.Queries.Repositories
             var filteredResults = await FindRecurringReceiptsResultsAsync(queryFilter);
             var totaResults = await GetTotalResultsCountAsync(queryFilter);
 
-            var orderedResults = filteredResults.OrderByDescending(x => x.DateInitialRecurrence);
             var aggregateCountResult = totaResults?.Count ?? 0;
 
             return new PagedResultFilter<RecurringReceipt>
             {
                 PageSize = queryFilter.PageSize,
-                Results = orderedResults,
+                Results = filteredResults,
                 TotalResults = (int)aggregateCountResult
             };
         }
@@ -55,8 +53,12 @@ namespace Receipts.ReadModel.Data.Queries.Repositories
                 .For<RecurringReceipt>()
                 .As<RecurringReceipt, RecurringReceipt, BsonDocument>()
                 .FilterRecurringReceipts(queryFilter)
+                .Sort(
+                    Builders<BsonDocument>.Sort.Descending(
+                        new StringFieldDefinition<BsonDocument>(
+                            nameof(Receipt.Id))))
                 .Paginate(queryFilter.PageSize, queryFilter.PageNumber);
-                
+
             var resultsPipeline = pipelineDefinition.As<RecurringReceipt, BsonDocument, RecurringReceipt>();
 
             var aggregation = await recurringReceiptCollection.AggregateAsync(
@@ -91,6 +93,10 @@ namespace Receipts.ReadModel.Data.Queries.Repositories
                             .As<Receipt, Receipt, BsonDocument>()
                             .FilterReceipts(queryFilter)
                             .FilterReceiptItems(queryFilter)
+                            .Sort(
+                                Builders<BsonDocument>.Sort.Descending(
+                                    new StringFieldDefinition<BsonDocument>(
+                                        nameof(Receipt.ReceiptDate))))
                             .Paginate(queryFilter.PageSize, queryFilter.PageNumber);
 
             var resultsPipeline = pipelineDefinition.As<Receipt, BsonDocument, Receipt>();
