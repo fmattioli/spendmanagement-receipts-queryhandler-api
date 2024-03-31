@@ -14,8 +14,8 @@ services:
       image: spendmanagement_readmodel:${APP_VERSION}
       environment:
         - APP_VERSION=${APP_VERSION}
-        - ASPNETCORE_ENVIRONMENT=Docker
+        - ASPNETCORE_ENVIRONMENT=Development
       ports:
-        - "8080:8080"
+        - "9563:8080"
       networks:
         - spendmanagement      
