@@ -47,6 +47,7 @@ namespace Application.Mappers
                 new() {
                     Name = category.Name,
                     Id = category.Id,
+                    CreatedDate = category.CreatedDate
                 }
             };
         }
