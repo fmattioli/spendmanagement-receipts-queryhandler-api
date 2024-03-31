@@ -95,7 +95,7 @@ namespace Receipts.ReadModel.Data.Queries.Repositories
                             .FilterReceiptItems(queryFilter)
                             .Paginate(queryFilter.PageSize, queryFilter.PageNumber)
                             .Sort(
-                                Builders<BsonDocument>.Sort.Ascending(
+                                Builders<BsonDocument>.Sort.Descending(
                                     new StringFieldDefinition<BsonDocument>(
                                         nameof(Receipt.ReceiptDate))));
 
