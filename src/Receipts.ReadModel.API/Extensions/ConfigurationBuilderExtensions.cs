@@ -10,7 +10,7 @@ namespace Receipts.ReadModel.API.Extensions
 
             if (!env.IsDevelopment())
             {
-                settings!.MongoSettings!.ConnectionString = GetEnvironmentVariableFromRender("ConnectionString");
+                settings!.MongoSettings!.ConnectionString = GetEnvironmentVariableFromRender("ConnectionString_Mongo");
                 settings.TokenAuth = GetEnvironmentVariableFromRender("Token_Authentication");
             }
 
