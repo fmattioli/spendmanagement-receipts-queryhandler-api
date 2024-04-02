@@ -135,7 +135,7 @@ namespace Receipts.ReadModel.Data.Queries.PipelineStages.Receipt
             return new BsonDocument("$group", new BsonDocument
             {
                 { "_id", "1" },
-                { $"${totalFieldName}", new BsonDocument("$sum", "$TotalDecimal") }
+                { $"{totalFieldName}", new BsonDocument("$sum", "$TotalDecimal") }
             });
         }
 
