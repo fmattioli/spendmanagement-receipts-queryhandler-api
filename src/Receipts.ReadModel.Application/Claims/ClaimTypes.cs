@@ -1,4 +1,4 @@
-﻿namespace Receipts.ReadModel.Application
+﻿namespace Receipts.ReadModel.Application.Claims
 {
     public static class ClaimTypes
     {

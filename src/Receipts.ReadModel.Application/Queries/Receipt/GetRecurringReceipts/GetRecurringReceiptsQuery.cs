@@ -1,8 +1,8 @@
 ﻿using MediatR;
-using SpendManagement.WebContracts.Common;
-using SpendManagement.WebContracts.Receipt;
+using Receipts.WebContracts.Common;
+using Receipts.WebContracts.Receipt;
 
-namespace Application.Queries.Receipt.GetRecurringReceipts
+namespace Receipts.ReadModel.Application.Queries.Receipt.GetRecurringReceipts
 {
     public record GetRecurringReceiptsQuery(GetRecurringReceiptsRequest GetRecurringReceiptsRequest) : IRequest<PagedResult<RecurringReceiptResponse>>;
 }

@@ -1,12 +1,11 @@
-﻿using Application.Queries.Receipt.GetRecurringReceipts;
-using Application.Queries.Receipt.GetVariableReceipts;
-using AutoFixture;
+﻿using AutoFixture;
 using Receipts.ReadModel.Interfaces;
-using Receipts.ReadModel.Queries.GetReceipts;
 using Receipts.ReadModel.QueriesFilters;
 using Receipts.ReadModel.QueriesFilters.PageFilters;
 using Moq;
 using Receipts.ReadModel.Entities;
+using Receipts.ReadModel.Application.Queries.Receipt.GetRecurringReceipts;
+using Receipts.ReadModel.Application.Queries.Receipt.GetVariableReceipts;
 
 namespace SpendManagement.ReadModel.UnitTests.Queries.Receipt
 {

@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+
 using System.Security.Claims;
 
-namespace CrossCutting.Filters
+namespace Receipts.ReadModel.CrossCutting.Filters
 {
     public class ClaimsAuthorizeAttribute : TypeFilterAttribute
     {

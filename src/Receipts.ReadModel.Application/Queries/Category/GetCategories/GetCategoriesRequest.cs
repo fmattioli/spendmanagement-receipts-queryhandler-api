@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Application.Queries.Category.GetCategories
+namespace Receipts.ReadModel.Application.Queries.Category.GetCategories
 {
     public record GetCategoriesRequest
     {

@@ -1,9 +1,9 @@
 using Receipts.ReadModel.API.Extensions;
-using CrossCutting.Extensions.HealthCheckers;
-using CrossCutting.Extensions.Logging;
-using CrossCutting.Extensions.Mongo;
-using CrossCutting.Extensions.Tracing;
-using CrossCutting.Middlewares;
+using Receipts.ReadModel.CrossCutting.Extensions.Logging;
+using Receipts.ReadModel.CrossCutting.Extensions.HealthCheckers;
+using Receipts.ReadModel.CrossCutting.Extensions.Mongo;
+using Receipts.ReadModel.CrossCutting.Extensions.Tracing;
+using Receipts.ReadModel.CrossCutting.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 

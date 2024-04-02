@@ -1,10 +1,10 @@
-﻿using Application.Converters;
+﻿using MediatR;
+using Receipts.ReadModel.Application.Mappers;
 using Receipts.ReadModel.Interfaces;
-using MediatR;
-using SpendManagement.WebContracts.Common;
-using SpendManagement.WebContracts.Receipt;
+using Receipts.WebContracts.Common;
+using Receipts.WebContracts.Receipt;
 
-namespace Application.Queries.Receipt.GetRecurringReceipts
+namespace Receipts.ReadModel.Application.Queries.Receipt.GetRecurringReceipts
 {
     public class GetRecurringReceiptsQueryHandler(IReceiptRepository receiptRepository) : IRequestHandler<GetRecurringReceiptsQuery, PagedResult<RecurringReceiptResponse>>
     {

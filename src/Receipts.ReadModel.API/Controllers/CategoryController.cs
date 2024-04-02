@@ -1,9 +1,9 @@
-﻿using Receipts.ReadModel.Application;
-using Application.Queries.Category.GetCategories;
-using CrossCutting.Filters;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Receipts.ReadModel.Application.Queries.Category.GetCategories;
+using Receipts.ReadModel.Application.Claims;
+using Receipts.ReadModel.CrossCutting.Filters;
 
 namespace Receipts.ReadModel.API.Controllers
 {

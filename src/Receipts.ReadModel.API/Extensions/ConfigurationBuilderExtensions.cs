@@ -1,4 +1,4 @@
-﻿using Receipts.ReadModel.CrossCutting;
+﻿using Receipts.ReadModel.CrossCutting.Config;
 
 namespace Receipts.ReadModel.API.Extensions
 {

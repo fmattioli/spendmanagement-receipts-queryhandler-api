@@ -1,11 +1,10 @@
-﻿using Application.Queries.Receipt.GetVariableReceipts;
-using AutoFixture;
-using Application.Converters;
+﻿using AutoFixture;
 using FluentAssertions;
-using Receipts.ReadModel;
-using Receipts.ReadModel.QueriesFilters.PageFilters;
-using Application.Queries.Common;
+using Receipts.ReadModel.Application.Mappers;
+using Receipts.ReadModel.Application.Queries.Common;
+using Receipts.ReadModel.Application.Queries.Receipt.GetVariableReceipts;
 using Receipts.ReadModel.Entities;
+using Receipts.ReadModel.QueriesFilters.PageFilters;
 
 namespace SpendManagement.ReadModel.UnitTests.Mappers
 {

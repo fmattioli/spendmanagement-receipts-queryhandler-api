@@ -1,16 +1,14 @@
-﻿using Application.Queries.Common;
-using Application.Queries.Receipt.GetVariableReceipts;
-using Application.Queries.Receipt.GetRecurringReceipts;
-using Receipts.ReadModel;
-using Receipts.ReadModel.Queries.GetReceipts;
+﻿using Receipts.ReadModel.Application.Queries.Common;
+using Receipts.ReadModel.Application.Queries.Receipt.GetRecurringReceipts;
+using Receipts.ReadModel.Application.Queries.Receipt.GetVariableReceipts;
+using Receipts.ReadModel.Entities;
 using Receipts.ReadModel.QueriesFilters;
 using Receipts.ReadModel.QueriesFilters.PageFilters;
 using Receipts.ReadModel.ValueObjects;
-using SpendManagement.WebContracts.Common;
-using SpendManagement.WebContracts.Receipt;
-using Receipts.ReadModel.Entities;
+using Receipts.WebContracts.Common;
+using Receipts.WebContracts.Receipt;
 
-namespace Application.Converters
+namespace Receipts.ReadModel.Application.Mappers
 {
     public static class ReceiptMapper
     {
@@ -58,7 +56,6 @@ namespace Application.Converters
                 PageNumber = pageFilter.Page,
                 PageSize = pageFilter.PageSize,
                 Results = recurringReceipts.Results.SelectMany(x => x.ToRecurringReceiptResponseItems()),
-                TotalAmount = recurringReceipts.ReceiptsTotalAmount,
                 TotalPages = recurringReceipts.TotalPages,
                 TotalResults = recurringReceipts.TotalResults
             };

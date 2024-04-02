@@ -1,11 +1,13 @@
-﻿using Application.Constants;
-using Receipts.ReadModel.CrossCutting;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+
 using OpenTelemetry.Exporter;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 
-namespace CrossCutting.Extensions.Tracing
+using Receipts.ReadModel.Application.Constants;
+using Receipts.ReadModel.CrossCutting.Config;
+
+namespace Receipts.ReadModel.CrossCutting.Extensions.Tracing
 {
     public static class TracingExtension
     {

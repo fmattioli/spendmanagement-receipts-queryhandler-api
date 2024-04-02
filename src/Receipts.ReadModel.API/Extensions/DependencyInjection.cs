@@ -1,7 +1,9 @@
-﻿using Application.Queries.Receipt.GetVariableReceipts;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+
+using Receipts.ReadModel.Application.Queries.Receipt.GetVariableReceipts;
+
 using System.Text;
 
 namespace Receipts.ReadModel.API.Extensions

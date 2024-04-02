@@ -1,7 +1,8 @@
-﻿using Application.Queries.Common;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Application.Queries.Receipt.GetVariableReceipts
+using Receipts.ReadModel.Application.Queries.Common;
+
+namespace Receipts.ReadModel.Application.Queries.Receipt.GetVariableReceipts
 {
     public record GetVariableReceiptsRequest
     {

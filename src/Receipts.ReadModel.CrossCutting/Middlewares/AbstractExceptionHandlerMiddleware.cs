@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
+
 using Serilog;
+
 using System.Net;
 
-namespace CrossCutting.Middlewares
+namespace Receipts.ReadModel.CrossCutting.Middlewares
 {
     public abstract class AbstractExceptionHandlerMiddleware
     {

@@ -1,8 +1,8 @@
-﻿using Application.Mappers;
-using Receipts.ReadModel.Interfaces;
+﻿using Receipts.ReadModel.Interfaces;
 using MediatR;
+using Receipts.ReadModel.Application.Mappers;
 
-namespace Application.Queries.Category.GetCategories
+namespace Receipts.ReadModel.Application.Queries.Category.GetCategories
 {
     public class GetCategoriesQueryHandler(ICategoryRepository categoryRepository)
                 : IRequestHandler<GetCategoriesQuery, GetCategoriesResponse>

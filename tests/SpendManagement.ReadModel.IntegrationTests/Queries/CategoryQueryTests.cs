@@ -1,9 +1,14 @@
-﻿using Application.Queries.Category.GetCategories;
-using AutoFixture;
+﻿using AutoFixture;
+
 using FluentAssertions;
+
 using Newtonsoft.Json;
+
+using Receipts.ReadModel.Application.Queries.Category.GetCategories;
+
 using SpendManagement.ReadModel.IntegrationTests.Fixtures;
 using SpendManagement.ReadModel.IntegrationTests.Helpers;
+
 using System.Net;
 
 namespace SpendManagement.ReadModel.IntegrationTests.Queries

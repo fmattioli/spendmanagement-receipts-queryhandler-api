@@ -1,10 +1,10 @@
-﻿using Application.Validators;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using Receipts.WebContracts.Exceptions;
 using Serilog;
 using System.Net;
 
-namespace CrossCutting.Middlewares
+namespace Receipts.ReadModel.CrossCutting.Middlewares
 {
     public class ExceptionHandlerMiddleware(RequestDelegate next, ILogger logger) : AbstractExceptionHandlerMiddleware(next)
     {

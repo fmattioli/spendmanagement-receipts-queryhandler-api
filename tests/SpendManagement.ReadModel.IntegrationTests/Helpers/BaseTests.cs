@@ -1,7 +1,10 @@
 ﻿using Flurl;
+
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.IdentityModel.Tokens;
+
 using SpendManagement.ReadModel.IntegrationTests.Configuration;
+
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Security.Claims;
@@ -97,8 +100,8 @@ namespace SpendManagement.ReadModel.IntegrationTests.Helpers
         {
             return
             [
-                new(Receipts.ReadModel.Application.ClaimTypes.Receipt, "Read"),
-                new(Receipts.ReadModel.Application.ClaimTypes.Category, "Read"),
+                new(Receipts.ReadModel.Application.Claims.ClaimTypes.Receipt, "Read"),
+                new(Receipts.ReadModel.Application.Claims.ClaimTypes.Category, "Read"),
             ];
         }
     }

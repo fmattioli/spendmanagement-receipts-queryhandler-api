@@ -1,4 +1,4 @@
-﻿namespace Receipts.ReadModel.CrossCutting
+﻿namespace Receipts.ReadModel.CrossCutting.Config
 {
     public class TracingSettings
     {

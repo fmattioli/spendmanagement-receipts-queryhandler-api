@@ -1,10 +1,10 @@
-﻿using Application.Converters;
+﻿using MediatR;
+using Receipts.ReadModel.Application.Mappers;
 using Receipts.ReadModel.Interfaces;
-using MediatR;
-using SpendManagement.WebContracts.Common;
-using SpendManagement.WebContracts.Receipt;
+using Receipts.WebContracts.Common;
+using Receipts.WebContracts.Receipt;
 
-namespace Application.Queries.Receipt.GetVariableReceipts
+namespace Receipts.ReadModel.Application.Queries.Receipt.GetVariableReceipts
 {
     public class GetVariableReceiptsQueryHandler(IReceiptRepository receiptRepository) : IRequestHandler<GetVariableReceiptsQuery, PagedResult<ReceiptResponse>>
     {
