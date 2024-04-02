@@ -91,8 +91,8 @@ namespace Receipts.ReadModel.Data.Queries.Repositories
 
             var document = await aggregation.FirstOrDefaultAsync();
 
-            if (document != null && document.Contains("total"))
-                return document["total"].AsDecimal;
+            if (document != null && document.Contains(nameof(Receipt.Total)))
+                return document[nameof(Receipt.Total)].AsDecimal;
 
             return 0;
         }
@@ -170,8 +170,8 @@ namespace Receipts.ReadModel.Data.Queries.Repositories
 
             var document = await aggregation.FirstOrDefaultAsync();
 
-            if (document != null && document.Contains("total"))
-                return document["total"].AsDecimal;
+            if (document != null && document.Contains(nameof(RecurringReceipt.RecurrenceTotalPrice)))
+                return document[nameof(RecurringReceipt.RecurrenceTotalPrice)].AsDecimal;
 
             return 0;
         }
