@@ -114,28 +114,28 @@ namespace Receipts.ReadModel.Data.Queries.PipelineStages.Receipt
             return new BsonDocumentFilterDefinition<BsonDocument>(filter);
         }
 
-        public static PipelineDefinition<Entities.Receipt, BsonDocument> MakeSumTotalReceipts(
-            this PipelineDefinition<Entities.Receipt, BsonDocument> pipelineDefinition)
+        public static PipelineDefinition<T, BsonDocument> MakeSumBasedOnFilterName<T>(
+            this PipelineDefinition<T, BsonDocument> pipelineDefinition, string totalFieldName)
         {
             return pipelineDefinition
-                .AppendStage(GetTotalDecimal())
-                .AppendStage(GroupTotalGeral());
+                .AppendStage(AddTotalField(totalFieldName))
+                .AppendStage(SumTotalField(totalFieldName));
         }
 
-        private static PipelineStageDefinition<BsonDocument, BsonDocument> GetTotalDecimal()
+        private static PipelineStageDefinition<BsonDocument, BsonDocument> AddTotalField(string totalFieldName)
         {
             return new BsonDocument("$addFields", new BsonDocument
             {
-                { "TotalDecimal", new BsonDocument("$toDecimal", "$Total") }
+                { "TotalDecimal", new BsonDocument("$toDecimal", $"${totalFieldName}") }
             });
         }
 
-        private static PipelineStageDefinition<BsonDocument, BsonDocument> GroupTotalGeral()
+        private static PipelineStageDefinition<BsonDocument, BsonDocument> SumTotalField(string totalFieldName)
         {
             return new BsonDocument("$group", new BsonDocument
             {
                 { "_id", "1" },
-                { "total", new BsonDocument("$sum", "$TotalDecimal") }
+                { $"${totalFieldName}", new BsonDocument("$sum", "$TotalDecimal") }
             });
         }
 
