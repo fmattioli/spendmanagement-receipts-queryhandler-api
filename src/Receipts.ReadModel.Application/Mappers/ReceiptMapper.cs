@@ -45,7 +45,7 @@ namespace Application.Converters
                 PageNumber = pageFilter.Page,
                 PageSize = pageFilter.PageSize,
                 Results = receipts.Results.SelectMany(x => x.ToReceiptResponseItems()),
-                TotalAmount = (double)receipts.ReceiptsTotalAmount,
+                TotalAmount = receipts.ReceiptsTotalAmount,
                 TotalPages = receipts.TotalPages,
                 TotalResults = receipts.TotalResults
             };
@@ -58,6 +58,7 @@ namespace Application.Converters
                 PageNumber = pageFilter.Page,
                 PageSize = pageFilter.PageSize,
                 Results = recurringReceipts.Results.SelectMany(x => x.ToRecurringReceiptResponseItems()),
+                TotalAmount = recurringReceipts.ReceiptsTotalAmount,
                 TotalPages = recurringReceipts.TotalPages,
                 TotalResults = recurringReceipts.TotalResults
             };
