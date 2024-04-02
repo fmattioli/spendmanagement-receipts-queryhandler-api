@@ -57,7 +57,8 @@ namespace Receipts.ReadModel.Application.Mappers
                 PageSize = pageFilter.PageSize,
                 Results = recurringReceipts.Results.SelectMany(x => x.ToRecurringReceiptResponseItems()),
                 TotalPages = recurringReceipts.TotalPages,
-                TotalResults = recurringReceipts.TotalResults
+                TotalResults = recurringReceipts.TotalResults,
+                TotalAmount = recurringReceipts.ReceiptsTotalAmount
             };
         }
 
