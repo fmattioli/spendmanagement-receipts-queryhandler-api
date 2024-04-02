@@ -1,7 +1,7 @@
-﻿using Receipts.ReadModel.Queries.GetReceipts;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Text.RegularExpressions;
+using Receipts.ReadModel.QueriesFilters;
 
 namespace Receipts.ReadModel.Data.Queries.PipelineStages.Receipt
 {
@@ -138,7 +138,5 @@ namespace Receipts.ReadModel.Data.Queries.PipelineStages.Receipt
                 { $"{totalFieldName}", new BsonDocument("$sum", "$TotalDecimal") }
             });
         }
-
-
     }
 }

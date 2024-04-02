@@ -1,11 +1,11 @@
-﻿using Application.Queries.Category.GetCategories;
-using AutoFixture;
+﻿using AutoFixture;
 using Receipts.ReadModel.Interfaces;
 using Receipts.ReadModel.QueriesFilters;
 using Receipts.ReadModel.QueriesFilters.PageFilters;
 using Moq;
+using Receipts.ReadModel.Application.Queries.Category.GetCategories;
 
-namespace SpendManagament.ReadModel.UnitTests.Queries.Category
+namespace SpendManagement.ReadModel.UnitTests.Queries.Category
 {
     public class CategoryQueriesTests
     {

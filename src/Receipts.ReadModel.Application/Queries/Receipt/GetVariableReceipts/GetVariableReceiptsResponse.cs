@@ -1,7 +1,7 @@
-﻿using SpendManagement.WebContracts.Common;
-using SpendManagement.WebContracts.Receipt;
+﻿using Receipts.WebContracts.Common;
+using Receipts.WebContracts.Receipt;
 
-namespace Application.Queries.Receipt.GetVariableReceipts
+namespace Receipts.ReadModel.Application.Queries.Receipt.GetVariableReceipts
 {
     public class GetVariableReceiptsResponse : PagedResult<ReceiptResponse>
     {

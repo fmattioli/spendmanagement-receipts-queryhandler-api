@@ -1,11 +1,10 @@
-﻿using Application.Queries.Category.GetCategories;
-using Receipts.ReadModel;
+﻿using Receipts.ReadModel.Application.Queries.Category.GetCategories;
 using Receipts.ReadModel.Entities;
 using Receipts.ReadModel.QueriesFilters;
 using Receipts.ReadModel.QueriesFilters.PageFilters;
-using SpendManagement.WebContracts.Category;
+using Receipts.WebContracts.Category;
 
-namespace Application.Mappers
+namespace Receipts.ReadModel.Application.Mappers
 {
     public static class CategoryMapper
     {

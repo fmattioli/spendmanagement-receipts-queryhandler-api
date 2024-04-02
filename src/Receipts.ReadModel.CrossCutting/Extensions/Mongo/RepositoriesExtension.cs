@@ -2,7 +2,7 @@
 using Receipts.ReadModel.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CrossCutting.Extensions.Mongo
+namespace Receipts.ReadModel.CrossCutting.Extensions.Mongo
 {
     public static class RepositoriesExtension
     {

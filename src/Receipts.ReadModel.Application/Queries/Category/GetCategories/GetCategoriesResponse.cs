@@ -1,7 +1,7 @@
-﻿using SpendManagement.WebContracts.Category;
-using SpendManagement.WebContracts.Common;
+﻿using Receipts.WebContracts.Category;
+using Receipts.WebContracts.Common;
 
-namespace Application.Queries.Category.GetCategories
+namespace Receipts.ReadModel.Application.Queries.Category.GetCategories
 {
     public class GetCategoriesResponse : PagedResult<CategoryResponse>
     {

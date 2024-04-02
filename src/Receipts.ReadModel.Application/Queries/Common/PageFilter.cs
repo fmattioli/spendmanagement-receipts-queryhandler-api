@@ -1,4 +1,4 @@
-﻿namespace Application.Queries.Common
+﻿namespace Receipts.ReadModel.Application.Queries.Common
 {
     public record PageFilterRequest
     {

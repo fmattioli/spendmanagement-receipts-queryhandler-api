@@ -1,9 +1,10 @@
-﻿using Receipts.ReadModel.CrossCutting;
+﻿using Microsoft.Extensions.DependencyInjection;
 
-using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 
-namespace CrossCutting.Extensions.Mongo
+using Receipts.ReadModel.CrossCutting.Config;
+
+namespace Receipts.ReadModel.CrossCutting.Extensions.Mongo
 {
     public static class MongoExtension
     {

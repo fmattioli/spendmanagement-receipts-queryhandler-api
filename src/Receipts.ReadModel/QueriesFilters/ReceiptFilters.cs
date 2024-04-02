@@ -2,7 +2,7 @@
 
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Receipts.ReadModel.Queries.GetReceipts
+namespace Receipts.ReadModel.QueriesFilters
 {
     public class ReceiptFilters(IEnumerable<Guid> receiptIds,
         IEnumerable<Guid> categoryIds,

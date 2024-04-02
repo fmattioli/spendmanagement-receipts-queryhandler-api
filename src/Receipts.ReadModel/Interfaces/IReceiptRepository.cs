@@ -1,5 +1,4 @@
-﻿using Receipts.ReadModel.Queries.GetReceipts;
-using Receipts.ReadModel.QueriesFilters;
+﻿using Receipts.ReadModel.QueriesFilters;
 using Receipts.ReadModel.QueriesFilters.PageFilters;
 using Receipts.ReadModel.Entities;
 

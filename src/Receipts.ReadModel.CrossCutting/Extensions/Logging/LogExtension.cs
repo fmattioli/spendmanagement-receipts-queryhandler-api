@@ -1,8 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+
 using Serilog;
 using Serilog.Formatting.Json;
 
-namespace CrossCutting.Extensions.Logging
+namespace Receipts.ReadModel.CrossCutting.Extensions.Logging
 {
     public static class LogExtension
     {

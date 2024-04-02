@@ -1,10 +1,10 @@
-﻿using Receipts.ReadModel.Application;
-using Application.Queries.Receipt.GetVariableReceipts;
-using Application.Queries.Receipt.GetRecurringReceipts;
-using CrossCutting.Filters;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Receipts.ReadModel.Application.Claims;
+using Receipts.ReadModel.Application.Queries.Receipt.GetRecurringReceipts;
+using Receipts.ReadModel.Application.Queries.Receipt.GetVariableReceipts;
+using Receipts.ReadModel.CrossCutting.Filters;
 
 namespace Receipts.ReadModel.API.Controllers
 {
