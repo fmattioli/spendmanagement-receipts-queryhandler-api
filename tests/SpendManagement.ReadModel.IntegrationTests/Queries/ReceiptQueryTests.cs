@@ -39,9 +39,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
             //Act
             var (StatusCode, Content) = await GetAsync("/getVariableReceipts",
                 receiptFilter,
-                [
-                    nameof(receiptFilter.ReceiptIds)
-                ]);
+                nameof(receiptFilter.ReceiptIds));
 
             //Assert
             StatusCode.Should().Be(HttpStatusCode.OK);
@@ -77,9 +75,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
             //Act
             var (StatusCode, Content) = await GetAsync("/getVariableReceipts",
                 receiptFilter,
-                [
-                    nameof(receiptFilter.ReceiptIds)
-                ]);
+                nameof(receiptFilter.ReceiptIds));
 
             //Assert
             StatusCode.Should().Be(HttpStatusCode.OK);
@@ -117,9 +113,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
             //Act
             var (StatusCode, Content) = await GetAsync("/getVariableReceipts",
                 receiptFilter,
-                [
-                    nameof(receiptFilter.CategoryIds)
-                ]);
+                nameof(receiptFilter.CategoryIds));
 
             //Assert
             StatusCode.Should().Be(HttpStatusCode.OK);
@@ -132,7 +126,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
 
             receiptResponse?.Results
                 .Should()
-                .Contain(x => x.CategoryId == categoryId);
+                .Contain(x => x.Category.Id == categoryId);
         }
 
         [Fact]
@@ -155,9 +149,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
             //Act
             var (StatusCode, Content) = await GetAsync("/getVariableReceipts",
                 receiptFilter,
-                [
-                    nameof(receiptFilter.EstablishmentNames)
-                ]);
+                nameof(receiptFilter.EstablishmentNames));
 
             //Assert
             StatusCode.Should().Be(HttpStatusCode.OK);
@@ -174,8 +166,6 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
             //Arrange
             var dateIni = DateTime.UtcNow;
             var dateFinal = DateTime.UtcNow.AddDays(2);
-
-            var establishmentName = _fixture.Create<string>();
 
             var receiptOne = _fixture.Build<Fixtures.Receipt>()
                 .With(x => x.ReceiptDate, dateIni)
@@ -196,10 +186,8 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
             //Act
             var (StatusCode, Content) = await GetAsync("/getVariableReceipts",
                 receiptFilter,
-                [
-                    nameof(receiptFilter.ReceiptDate),
-                    nameof(receiptFilter.ReceiptDateFinal)
-                ]);
+                nameof(receiptFilter.ReceiptDate),
+                nameof(receiptFilter.ReceiptDateFinal));
 
             //Assert
             StatusCode.Should().Be(HttpStatusCode.OK);
@@ -234,10 +222,8 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
 
             //Act
             var (StatusCode, Content) = await GetAsync("/getVariableReceipts",
-                receiptFilter,
-                [
-                    nameof(receiptFilter.ReceiptItemIds)
-                ]);
+                receiptFilter, 
+                nameof(receiptFilter.ReceiptItemIds));
 
             //Assert
             StatusCode.Should().Be(HttpStatusCode.OK);
@@ -279,9 +265,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
             //Act
             var (StatusCode, Content) = await GetAsync("/getVariableReceipts",
                 receiptFilter,
-                [
-                    nameof(receiptFilter.ReceiptItemNames)
-                ]);
+                nameof(receiptFilter.ReceiptItemNames));
 
             //Assert
             StatusCode.Should().Be(HttpStatusCode.OK);
@@ -305,10 +289,6 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
             //Arrange
             var receiptId = _fixture.Create<Guid>();
 
-            var receiptItem = _fixture.Build<ReceiptItem>()
-                .With(x => x.Id, receiptId)
-                .Create();
-
             var receipt = _fixture.Build<RecurringReceipt>()
                 .Create();
 
@@ -322,9 +302,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
             //Act
             var (StatusCode, Content) = await GetAsync("/getRecurringReceipts",
                 receiptFilter,
-                [
-                    nameof(receiptFilter.ReceiptIds)
-                ]);
+                nameof(receiptFilter.ReceiptIds));
 
             //Assert
             StatusCode.Should().Be(HttpStatusCode.OK);
@@ -362,9 +340,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
             //Act
             var (StatusCode, Content) = await GetAsync("/getRecurringReceipts",
                 receiptFilter,
-                [
-                    nameof(receiptFilter.CategoryIds)
-                ]);
+                nameof(receiptFilter.CategoryIds));
 
             //Assert
             StatusCode.Should().Be(HttpStatusCode.OK);
@@ -372,7 +348,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
             var receiptResponse = JsonConvert.DeserializeObject<GetVariableReceiptsResponse>(Content);
 
             receiptResponse?.Results.Should().NotBeNull();
-            receiptResponse?.Results.Should().Contain(x => x.CategoryId.Equals(categoryId));
+            receiptResponse?.Results.Should().Contain(x => x.Category.Id.Equals(categoryId));
         }
 
         [Fact]
@@ -395,9 +371,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
             //Act
             var (StatusCode, Content) = await GetAsync("/getRecurringReceipts",
                 receiptFilter,
-                [
-                    nameof(receiptFilter.EstablishmentNames)
-                ]);
+                nameof(receiptFilter.EstablishmentNames));
 
             //Assert
             StatusCode.Should().Be(HttpStatusCode.OK);

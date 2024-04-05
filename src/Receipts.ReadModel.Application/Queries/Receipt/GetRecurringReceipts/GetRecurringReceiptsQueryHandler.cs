@@ -1,8 +1,9 @@
 ﻿using MediatR;
 using Receipts.ReadModel.Application.Mappers;
 using Receipts.ReadModel.Interfaces;
-using Receipts.WebContracts.Common;
-using Receipts.WebContracts.Receipt;
+
+using Web.Contracts.Common;
+using Web.Contracts.Receipt;
 
 namespace Receipts.ReadModel.Application.Queries.Receipt.GetRecurringReceipts
 {

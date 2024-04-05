@@ -2,7 +2,7 @@
 using Receipts.ReadModel.Entities;
 using Receipts.ReadModel.QueriesFilters;
 using Receipts.ReadModel.QueriesFilters.PageFilters;
-using Receipts.WebContracts.Category;
+using Web.Contracts.Category;
 
 namespace Receipts.ReadModel.Application.Mappers
 {
