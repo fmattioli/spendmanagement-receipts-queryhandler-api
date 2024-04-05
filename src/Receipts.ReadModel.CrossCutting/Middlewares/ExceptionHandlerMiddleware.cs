@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
-using Receipts.WebContracts.Exceptions;
 using Serilog;
 using System.Net;
+
+using Web.Contracts.Exceptions;
 
 namespace Receipts.ReadModel.CrossCutting.Middlewares
 {

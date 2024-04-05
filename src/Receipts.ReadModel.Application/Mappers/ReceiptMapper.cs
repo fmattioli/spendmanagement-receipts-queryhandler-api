@@ -5,8 +5,8 @@ using Receipts.ReadModel.Entities;
 using Receipts.ReadModel.QueriesFilters;
 using Receipts.ReadModel.QueriesFilters.PageFilters;
 using Receipts.ReadModel.ValueObjects;
-using Receipts.WebContracts.Common;
-using Receipts.WebContracts.Receipt;
+using Web.Contracts.Common;
+using Web.Contracts.Receipt;
 
 namespace Receipts.ReadModel.Application.Mappers
 {
@@ -67,7 +67,7 @@ namespace Receipts.ReadModel.Application.Mappers
             return new ReceiptResponse
             {
                 Id = receipt.Id,
-                CategoryId = receipt.CategoryId,
+                Category = receipt.Category.ToCategoryResponse(),
                 EstablishmentName = receipt.EstablishmentName,
                 ReceiptDate = receipt.ReceiptDate,
                 ReceiptItems = receipt.ReceiptItems.SelectMany(x => x.ToDomainReceiptItems()),
@@ -99,7 +99,7 @@ namespace Receipts.ReadModel.Application.Mappers
                 new() {
                     EstablishmentName = receipt.EstablishmentName,
                     Id = receipt.Id,
-                    CategoryId = receipt.CategoryId,
+                    Category = receipt.Category.ToCategoryResponse(),
                     ReceiptDate = receipt.ReceiptDate,
                     ReceiptItems = receipt.ReceiptItems.SelectMany(x => x.ToDomainReceiptItems()),
                     Total = receipt.Total,
