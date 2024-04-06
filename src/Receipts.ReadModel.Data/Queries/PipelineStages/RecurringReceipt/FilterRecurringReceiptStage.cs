@@ -88,7 +88,7 @@ namespace Receipts.ReadModel.Data.Queries.PipelineStages.RecurringReceipt
                 .Select(x => new BsonBinaryData(x, GuidRepresentation.Standard));
 
             var receiptFilter = new BsonDocument(
-                "CategoryId",
+                "Category._id",
                 new BsonDocument("$in", new BsonArray(categoryIds)));
 
             return new BsonDocumentFilterDefinition<BsonDocument>(receiptFilter);
