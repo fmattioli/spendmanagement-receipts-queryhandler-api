@@ -13,8 +13,8 @@ namespace Receipts.ReadModel.QueriesFilters
             CategoryNames = categoryNames;
         }
 
-        public IEnumerable<Guid> CategoryIds { get; set; } = new List<Guid>();
+        public IEnumerable<Guid> CategoryIds { get; set; }
 
-        public IEnumerable<string> CategoryNames { get; set; } = new List<string>();
+        public IEnumerable<string> CategoryNames { get; set; }
     }
 }

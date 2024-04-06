@@ -13,8 +13,8 @@ namespace Receipts.ReadModel.Application.Mappers
             return new CategoryResponse
             {
                 Id = category.Id,
-                CreatedDate = category.CreatedDate,
                 Name = category.Name,
+                CreatedDate = category.CreatedDate,
             };
         }
 

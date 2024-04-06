@@ -115,7 +115,7 @@ namespace Receipts.ReadModel.Application.Mappers
                 new() {
                     EstablishmentName = receipt.EstablishmentName,
                     Id = receipt.Id,
-                    CategoryId = receipt.CategoryId,
+                    Category = receipt.Category.ToCategoryResponse(),
                     DateEndRecurrence = receipt.DateEndRecurrence,
                     DateInitialRecurrence = receipt.DateInitialRecurrence,
                     Observation = receipt.Observation,
