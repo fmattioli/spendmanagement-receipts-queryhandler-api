@@ -10,6 +10,8 @@ using SpendManagement.ReadModel.IntegrationTests.Fixtures;
 using SpendManagement.ReadModel.IntegrationTests.Helpers;
 
 using System.Net;
+using Web.Contracts.Category.Requests;
+using Web.Contracts.Receipt.Requests;
 
 namespace SpendManagement.ReadModel.IntegrationTests.Queries
 {
@@ -33,7 +35,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
 
             var categoryFilter = _fixture
                 .Build<GetCategoriesRequest>()
-                .With(x => x.CategoryIds, new List<Guid> { categoryId })
+                .With(x => x.CategoryIds, [categoryId])
                 .Create();
 
             //Act

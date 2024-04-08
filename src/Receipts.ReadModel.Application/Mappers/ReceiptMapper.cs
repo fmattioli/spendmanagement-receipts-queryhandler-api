@@ -1,12 +1,10 @@
-﻿using Receipts.ReadModel.Application.Queries.Common;
-using Receipts.ReadModel.Application.Queries.Receipt.GetRecurringReceipts;
-using Receipts.ReadModel.Application.Queries.Receipt.GetVariableReceipts;
-using Receipts.ReadModel.Entities;
+﻿using Receipts.ReadModel.Entities;
 using Receipts.ReadModel.QueriesFilters;
 using Receipts.ReadModel.QueriesFilters.PageFilters;
 using Receipts.ReadModel.ValueObjects;
 using Web.Contracts.Common;
-using Web.Contracts.Receipt;
+using Web.Contracts.Receipt.Requests;
+using Web.Contracts.Receipt.Responses;
 
 namespace Receipts.ReadModel.Application.Mappers
 {
@@ -78,8 +76,8 @@ namespace Receipts.ReadModel.Application.Mappers
 
         public static IEnumerable<ReceiptItemResponse> ToDomainReceiptItems(this ReceiptItem receiptItem)
         {
-            return new List<ReceiptItemResponse>()
-            {
+            return
+            [
                 new() {
                     Id = receiptItem.Id,
                     ItemName = receiptItem.ItemName,
@@ -89,13 +87,13 @@ namespace Receipts.ReadModel.Application.Mappers
                     TotalPrice = receiptItem.TotalPrice,
                     Quantity = receiptItem.Quantity,
                 }
-            };
+            ];
         }
 
         public static IEnumerable<ReceiptResponse> ToReceiptResponseItems(this Receipt receipt)
         {
-            return new List<ReceiptResponse>
-            {
+            return
+            [
                 new() {
                     EstablishmentName = receipt.EstablishmentName,
                     Id = receipt.Id,
@@ -105,13 +103,13 @@ namespace Receipts.ReadModel.Application.Mappers
                     Total = receipt.Total,
                     Discount = receipt.Discount
                 }
-            };
+            ];
         }
 
         public static IEnumerable<RecurringReceiptResponse> ToRecurringReceiptResponseItems(this RecurringReceipt receipt)
         {
-            return new List<RecurringReceiptResponse>
-            {
+            return
+            [
                 new() {
                     EstablishmentName = receipt.EstablishmentName,
                     Id = receipt.Id,
@@ -121,7 +119,7 @@ namespace Receipts.ReadModel.Application.Mappers
                     Observation = receipt.Observation,
                     RecurrenceTotalPrice = receipt.RecurrenceTotalPrice
                 }
-            };
+            ];
         }
     }
 }

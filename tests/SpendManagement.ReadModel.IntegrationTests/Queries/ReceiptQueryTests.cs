@@ -1,15 +1,11 @@
 ﻿using AutoFixture;
-
 using FluentAssertions;
-
 using Newtonsoft.Json;
-
 using Receipts.ReadModel.Application.Queries.Receipt.GetVariableReceipts;
-
 using SpendManagement.ReadModel.IntegrationTests.Fixtures;
 using SpendManagement.ReadModel.IntegrationTests.Helpers;
-
 using System.Net;
+using Web.Contracts.Receipt.Requests;
 
 namespace SpendManagement.ReadModel.IntegrationTests.Queries
 {
@@ -33,7 +29,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
 
             var receiptFilter = _fixture
                 .Build<GetVariableReceiptsRequest>()
-                .With(x => x.ReceiptIds, new List<Guid> { receiptId })
+                .With(x => x.ReceiptIds, [receiptId])
                 .Create();
 
             //Act
@@ -68,8 +64,8 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
 
             var receiptFilter = _fixture
                 .Build<GetVariableReceiptsRequest>()
-                .With(x => x.ReceiptIds, new List<Guid> { receipt.Id })
-                .With(x => x.ReceiptItemIds, new List<Guid> { receiptItemId })
+                .With(x => x.ReceiptIds, [receipt.Id])
+                .With(x => x.ReceiptItemIds, [receiptItemId])
                 .Create();
 
             //Act
@@ -107,7 +103,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
 
             var receiptFilter = _fixture
                 .Build<GetVariableReceiptsRequest>()
-                .With(x => x.CategoryIds, new List<Guid> { categoryId })
+                .With(x => x.CategoryIds, [categoryId])
                 .Create();
 
             //Act
@@ -217,12 +213,12 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
 
             var receiptFilter = _fixture
                 .Build<GetVariableReceiptsRequest>()
-                .With(x => x.ReceiptItemIds, new List<Guid> { receiptItemId })
+                .With(x => x.ReceiptItemIds, [receiptItemId])
                 .Create();
 
             //Act
             var (StatusCode, Content) = await GetAsync("/getVariableReceipts",
-                receiptFilter, 
+                receiptFilter,
                 nameof(receiptFilter.ReceiptItemIds));
 
             //Assert
@@ -296,7 +292,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
 
             var receiptFilter = _fixture
                 .Build<GetVariableReceiptsRequest>()
-                .With(x => x.ReceiptItemIds, new List<Guid> { receiptId })
+                .With(x => x.ReceiptItemIds, [receiptId])
                 .Create();
 
             //Act
@@ -334,7 +330,7 @@ namespace SpendManagement.ReadModel.IntegrationTests.Queries
 
             var receiptFilter = _fixture
                 .Build<GetVariableReceiptsRequest>()
-                .With(x => x.CategoryIds, new List<Guid> { categoryId })
+                .With(x => x.CategoryIds, [categoryId])
                 .Create();
 
             //Act

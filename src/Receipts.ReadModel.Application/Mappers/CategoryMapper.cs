@@ -2,7 +2,9 @@
 using Receipts.ReadModel.Entities;
 using Receipts.ReadModel.QueriesFilters;
 using Receipts.ReadModel.QueriesFilters.PageFilters;
-using Web.Contracts.Category;
+using Web.Contracts.Category.Requests;
+using Web.Contracts.Category.Responses;
+using Web.Contracts.Common;
 
 namespace Receipts.ReadModel.Application.Mappers
 {
@@ -23,7 +25,7 @@ namespace Receipts.ReadModel.Application.Mappers
             return new CategoryFilters(
                 getCategoriesRequest.CategoryIds,
                 getCategoriesRequest.CategoryNames,
-                (short)getCategoriesRequest.PageFilter.PageNumber,
+                (short)getCategoriesRequest.PageFilter.Page,
                 (short)getCategoriesRequest.PageFilter.PageSize);
         }
 
@@ -31,7 +33,7 @@ namespace Receipts.ReadModel.Application.Mappers
         {
             return new GetCategoriesResponse
             {
-                PageNumber = pageFilter.PageNumber,
+                PageNumber = pageFilter.Page,
                 PageSize = pageFilter.PageSize,
                 Results = categories.Results.SelectMany(x => x.ToCategoryResponseItems()),
                 TotalPages = categories.TotalPages,
@@ -41,14 +43,14 @@ namespace Receipts.ReadModel.Application.Mappers
 
         public static IEnumerable<CategoryResponse> ToCategoryResponseItems(this Category category)
         {
-            return new List<CategoryResponse>
-            {
+            return
+            [
                 new() {
                     Name = category.Name,
                     Id = category.Id,
                     CreatedDate = category.CreatedDate
                 }
-            };
+            ];
         }
     }
 }

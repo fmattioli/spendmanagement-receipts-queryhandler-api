@@ -3,6 +3,7 @@ using Receipts.ReadModel.Application.Mappers;
 using Receipts.ReadModel.Interfaces;
 using Web.Contracts.Common;
 using Web.Contracts.Receipt;
+using Web.Contracts.Receipt.Responses;
 
 namespace Receipts.ReadModel.Application.Queries.Receipt.GetVariableReceipts
 {
