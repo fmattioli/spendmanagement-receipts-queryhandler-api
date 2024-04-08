@@ -5,6 +5,8 @@ using Receipts.ReadModel.QueriesFilters.PageFilters;
 using Receipts.ReadModel.Entities;
 using Receipts.ReadModel.Application.Mappers;
 using Receipts.ReadModel.Application.Queries.Category.GetCategories;
+using Web.Contracts.Category.Requests;
+using Web.Contracts.Common;
 namespace SpendManagement.ReadModel.UnitTests.Mappers
 {
     public class CategoryMapperTests
@@ -37,7 +39,7 @@ namespace SpendManagement.ReadModel.UnitTests.Mappers
             result.Should().NotBeNull();
             result.CategoryIds.Should().BeEquivalentTo(getCategoriesRequest.CategoryIds);
             result.CategoryNames.Should().BeEquivalentTo(getCategoriesRequest.CategoryNames);
-            result.PageNumber.Should().Be(getCategoriesRequest.PageFilter.PageNumber);
+            result.PageNumber.Should().Be(getCategoriesRequest.PageFilter.Page);
             result.PageSize.Should().Be(getCategoriesRequest.PageFilter.PageSize);
         }
 
@@ -50,7 +52,7 @@ namespace SpendManagement.ReadModel.UnitTests.Mappers
             // Act
             var result = categoriesPagedFilter.ToResponse(new PageFilterRequest
             {
-                PageNumber = 1,
+                Page = 1,
                 PageSize = categoriesPagedFilter.PageSize
             });
 

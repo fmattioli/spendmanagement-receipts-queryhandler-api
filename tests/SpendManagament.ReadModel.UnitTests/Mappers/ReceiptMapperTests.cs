@@ -1,10 +1,10 @@
 ﻿using AutoFixture;
 using FluentAssertions;
 using Receipts.ReadModel.Application.Mappers;
-using Receipts.ReadModel.Application.Queries.Common;
-using Receipts.ReadModel.Application.Queries.Receipt.GetVariableReceipts;
 using Receipts.ReadModel.Entities;
 using Receipts.ReadModel.QueriesFilters.PageFilters;
+using Web.Contracts.Common;
+using Web.Contracts.Receipt.Requests;
 
 namespace SpendManagement.ReadModel.UnitTests.Mappers
 {
