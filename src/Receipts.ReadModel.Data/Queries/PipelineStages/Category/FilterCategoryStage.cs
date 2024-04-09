@@ -42,12 +42,12 @@ namespace Receipts.ReadModel.Data.Queries.PipelineStages.Category
         private static FilterDefinition<BsonDocument> MatchByCategoriesIds(
             CategoryFilters queryFilter)
         {
-            if (!queryFilter.CategoryIds.Any())
+            if (!queryFilter?.CategoryIds?.Any() ?? false)
             {
                 return FilterDefinition<BsonDocument>.Empty;
             }
 
-            var categoriesIds = queryFilter.CategoryIds
+            var categoriesIds = queryFilter!.CategoryIds!
                 .Select(x => new BsonBinaryData(x, GuidRepresentation.Standard));
 
             var categories = new BsonDocument(
@@ -60,12 +60,12 @@ namespace Receipts.ReadModel.Data.Queries.PipelineStages.Category
         private static FilterDefinition<BsonDocument> MatchByCategoryNames(
             CategoryFilters queryFilter)
         {
-            if (!queryFilter.CategoryNames.Any())
+            if (!queryFilter?.CategoryNames?.Any() ?? false)
             {
                 return FilterDefinition<BsonDocument>.Empty;
             }
 
-            var categoryNames = queryFilter.CategoryNames
+            var categoryNames = queryFilter!.CategoryNames!
                 .Select(categoryName => new BsonRegularExpression(new Regex(categoryName.Trim(), RegexOptions.IgnoreCase)));
 
             var filter = new BsonDocument(

@@ -43,13 +43,12 @@ namespace Receipts.ReadModel.Data.Queries.PipelineStages.RecurringReceipt
         private static FilterDefinition<BsonDocument> MatchByRecurringReceiptIds(
             RecurringReceiptFilters queryFilter)
         {
-            if (!queryFilter.ReceiptIds.Any())
+            if (!queryFilter?.ReceiptIds?.Any() ?? false)
             {
                 return FilterDefinition<BsonDocument>.Empty;
             }
 
-            var receiptIds = queryFilter.ReceiptIds
-                .Select(x => new BsonBinaryData(x, GuidRepresentation.Standard));
+            var receiptIds = queryFilter!.ReceiptIds!.Select(x => new BsonBinaryData(x, GuidRepresentation.Standard));
 
             var receiptFilter = new BsonDocument(
                 "_id",
@@ -61,13 +60,12 @@ namespace Receipts.ReadModel.Data.Queries.PipelineStages.RecurringReceipt
         private static FilterDefinition<BsonDocument> MatchByEstablishmentNames(
             RecurringReceiptFilters queryFilter)
         {
-            if (!queryFilter.EstablishmentNames.Any())
+            if (!queryFilter?.EstablishmentNames?.Any() ?? false)
             {
                 return FilterDefinition<BsonDocument>.Empty;
             }
 
-            var establishmentNames = queryFilter.EstablishmentNames
-                .Select(x => new BsonRegularExpression(new Regex(x, RegexOptions.IgnoreCase)));
+            var establishmentNames = queryFilter!.EstablishmentNames!.Select(x => new BsonRegularExpression(new Regex(x, RegexOptions.IgnoreCase)));
 
             var filter = new BsonDocument(
                 "EstablishmentName",
@@ -79,13 +77,12 @@ namespace Receipts.ReadModel.Data.Queries.PipelineStages.RecurringReceipt
         private static FilterDefinition<BsonDocument> MatchByRecurringReceiptCategoryIds(
             RecurringReceiptFilters queryFilter)
         {
-            if (!queryFilter.CategoryIds.Any())
+            if (!queryFilter?.CategoryIds?.Any() ?? false)
             {
                 return FilterDefinition<BsonDocument>.Empty;
             }
 
-            var categoryIds = queryFilter.CategoryIds
-                .Select(x => new BsonBinaryData(x, GuidRepresentation.Standard));
+            var categoryIds = queryFilter!.CategoryIds!.Select(x => new BsonBinaryData(x, GuidRepresentation.Standard));
 
             var receiptFilter = new BsonDocument(
                 "Category._id",

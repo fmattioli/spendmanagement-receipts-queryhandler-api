@@ -42,13 +42,12 @@ namespace Receipts.ReadModel.Data.Queries.PipelineStages.Receipt
         private static FilterDefinition<BsonDocument> MatchByItemNames(
             ReceiptFilters queryFilter)
         {
-            if (!queryFilter.ReceiptItemNames.Any())
+            if (!queryFilter?.ReceiptItemNames?.Any() ?? false)
             {
                 return FilterDefinition<BsonDocument>.Empty;
             }
 
-            var itemNames = queryFilter.ReceiptItemNames
-                .Select(x => new BsonRegularExpression(new Regex(x, RegexOptions.IgnoreCase)));
+            var itemNames = queryFilter!.ReceiptItemNames!.Select(x => new BsonRegularExpression(new Regex(x, RegexOptions.IgnoreCase)));
 
             var filter = new BsonDocument(
                 "ReceiptItems.ItemName",
@@ -60,12 +59,12 @@ namespace Receipts.ReadModel.Data.Queries.PipelineStages.Receipt
         private static FilterDefinition<BsonDocument> MatchByReceiptItemIds(
             ReceiptFilters queryFilter)
         {
-            if (!queryFilter.ReceiptItemIds.Any())
+            if (!queryFilter?.ReceiptItemIds?.Any() ?? false)
             {
                 return FilterDefinition<BsonDocument>.Empty;
             }
 
-            var receiptItemIds = queryFilter.ReceiptItemIds
+            var receiptItemIds = queryFilter!.ReceiptItemIds!
                 .Select(x => new BsonBinaryData(x, GuidRepresentation.Standard));
 
             var receiptIds = new BsonDocument(
