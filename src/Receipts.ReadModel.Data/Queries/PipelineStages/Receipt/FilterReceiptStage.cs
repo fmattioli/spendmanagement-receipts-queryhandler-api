@@ -44,12 +44,12 @@ namespace Receipts.ReadModel.Data.Queries.PipelineStages.Receipt
         private static FilterDefinition<BsonDocument> MatchByReceiptIds(
             ReceiptFilters queryFilter)
         {
-            if (!queryFilter.ReceiptIds.Any())
+            if (!queryFilter?.ReceiptIds?.Any() ?? false)
             {
                 return FilterDefinition<BsonDocument>.Empty;
             }
 
-            var receiptIds = queryFilter.ReceiptIds
+            var receiptIds = queryFilter!.ReceiptIds!
                 .Select(x => new BsonBinaryData(x, GuidRepresentation.Standard));
 
             var receiptFilter = new BsonDocument(
@@ -62,12 +62,12 @@ namespace Receipts.ReadModel.Data.Queries.PipelineStages.Receipt
         private static FilterDefinition<BsonDocument> MatchByCategoryIds(
             ReceiptFilters queryFilter)
         {
-            if (!queryFilter.CategoryIds.Any())
+            if (!queryFilter?.CategoryIds?.Any() ?? false)
             {
                 return FilterDefinition<BsonDocument>.Empty;
             }
 
-            var categoryIds = queryFilter.CategoryIds
+            var categoryIds = queryFilter!.CategoryIds!
                 .Select(x => new BsonBinaryData(x, GuidRepresentation.Standard));
 
             var receiptFilter = new BsonDocument(
@@ -99,13 +99,12 @@ namespace Receipts.ReadModel.Data.Queries.PipelineStages.Receipt
         private static FilterDefinition<BsonDocument> MatchByEstablishmentNames(
             ReceiptFilters queryFilter)
         {
-            if (!queryFilter.EstablishmentNames.Any())
+            if (!queryFilter?.EstablishmentNames?.Any() ?? false)
             {
                 return FilterDefinition<BsonDocument>.Empty;
             }
 
-            var establishmentNames = queryFilter.EstablishmentNames
-                .Select(x => new BsonRegularExpression(new Regex(x, RegexOptions.IgnoreCase)));
+            var establishmentNames = queryFilter!.EstablishmentNames!.Select(x => new BsonRegularExpression(new Regex(x, RegexOptions.IgnoreCase)));
 
             var filter = new BsonDocument(
                 "EstablishmentName",

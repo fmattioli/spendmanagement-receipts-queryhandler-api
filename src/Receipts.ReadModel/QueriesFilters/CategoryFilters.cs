@@ -2,19 +2,13 @@
 
 namespace Receipts.ReadModel.QueriesFilters
 {
-    public class CategoryFilters : PageFilter
+    public class CategoryFilters(IEnumerable<Guid>? categoryIds,
+        IEnumerable<string>? categoryNames,
+        short pageNumber,
+        short pageSize) : PageFilter(pageNumber, pageSize)
     {
-        public CategoryFilters(IEnumerable<Guid> categoryIds, 
-            IEnumerable<string> categoryNames, 
-            short pageNumber, 
-            short pageSize) : base(pageNumber, pageSize)
-        {
-            CategoryIds = categoryIds;
-            CategoryNames = categoryNames;
-        }
+        public IEnumerable<Guid>? CategoryIds { get; set; } = categoryIds;
 
-        public IEnumerable<Guid> CategoryIds { get; set; }
-
-        public IEnumerable<string> CategoryNames { get; set; }
+        public IEnumerable<string>? CategoryNames { get; set; } = categoryNames;
     }
 }
