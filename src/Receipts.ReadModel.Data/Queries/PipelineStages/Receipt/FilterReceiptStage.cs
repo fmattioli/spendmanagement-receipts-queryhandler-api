@@ -44,7 +44,7 @@ namespace Receipts.ReadModel.Data.Queries.PipelineStages.Receipt
         private static FilterDefinition<BsonDocument> MatchByReceiptIds(
             ReceiptFilters queryFilter)
         {
-            if (!queryFilter?.ReceiptIds?.Any() ?? false)
+            if (!(queryFilter?.ReceiptIds?.Any() ?? false))
             {
                 return FilterDefinition<BsonDocument>.Empty;
             }
@@ -62,7 +62,7 @@ namespace Receipts.ReadModel.Data.Queries.PipelineStages.Receipt
         private static FilterDefinition<BsonDocument> MatchByCategoryIds(
             ReceiptFilters queryFilter)
         {
-            if (!queryFilter?.CategoryIds?.Any() ?? false)
+            if (!(queryFilter?.CategoryIds?.Any() ?? false))
             {
                 return FilterDefinition<BsonDocument>.Empty;
             }
@@ -99,7 +99,7 @@ namespace Receipts.ReadModel.Data.Queries.PipelineStages.Receipt
         private static FilterDefinition<BsonDocument> MatchByEstablishmentNames(
             ReceiptFilters queryFilter)
         {
-            if (!queryFilter?.EstablishmentNames?.Any() ?? false)
+            if (!(queryFilter?.EstablishmentNames?.Any() ?? false))
             {
                 return FilterDefinition<BsonDocument>.Empty;
             }

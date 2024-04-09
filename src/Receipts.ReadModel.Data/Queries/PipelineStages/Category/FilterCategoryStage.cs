@@ -42,7 +42,7 @@ namespace Receipts.ReadModel.Data.Queries.PipelineStages.Category
         private static FilterDefinition<BsonDocument> MatchByCategoriesIds(
             CategoryFilters queryFilter)
         {
-            if (!queryFilter?.CategoryIds?.Any() ?? false)
+            if (!(queryFilter?.CategoryIds?.Any() ?? false))
             {
                 return FilterDefinition<BsonDocument>.Empty;
             }
@@ -60,7 +60,7 @@ namespace Receipts.ReadModel.Data.Queries.PipelineStages.Category
         private static FilterDefinition<BsonDocument> MatchByCategoryNames(
             CategoryFilters queryFilter)
         {
-            if (!queryFilter?.CategoryNames?.Any() ?? false)
+            if (!(queryFilter?.CategoryNames?.Any() ?? false))
             {
                 return FilterDefinition<BsonDocument>.Empty;
             }
