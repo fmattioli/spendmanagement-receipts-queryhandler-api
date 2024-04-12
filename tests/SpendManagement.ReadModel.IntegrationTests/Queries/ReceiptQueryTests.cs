@@ -1,11 +1,11 @@
 ﻿using AutoFixture;
+using Contracts.Web.Receipt.Requests;
 using FluentAssertions;
 using Newtonsoft.Json;
 using Receipts.ReadModel.Application.Queries.Receipt.GetVariableReceipts;
 using SpendManagement.ReadModel.IntegrationTests.Fixtures;
 using SpendManagement.ReadModel.IntegrationTests.Helpers;
 using System.Net;
-using Web.Contracts.Receipt.Requests;
 
 namespace SpendManagement.ReadModel.IntegrationTests.Queries
 {

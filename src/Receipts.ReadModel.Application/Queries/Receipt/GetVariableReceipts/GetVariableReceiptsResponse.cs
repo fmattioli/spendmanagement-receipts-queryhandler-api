@@ -1,5 +1,5 @@
-﻿using Web.Contracts.Common;
-using Web.Contracts.Receipt.Responses;
+﻿using Contracts.Web.Common;
+using Contracts.Web.Receipt.Responses;
 
 namespace Receipts.ReadModel.Application.Queries.Receipt.GetVariableReceipts
 {

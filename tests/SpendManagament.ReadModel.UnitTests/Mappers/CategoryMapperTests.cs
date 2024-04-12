@@ -1,12 +1,10 @@
 ﻿using AutoFixture;
-using Receipts.ReadModel;
+using Contracts.Web.Category.Requests;
+using Contracts.Web.Common;
 using FluentAssertions;
-using Receipts.ReadModel.QueriesFilters.PageFilters;
-using Receipts.ReadModel.Entities;
 using Receipts.ReadModel.Application.Mappers;
-using Receipts.ReadModel.Application.Queries.Category.GetCategories;
-using Web.Contracts.Category.Requests;
-using Web.Contracts.Common;
+using Receipts.ReadModel.Entities;
+using Receipts.ReadModel.QueriesFilters.PageFilters;
 namespace SpendManagement.ReadModel.UnitTests.Mappers
 {
     public class CategoryMapperTests

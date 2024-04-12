@@ -1,7 +1,7 @@
-﻿using MediatR;
-using Web.Contracts.Common;
-using Web.Contracts.Receipt.Requests;
-using Web.Contracts.Receipt.Responses;
+﻿using Contracts.Web.Common;
+using Contracts.Web.Receipt.Requests;
+using Contracts.Web.Receipt.Responses;
+using MediatR;
 
 namespace Receipts.ReadModel.Application.Queries.Receipt.GetRecurringReceipts
 {

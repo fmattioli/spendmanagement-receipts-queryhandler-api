@@ -1,5 +1,5 @@
-﻿using Web.Contracts.Category.Responses;
-using Web.Contracts.Common;
+﻿using Contracts.Web.Category.Responses;
+using Contracts.Web.Common;
 
 namespace Receipts.ReadModel.Application.Queries.Category.GetCategories
 {
