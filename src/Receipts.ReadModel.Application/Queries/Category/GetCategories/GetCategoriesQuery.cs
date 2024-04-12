@@ -1,5 +1,5 @@
-﻿using MediatR;
-using Web.Contracts.Category.Requests;
+﻿using Contracts.Web.Category.Requests;
+using MediatR;
 
 namespace Receipts.ReadModel.Application.Queries.Category.GetCategories
 {

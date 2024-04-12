@@ -1,10 +1,10 @@
-﻿using Receipts.ReadModel.Entities;
+﻿using Contracts.Web.Common;
+using Contracts.Web.Receipt.Requests;
+using Contracts.Web.Receipt.Responses;
+using Receipts.ReadModel.Entities;
 using Receipts.ReadModel.QueriesFilters;
 using Receipts.ReadModel.QueriesFilters.PageFilters;
 using Receipts.ReadModel.ValueObjects;
-using Web.Contracts.Common;
-using Web.Contracts.Receipt.Requests;
-using Web.Contracts.Receipt.Responses;
 
 namespace Receipts.ReadModel.Application.Mappers
 {

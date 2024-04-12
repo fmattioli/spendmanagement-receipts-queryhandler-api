@@ -1,10 +1,10 @@
-﻿using Receipts.ReadModel.Application.Queries.Category.GetCategories;
+﻿using Contracts.Web.Category.Requests;
+using Contracts.Web.Category.Responses;
+using Contracts.Web.Common;
+using Receipts.ReadModel.Application.Queries.Category.GetCategories;
 using Receipts.ReadModel.Entities;
 using Receipts.ReadModel.QueriesFilters;
 using Receipts.ReadModel.QueriesFilters.PageFilters;
-using Web.Contracts.Category.Requests;
-using Web.Contracts.Category.Responses;
-using Web.Contracts.Common;
 
 namespace Receipts.ReadModel.Application.Mappers
 {
