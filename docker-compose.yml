@@ -6,16 +6,15 @@ networks:
       name: spendmanagement-network
 
 services:
-    spendmanagement_readmodel:
-      container_name: spendmanagement_readmodel
+    spendmanagement_api:
+      container_name: spendmanagement_api
       build:
         context: .
         dockerfile: Dockerfile
-      image: spendmanagement_readmodel:${APP_VERSION}
+      image: spendmanagement_api:${APP_VERSION}
       environment:
         - APP_VERSION=${APP_VERSION}
-        - ASPNETCORE_ENVIRONMENT=Development
       ports:
-        - "9563:8080"
+        - "8070:8080"
       networks:
-        - spendmanagement      
+        - spendmanagement
