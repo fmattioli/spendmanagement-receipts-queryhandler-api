@@ -6,9 +6,8 @@ services:
       build:
         context: .
         dockerfile: Dockerfile
-      image: spendmanagement_readmodel:${APP_VERSION}
+      image: spendmanagement_readmodel
       environment:
-        - APP_VERSION=${APP_VERSION}
         - ASPNETCORE_ENVIRONMENT=Development
       ports:
         - "9563:8080"
