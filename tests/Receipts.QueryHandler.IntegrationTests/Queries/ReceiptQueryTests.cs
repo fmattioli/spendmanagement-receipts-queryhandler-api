@@ -1,19 +1,24 @@
 ﻿using AutoFixture;
+
 using Contracts.Web.Receipt.Requests;
+
 using FluentAssertions;
+
 using Newtonsoft.Json;
+
 using Receipts.QueryHandler.Application.Queries.Receipt.GetVariableReceipts;
 using Receipts.QueryHandler.IntegrationTests.Fixtures;
-using Receipts.QueryHandler.IntegrationTests.Helpers;
+
 using System.Net;
 
 namespace Receipts.QueryHandler.IntegrationTests.Queries
 {
     [Collection(nameof(SharedFixtureCollection))]
-    public class ReceiptQueryTests(MongoDBFixture mongoDBFixture) : BaseTests
+    public class ReceiptQueryTests(MongoDBFixture mongoDBFixture, HttpFixture httpFixture)
     {
         private readonly Fixture _fixture = new();
         private readonly MongoDBFixture _mongoDBFixture = mongoDBFixture;
+        private readonly HttpFixture _httpFixture = httpFixture;
 
         [Fact]
         private async Task OnGivenAValidGuidsAsReceiptFilter_ShouldBeReturnedAValidReceipts()
@@ -33,7 +38,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
                 .Create();
 
             //Act
-            var (StatusCode, Content) = await GetAsync("/getVariableReceipts",
+            var (StatusCode, Content) = await _httpFixture.GetAsync("/getVariableReceipts",
                 receiptFilter,
                 nameof(receiptFilter.ReceiptIds));
 
@@ -69,7 +74,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
                 .Create();
 
             //Act
-            var (StatusCode, Content) = await GetAsync("/getVariableReceipts",
+            var (StatusCode, Content) = await _httpFixture.GetAsync("/getVariableReceipts",
                 receiptFilter,
                 nameof(receiptFilter.ReceiptIds));
 
@@ -107,7 +112,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
                 .Create();
 
             //Act
-            var (StatusCode, Content) = await GetAsync("/getVariableReceipts",
+            var (StatusCode, Content) = await _httpFixture.GetAsync("/getVariableReceipts",
                 receiptFilter,
                 nameof(receiptFilter.CategoryIds));
 
@@ -143,7 +148,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
                 .Create();
 
             //Act
-            var (StatusCode, Content) = await GetAsync("/getVariableReceipts",
+            var (StatusCode, Content) = await _httpFixture.GetAsync("/getVariableReceipts",
                 receiptFilter,
                 nameof(receiptFilter.EstablishmentNames));
 
@@ -180,7 +185,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
                 .Create();
 
             //Act
-            var (StatusCode, Content) = await GetAsync("/getVariableReceipts",
+            var (StatusCode, Content) = await _httpFixture.GetAsync("/getVariableReceipts",
                 receiptFilter,
                 nameof(receiptFilter.ReceiptDate),
                 nameof(receiptFilter.ReceiptDateFinal));
@@ -217,7 +222,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
                 .Create();
 
             //Act
-            var (StatusCode, Content) = await GetAsync("/getVariableReceipts",
+            var (StatusCode, Content) = await _httpFixture.GetAsync("/getVariableReceipts",
                 receiptFilter,
                 nameof(receiptFilter.ReceiptItemIds));
 
@@ -259,7 +264,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
                 .Create();
 
             //Act
-            var (StatusCode, Content) = await GetAsync("/getVariableReceipts",
+            var (StatusCode, Content) = await _httpFixture.GetAsync("/getVariableReceipts",
                 receiptFilter,
                 nameof(receiptFilter.ReceiptItemNames));
 
@@ -296,7 +301,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
                 .Create();
 
             //Act
-            var (StatusCode, Content) = await GetAsync("/getRecurringReceipts",
+            var (StatusCode, Content) = await _httpFixture.GetAsync("/getRecurringReceipts",
                 receiptFilter,
                 nameof(receiptFilter.ReceiptIds));
 
@@ -334,7 +339,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
                 .Create();
 
             //Act
-            var (StatusCode, Content) = await GetAsync("/getRecurringReceipts",
+            var (StatusCode, Content) = await _httpFixture.GetAsync("/getRecurringReceipts",
                 receiptFilter,
                 nameof(receiptFilter.CategoryIds));
 
@@ -365,7 +370,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
                 .Create();
 
             //Act
-            var (StatusCode, Content) = await GetAsync("/getRecurringReceipts",
+            var (StatusCode, Content) = await _httpFixture.GetAsync("/getRecurringReceipts",
                 receiptFilter,
                 nameof(receiptFilter.EstablishmentNames));
 

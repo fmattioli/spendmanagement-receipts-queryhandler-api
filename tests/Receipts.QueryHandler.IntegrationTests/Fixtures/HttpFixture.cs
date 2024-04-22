@@ -1,33 +1,32 @@
 ﻿using Flurl;
-
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.IdentityModel.Tokens;
+using Receipts.QueryHandler.Application.Constants;
 using Receipts.QueryHandler.IntegrationTests.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Security.Claims;
 using System.Text;
 
-namespace Receipts.QueryHandler.IntegrationTests.Helpers
+namespace Receipts.QueryHandler.IntegrationTests.Fixtures
 {
-    public class BaseTests
+    public class HttpFixture
     {
         private readonly HttpClient _httpClient;
-        public const string APIVersion = "Receipts.ReadModel.API/v1";
 
-        public BaseTests()
+        public HttpFixture()
         {
             Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Development");
             var webAppFactory = new WebApplicationFactory<Program>();
             _httpClient = webAppFactory.CreateDefaultClient();
         }
 
-        protected async Task<(HttpStatusCode StatusCode, string Content)> GetAsync<T>(string resource, T queryFilters, params string[] discardProperties) where T : class
+        public async Task<(HttpStatusCode StatusCode, string Content)> GetAsync<T>(string resource, T queryFilters, params string[] discardProperties) where T : class
         {
             _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", GenerateJWToken());
             var queryParams = BuildFilters(queryFilters, discardProperties);
 
-            var url = APIVersion
+            var url = ReadModelConstants.ApiVersion
                 .AppendPathSegment(resource)
                 .AppendQueryParam(queryParams);
 

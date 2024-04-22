@@ -1,19 +1,24 @@
 ﻿using AutoFixture;
+
 using Contracts.Web.Category.Requests;
+
 using FluentAssertions;
+
 using Newtonsoft.Json;
+
 using Receipts.QueryHandler.Application.Queries.Category.GetCategories;
 using Receipts.QueryHandler.IntegrationTests.Fixtures;
-using Receipts.QueryHandler.IntegrationTests.Helpers;
+
 using System.Net;
 
 namespace Receipts.QueryHandler.IntegrationTests.Queries
 {
     [Collection(nameof(SharedFixtureCollection))]
-    public class CategoryQueryTests(MongoDBFixture mongoDBFixture) : BaseTests
+    public class CategoryQueryTests(MongoDBFixture mongoDBFixture, HttpFixture httpFixture)
     {
         private readonly Fixture _fixture = new();
         private readonly MongoDBFixture _mongoDBFixture = mongoDBFixture;
+        private readonly HttpFixture _httpFixture = httpFixture;
 
         [Fact]
         private async Task OnGivenAValidGuidsAsCategoryFilter_ShouldBeReturnedAValidCategory()
@@ -33,7 +38,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
                 .Create();
 
             //Act
-            var (StatusCode, Content) = await GetAsync("/getCategories", categoryFilter, nameof(categoryFilter.CategoryIds));
+            var (StatusCode, Content) = await _httpFixture.GetAsync("/getCategories", categoryFilter, nameof(categoryFilter.CategoryIds));
 
             //Assert
             StatusCode.Should().Be(HttpStatusCode.OK);
@@ -63,7 +68,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
                 .Create();
 
             //Act
-            var (StatusCode, Content) = await GetAsync("/getCategories", categoryFilter, nameof(categoryFilter.CategoryNames));
+            var (StatusCode, Content) = await _httpFixture.GetAsync("/getCategories", categoryFilter, nameof(categoryFilter.CategoryNames));
 
             //Assert
             StatusCode.Should().Be(HttpStatusCode.OK);
