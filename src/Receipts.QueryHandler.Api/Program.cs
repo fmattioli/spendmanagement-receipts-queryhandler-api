@@ -42,13 +42,11 @@ builder.Services
 
 var app = builder.Build();
 
-app
-    .UseExceptionHandler()
-    .UseSwagger()
-    .UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SpendManagement.ReadModel"))
-    .UseHealthCheckers()
-    .UseHttpsRedirection()
-    .UseAuthentication()
-    .UseAuthorization();
-
+app.UseSwagger();
+app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SpendManagement.ReadModel"));
+app.UseHealthCheckers();
+app.UseHttpsRedirection();
+app.UseAuthentication();
+app.UseAuthorization();
+app.MapControllers();
 app.Run();
