@@ -24,15 +24,17 @@ namespace Receipts.QueryHandler.CrossCutting.Extensions.HealthCheckers
             return services;
         }
 
-        public static void UseHealthCheckers(this IApplicationBuilder app)
+        public static IApplicationBuilder UseHealthCheckers(this IApplicationBuilder app)
         {
-            app.UseHealthChecks("/health", new HealthCheckOptions()
-            {
-                Predicate = _ => true,
-                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-            });
+            app
+                .UseHealthChecks("/health", new HealthCheckOptions()
+                {
+                    Predicate = _ => true,
+                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+                })
+                .UseHealthChecksUI(options => options.UIPath = "/monitor");
 
-            app.UseHealthChecksUI(options => options.UIPath = "/monitor");
+            return app;
         }
     }
 }
