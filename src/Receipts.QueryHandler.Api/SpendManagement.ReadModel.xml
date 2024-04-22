@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>API</name>
+    </assembly>
+    <members>
+        <member name="M:API.Controllers.CategoryController.GetCategories(Application.Queries.Category.GetCategories.GetCategoriesRequest,System.Threading.CancellationToken)">
+            <summary>
+            GET categories based on previously informeted filters.
+            Required at least a filter as parameters.
+            </summary>
+            <returns>Return a list of categories based on pre determined filters.</returns>
+        </member>
+        <member name="M:API.Controllers.ReceiptController.GetVariableReceipts(Application.Queries.Receipt.GetVariableReceipts.GetVariableReceiptsRequest,System.Threading.CancellationToken)">
+            <summary>
+            GET variable expenses based on previously informed filters.
+            Required at least one filter as parameters.
+            </summary>
+            <returns>Returns a list of expenses receipts based on predetermined filters.</returns>
+        </member>
+        <member name="M:API.Controllers.ReceiptController.GetRecurringReceipts(Application.Queries.Receipt.GetRecurringReceipts.GetRecurringReceiptsRequest,System.Threading.CancellationToken)">
+            <summary>
+            GET recurring expenses based on previously informed filters.
+            Required at least one filter as parameters.s
+            </summary>
+            <returns>Returns a list of expenses receipts based on predetermined filters.</returns>
+        </member>
+    </members>
+</doc>
