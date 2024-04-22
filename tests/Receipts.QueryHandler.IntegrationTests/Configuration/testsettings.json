@@ -7,7 +7,7 @@
     "RefreshTokenExpiration": 10800
   },
   "MongoSettings": {
-    "Receipts.ReadModel.Database": "spendmanagement",
+    "Database": "spendmanagement",
     "ConnectionString": "mongodb://root:root@localhost:27017/?retryWrites=true&w=majority"
   }
 }

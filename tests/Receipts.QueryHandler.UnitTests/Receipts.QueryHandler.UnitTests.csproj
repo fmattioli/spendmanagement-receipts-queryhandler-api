@@ -27,7 +27,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Receipts.QueryHandler.Application\Receipts.QueryHandler.Application.csproj" />
-    <ProjectReference Include="..\..\src\Receipts.ReadModel.API\QueryHandler.Api.csproj" />
+    <ProjectReference Include="..\..\src\Receipts.QueryHandler.Api\Receipts.QueryHandler.Api.csproj" />
   </ItemGroup>
 
 </Project>

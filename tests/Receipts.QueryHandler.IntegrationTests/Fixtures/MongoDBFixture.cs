@@ -1,4 +1,7 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson.Serialization;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 using Receipts.QueryHandler.IntegrationTests.Configuration;
 
@@ -13,8 +16,8 @@ namespace Receipts.QueryHandler.IntegrationTests.Fixtures
 
         public MongoDBFixture()
         {
-            var mongoUrl = new MongoUrl(TestSettings.MongoSettings?.ConnectionString);
-            database = new MongoClient(mongoUrl).GetDatabase(TestSettings.MongoSettings?.Database);
+            var mongoUrl = new MongoUrl(TestSettings.MongoSettings!.ConnectionString);
+            database = new MongoClient(mongoUrl).GetDatabase(TestSettings.MongoSettings.Database);
         }
 
         public async Task DisposeAsync()
