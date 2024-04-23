@@ -2,7 +2,7 @@
 using Receipts.QueryHandler.Data.Queries.Repositories;
 using Receipts.QueryHandler.Domain.Interfaces;
 
-namespace Receipts.QueryHandler.CrossCutting.Extensions.Mongo
+namespace Receipts.QueryHandler.CrossCutting.Extensions.Repositories
 {
     public static class RepositoriesExtension
     {

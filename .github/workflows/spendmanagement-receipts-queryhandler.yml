@@ -70,6 +70,22 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+        # Adiciona um passo para exibir o conteúdo do arquivo antes da alteração
+      - name: Display appsettings before
+        run: cat src/Receipts.QueryHandler.Api/appsettings.Development.json
+
+      # Altera a configuração da string de conexão no appsettings.Development.json
+      - name: Change connection string
+        run: |
+          sed -i 's/localhost:27017/mongodb:27017/g' src/Receipts.QueryHandler.Api/appsettings.Development.json
+        working-directory: ${{ github.workspace }}
+
+
+      # Adiciona um passo para exibir o conteúdo do arquivo após a alteração
+      - name: Display appsettings after
+        run: cat src/Receipts.QueryHandler.Api/appsettings.Development.json
+
       - name: Build Docker image
         run: docker build -t fmattioli/spendmanagement-receipts-queryhandler-api:1.0.0.1 .
       - name: Log in to Docker Hub

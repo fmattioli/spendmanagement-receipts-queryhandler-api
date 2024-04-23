@@ -7,6 +7,7 @@ using FluentAssertions;
 using Newtonsoft.Json;
 
 using Receipts.QueryHandler.Application.Queries.Category.GetCategories;
+using Receipts.QueryHandler.Domain.Entities;
 using Receipts.QueryHandler.IntegrationTests.Fixtures;
 
 using System.Net;
