@@ -1,12 +1,16 @@
 ﻿using Contracts.Web.Category.Requests;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Receipts.QueryHandler.Application.Claims;
 using Receipts.QueryHandler.Application.Queries.Category.GetCategories;
+using Receipts.QueryHandler.CrossCutting.Filters;
 
 namespace Receipts.QueryHandler.Api.Controllers
 {
     [Route("api/v1")]
     [ApiController]
+    [Authorize]
     public class CategoryController(IMediator mediator) : Controller
     {
         private readonly IMediator _mediator = mediator;
@@ -21,6 +25,7 @@ namespace Receipts.QueryHandler.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ClaimsAuthorize(ClaimTypes.Category, "Read")]
         public async Task<IActionResult> GetCategories([FromRoute] GetCategoriesRequest getCategoriesRequest, CancellationToken cancellationToken)
         {
             var categories = await _mediator.Send(new GetCategoriesQuery(getCategoriesRequest), cancellationToken);

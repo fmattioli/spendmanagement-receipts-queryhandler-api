@@ -7,6 +7,8 @@ using FluentAssertions;
 using Newtonsoft.Json;
 
 using Receipts.QueryHandler.Application.Queries.Receipt.GetVariableReceipts;
+using Receipts.QueryHandler.Domain.Entities;
+using Receipts.QueryHandler.Domain.ValueObjects;
 using Receipts.QueryHandler.IntegrationTests.Fixtures;
 
 using System.Net;
@@ -98,17 +100,17 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
         private async Task OnGivenAValidCategoryIdAsReceiptFilter_ShouldBeReturnedAValidReceipts()
         {
             //Arrange
-            var categoryId = _fixture.Create<Guid>();
+            var category = _fixture.Create<Category>();
 
             var receipt = _fixture.Build<Receipt>()
-                .With(x => x.CategoryId, categoryId)
+                .With(x => x.Category, category)
                 .Create();
 
             await _mongoDBFixture.InsertReceiptAsync(receipt);
 
             var receiptFilter = _fixture
                 .Build<GetVariableReceiptsRequest>()
-                .With(x => x.CategoryIds, [categoryId])
+                .With(x => x.CategoryIds, [category.Id])
                 .Create();
 
             //Act
@@ -127,7 +129,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
 
             receiptResponse?.Results
                 .Should()
-                .Contain(x => x.Category.Id == categoryId);
+                .Contain(x => x.Category.Id == category.Id);
         }
 
         [Fact]
@@ -325,17 +327,17 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
         private async Task OnGivenAValidCategoryIdAsRecurringReceiptFilter_ShouldBeReturnedAValidReceipts()
         {
             //Arrange
-            var categoryId = _fixture.Create<Guid>();
+            var category = _fixture.Create<Category>();
 
             var receipt = _fixture.Build<RecurringReceipt>()
-                .With(x => x.CategoryId, categoryId)
+                .With(x => x.Category, category)
                 .Create();
 
             await _mongoDBFixture.InsertRecurringReceiptAsync(receipt);
 
             var receiptFilter = _fixture
                 .Build<GetVariableReceiptsRequest>()
-                .With(x => x.CategoryIds, [categoryId])
+                .With(x => x.CategoryIds, [category.Id])
                 .Create();
 
             //Act
@@ -349,7 +351,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
             var receiptResponse = JsonConvert.DeserializeObject<GetVariableReceiptsResponse>(Content);
 
             receiptResponse?.Results.Should().NotBeNull();
-            receiptResponse?.Results.Should().Contain(x => x.Category.Id.Equals(categoryId));
+            receiptResponse?.Results.Should().Contain(x => x.Category.Id.Equals(category.Id));
         }
 
         [Fact]

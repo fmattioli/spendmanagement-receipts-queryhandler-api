@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
+using Receipts.QueryHandler.Domain.Entities;
 using Receipts.QueryHandler.IntegrationTests.Configuration;
 
 namespace Receipts.QueryHandler.IntegrationTests.Fixtures
@@ -76,12 +77,4 @@ namespace Receipts.QueryHandler.IntegrationTests.Fixtures
             recurringReceiptIds.Add(recurringReceipt.Id);
         }
     }
-
-    public record Category([property: BsonId] Guid Id, string? Name, DateTime CreatedDate);
-
-    public record Receipt([property: BsonId] Guid Id, Guid CategoryId, string? EstablishmentName, DateTime ReceiptDate, IEnumerable<ReceiptItem>? ReceiptItems, decimal Discount, decimal Total);
-
-    public record ReceiptItem(Guid Id, string ItemName, short Quantity, decimal ItemPrice, decimal TotalPrice, string Observation);
-
-    public record RecurringReceipt(Guid Id, Guid CategoryId, string? EstablishmentName, DateTime DateInitialRecurrence, DateTime DateEndRecurrence, decimal RecurrenceTotalPrice, string? Observation);
 }

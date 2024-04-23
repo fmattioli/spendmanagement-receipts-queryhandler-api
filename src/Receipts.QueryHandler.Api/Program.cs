@@ -4,6 +4,8 @@ using Receipts.QueryHandler.CrossCutting.Extensions.Mongo;
 using Receipts.QueryHandler.CrossCutting.Extensions.HealthCheckers;
 using Receipts.QueryHandler.CrossCutting.Extensions.Tracing;
 using Receipts.QueryHandler.CrossCutting.Middlewares;
+using Receipts.QueryHandler.CrossCutting.Extensions.Repositories;
+using Receipts.QueryHandler.CrossCutting.Extensions.Handlers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +25,8 @@ builder.Logging
 
 // Add services to the container.
 builder.Services
+    .AddExceptionHandler<GlobalExceptionHandler>()
+    .AddProblemDetails()
     .AddTracing(applicationSettings!.TracingSettings)
     .AddDependencyInjection()
     .AddRepositories()
@@ -39,13 +43,14 @@ builder.Services
 
 var app = builder.Build();
 
-app.UseMiddleware<ExceptionHandlerMiddleware>();
+app.UseExceptionHandler()
+   .UseSwagger()
+   .UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SpendManagement.ReadModel"))
+   .UseHealthCheckers()
+   .UseHttpsRedirection()
+   .UseAuthentication()
+   .UseAuthorization();
 
-app.UseSwagger();
-app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SpendManagement.ReadModel"));
-app.UseHealthCheckers();
-app.UseHttpsRedirection();
-app.UseAuthentication();
-app.UseAuthorization();
 app.MapControllers();
+
 app.Run();
