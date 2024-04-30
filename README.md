@@ -13,7 +13,7 @@ This application has the purpose of being a readmodel for the spendmanagement pr
 > https://github.com/fmattioli/spendmanagement-topics
 
 # How does it works?
-![Alt text](Diagram-Receipts.QueryHandler?raw=true "Title")
+![Alt text](Diagram-Receipts.QueryHandler.png?raw=true "Title")
 
 # How to make it works on your machine?
 Please, read the description defined on https://github.com/fmattioli/spendmanagement-receipts-commandhandler-api?tab=readme-ov-file#how-to-make-it-works-on-your-machine
