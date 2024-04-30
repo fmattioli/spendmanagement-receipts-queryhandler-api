@@ -3,8 +3,8 @@ This application has the purpose of being a readmodel for the spendmanagement pr
 
 # Related projects
 > https://github.com/fmattioli/spendmanagement-apigateway <br/>
-> https://github.com/fmattioli/spendmanagement-api <br/>
-> https://github.com/fmattioli/spendmanagement-domain <br/>
+> https://github.com/fmattioli/spendmanagement-receipts-commandhandler-api <br/>
+> https://github.com/fmattioli/spendmanagement-receipts-domain-api <br/>
 > https://github.com/fmattioli/spendmanagement-identity <br/>
 
 # Related packages
@@ -13,7 +13,7 @@ This application has the purpose of being a readmodel for the spendmanagement pr
 > https://github.com/fmattioli/spendmanagement-topics
 
 # How does it works?
-![Alt text](SpendManagementDiagramFlow.png?raw=true "Title")
+![Alt text](Diagram-Receipts.QueryHandler?raw=true "Title")
 
 # How to make it works on your machine?
-Please, read the description defined on https://github.com/fmattioli/spendmanagement-receipts-api.
+Please, read the description defined on https://github.com/fmattioli/spendmanagement-receipts-commandhandler-api?tab=readme-ov-file#how-to-make-it-works-on-your-machine
