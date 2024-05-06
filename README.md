@@ -6,13 +6,13 @@ This application has the purpose of being a readmodel for the spendmanagement pr
 
 # Projects
 > [spendmanagement-identity-api](https://github.com/fmattioli/spendmanagement-identity) <br/>
-> [receipts-api](https://github.com/fmattioli/spendmanagement-receipts-api) <br/>
-> [receipts-commandhandler-api](https://github.com/fmattioli/spendmanagement-receipts-commandhandler-api)  <br/>
-> [receipts-domain-api](https://github.com/fmattioli/spendmanagement-receipts-domain-api)  <br/>
+> [spendmanagement-receipts-api](https://github.com/fmattioli/spendmanagement-receipts-api) <br/>
+> [spendmanagement-receipts-commandhandler-api](https://github.com/fmattioli/spendmanagement-receipts-commandhandler-api)  <br/>
+> [spendmanagement-receipts-domain-api](https://github.com/fmattioli/spendmanagement-receipts-domain-api)  <br/>
 
 #  Packages
-> [receipts-contracts](https://github.com/fmattioli/spendmanagement-receipts-contracts) <br/>
-> [receipts-topics](https://github.com/fmattioli/spendmanagement-topics) <br/>
+> [spendmanagement-receipts-contracts](https://github.com/fmattioli/spendmanagement-receipts-contracts) <br/>
+> [spendmanagement-receipts-topics](https://github.com/fmattioli/spendmanagement-topics) <br/>
 
 
 # How to make it works on your machine?
