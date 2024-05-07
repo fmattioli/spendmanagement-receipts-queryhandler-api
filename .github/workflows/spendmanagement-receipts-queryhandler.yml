@@ -109,10 +109,9 @@ jobs:
         run: |
           git config user.name "Build - Incrementing version | Github action"
           git config user.email "deploy@spendmanagement.com"
-          git add csproj_version.txt
+          git add .
           git commit -m "CI: Updating application version ${{ steps.bump-minor.outputs.newVersion }}"
           git push
-          echo "VERSION_NUMBER=${{ steps.bump-revision.outputs.newVersion }}" >> $GITHUB_OUTPUT
 
       - name: Commit and push changes - Revision
         if: env.VERSION_UPDATE_TYPE == 'REVISION'
