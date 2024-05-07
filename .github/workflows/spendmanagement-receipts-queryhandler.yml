@@ -4,8 +4,6 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-env:
-  VERSION_UPDATE_TYPE: "value"
   
 jobs: 
   bump:
@@ -13,20 +11,21 @@ jobs:
     #needs: [build,unit-tests, integration-tests]
     outputs:
       version: ${{ steps.set-version.outputs.VERSION }}
+      version_update_type: ${{ steps.determine_update_type.outputs.VERSION_UPDATE_TYPE }} 
     if: github.ref == 'refs/heads/main'
     name: Build and bump version
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Determinar Tipo de Mudança
-        id: determine_change_type
+        id: determine_update_type
         run: |
           LAST_COMMIT_MESSAGE=$(git log -1 --pretty=%B)
           if echo "$LAST_COMMIT_MESSAGE" | grep -qiE "feat"; then
-            echo "VERSION_UPDATE_TYPE=MINOR" >> $GITHUB_ENV
+            echo "VERSION_UPDATE_TYPE=MINOR" >> $GITHUB_OUTPUT
           fi
           if echo "$LAST_COMMIT_MESSAGE" | grep -qiE "fix"; then
-            echo "VERSION_UPDATE_TYPE=REVISION" >> $GITHUB_ENV
+            echo "VERSION_UPDATE_TYPE=REVISION" >> $GITHUB_OUTPUT
           fi
 
       - name: Print Update type
@@ -34,7 +33,7 @@ jobs:
           echo "Tipo de Mudança: $VERSION_UPDATE_TYPE"
 
       - name: Bump build version - Minor
-        if: env.VERSION_UPDATE_TYPE == 'MINOR'
+        if: ${{ steps.determine_update_type.outputs.VERSION_UPDATE_TYPE }}  == 'MINOR'
         id: bump-minor
         uses: vers-one/dotnet-project-version-updater@v1.5
         with:
@@ -42,7 +41,7 @@ jobs:
           version: "*.^.0"
 
       - name: Bump build version - Revision
-        if: env.VERSION_UPDATE_TYPE == 'REVISION'
+        if: ${{ steps.determine_update_type.outputs.VERSION_UPDATE_TYPE }} == 'REVISION'
         id: bump-revision
         uses: vers-one/dotnet-project-version-updater@v1.5
         with:
@@ -50,7 +49,7 @@ jobs:
           version: "*.*.^"
           
       - name: Commit and push changes - MINOR
-        if: env.VERSION_UPDATE_TYPE == 'MINOR'
+        if: ${{ steps.determine_update_type.outputs.VERSION_UPDATE_TYPE }}  == 'MINOR'
         run: |
           git config user.name "Build - Incrementing version | Github action"
           git config user.email "deploy@spendmanagement.com"
@@ -59,18 +58,18 @@ jobs:
           git push
 
       - name: Commit and push changes - Revision
-        if: env.VERSION_UPDATE_TYPE == 'REVISION'
+        if: ${{ steps.determine_update_type.outputs.VERSION_UPDATE_TYPE }}  == 'REVISION'
         run: |
           git config user.name "Build - Incrementing version | Github action"
           git config user.email "deploy@spendmanagement.com"
           git add .
-          git commit -m "CI: Updating application version ${{ steps.bump-minor.outputs.newVersion }}${{ steps.bump-revision.outputs.newVersion }}"
+          git commit -m "CI: Updating application version ${{ steps.bump-revision.outputs.newVersion }}"
           git push
 
       - name: Set version - Revision
         id: set-version
         run: |
-          if [[ ${{ env.VERSION_UPDATE_TYPE }} == 'REVISION' ]]; then
+          if [[ ${{ steps.determine_update_type.outputs.VERSION_UPDATE_TYPE }} == 'REVISION' ]]; then
             echo "VERSION=${{ steps.bump-revision.outputs.newVersion }}" >> $GITHUB_OUTPUT
           else
             echo "VERSION=${{ steps.bump-minor.outputs.newVersion }}" >> $GITHUB_OUTPUT
