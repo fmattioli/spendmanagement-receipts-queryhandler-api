@@ -82,6 +82,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       VERSION: ${{ needs.bump.outputs.version }}
+      VERSION_UPDATE_TYPE: ${{ needs.bump.outputs.version_update_type }}
     steps:      
       - name: Get csproj version
         id: get_version
