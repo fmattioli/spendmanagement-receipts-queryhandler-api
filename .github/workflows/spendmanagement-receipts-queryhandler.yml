@@ -123,11 +123,16 @@ jobs:
           git commit -m "CI: Updating application version ${{ steps.bump-minor.outputs.newVersion }}${{ steps.bump-revision.outputs.newVersion }}"
           git push
 
-      - name: Set version
+      - name: Set version - Revision
+        if: env.VERSION_UPDATE_TYPE == 'REVISION'
         id: set-version
         run: |
-          echo "VERSION=${{ steps.bump-revision.outputs.newVersion }}" >> $GITHUB_OUTPUT
-                 
+          if [[ ${{ env.VERSION_UPDATE_TYPE }} == 'REVISION' ]]; then
+            echo "VERSION=${{ steps.bump-revision.outputs.newVersion }}" >> $GITHUB_OUTPUT
+          else
+            echo "VERSION=${{ steps.bump-minor.outputs.newVersion }}" >> $GITHUB_OUTPUT
+          fi
+         
   publish-docker-image:
     needs: [bump]
     runs-on: ubuntu-latest
