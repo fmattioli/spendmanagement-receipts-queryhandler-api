@@ -67,7 +67,6 @@ jobs:
           git commit -m "CI: Updating application version ${{ steps.bump-minor.outputs.newVersion }}${{ steps.bump-revision.outputs.newVersion }}"
           git push
 
-
       - name: Set version
         id: set-version
         run: |
@@ -77,10 +76,5 @@ jobs:
     needs: [bump]
     runs-on: ubuntu-latest
     env:
-      VERSION: ${{ needs.bump.set-version.outputs.version }}
-    if: github.ref == 'refs/heads/main'
-    steps:          
-      - name: Get csproj version
-        id: get_version
-        run: |
-          echo "Versão do csproj: ${{ needs.bump.set-version.outputs.version }}"
+      VERSION: ${{ needs.bump.outputs.version }}
+   
