@@ -48,26 +48,33 @@ jobs:
           file: src/Receipts.QueryHandler.Api/Receipts.QueryHandler.Api.csproj
           version: "*.*.^"
           
+      - name: Create csproj_version.txt - MINOR
+        if: env.VERSION_UPDATE_TYPE == 'MINOR'
+        run: |
+          echo "${{ steps.bump-minor.outputs.newVersion }}" > csproj_version.txt
+
+      - name: Create csproj_version.txt - Revision
+        if: env.VERSION_UPDATE_TYPE == 'REVISION'
+        run: |
+          echo "${{ steps.bump-revision.outputs.newVersion }}" > csproj_version.txt
+          
       - name: Commit and push changes - MINOR
         if: env.VERSION_UPDATE_TYPE == 'MINOR'
         run: |
           git config user.name "Build - Incrementing version | Github action"
           git config user.email "deploy@spendmanagement.com"
-          git add .
+          git add csproj_version.txt
           git commit -m "CI: Updating application version ${{ steps.bump-minor.outputs.newVersion }}"
           git push
-          echo "${{ steps.bump-minor.outputs.newVersion }}" > csproj_version.txt
 
-      - name: Commit and push changes - Minor
+      - name: Commit and push changes - Revision
         if: env.VERSION_UPDATE_TYPE == 'REVISION'
         run: |
           git config user.name "Build - Incrementing version | Github action"
           git config user.email "deploy@spendmanagement.com"
-          git add .
+          git add csproj_version.txt
           git commit -m "CI: Updating application version ${{ steps.bump-revision.outputs.newVersion }}"
           git push
-          echo "${{ steps.bump-revision.outputs.newVersion }}" > csproj_version.txt
-
           
   publish-docker-image:
     runs-on: ubuntu-latest
@@ -79,4 +86,3 @@ jobs:
         run: |
           echo "::set-output name=csproj_version::$(cat csproj_version.txt)"
           echo "The csproj version is $csproj_version"
-               
