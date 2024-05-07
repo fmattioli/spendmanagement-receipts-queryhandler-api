@@ -4,6 +4,7 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+
 env:
   VERSION_UPDATE_TYPE: "value"
   
@@ -68,6 +69,8 @@ jobs:
     needs: [build,unit-tests, integration-tests]
     outputs:
       version: ${{ steps.set-version.outputs.VERSION }}
+      update_type: ${{ steps.determine_change_type.outputs.VERSION_UPDATE_TYPE }}
+      
     if: github.ref == 'refs/heads/main'
     name: Build and bump version
     steps:
@@ -78,10 +81,10 @@ jobs:
         run: |
           LAST_COMMIT_MESSAGE=$(git log -1 --pretty=%B)
           if echo "$LAST_COMMIT_MESSAGE" | grep -qiE "feat"; then
-            echo "VERSION_UPDATE_TYPE=MINOR" >> $GITHUB_ENV
+            echo "VERSION_UPDATE_TYPE=MINOR" >> $GITHUB_OUTPUT
           fi
           if echo "$LAST_COMMIT_MESSAGE" | grep -qiE "fix"; then
-            echo "VERSION_UPDATE_TYPE=REVISION" >> $GITHUB_ENV
+            echo "VERSION_UPDATE_TYPE=REVISION" >> $GITHUB_OUTPUT
           fi
 
       - name: Print Update type
@@ -136,6 +139,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       VERSION: ${{ needs.bump.outputs.version }}
+      UPDATE_VERSION_TYPE: ${{ needs.bump.outputs.update_type }}
     steps:      
       - name: Get csproj version
         id: get_version
