@@ -76,7 +76,7 @@ jobs:
         
       - name: Get CSProj Version
         run: |
-          echo $VERSION_UPDATE_TYPE
+          echo ${{ env.VERSION_UPDATE_TYPE }}
           
       - name: Checkout repository
         uses: actions/checkout@v4
