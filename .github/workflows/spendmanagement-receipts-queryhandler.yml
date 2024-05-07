@@ -37,7 +37,7 @@ jobs:
           echo "Tipo de Mudança: $VERSION_UPDATE_TYPE"
 
       - name: Bump build version - Minor
-        if: env.VERSION_UPDATE_TYPE == 'MINOR'
+        if: ${{ steps.determine_change_type.outputs.VERSION_UPDATE_TYPE }} == 'MINOR'
         id: bump-minor
         uses: vers-one/dotnet-project-version-updater@v1.5
         with:
@@ -45,7 +45,7 @@ jobs:
           version: "*.^.0"
 
       - name: Bump build version - Revision
-        if: env.VERSION_UPDATE_TYPE == 'REVISION'
+        if: ${{ steps.determine_change_type.outputs.VERSION_UPDATE_TYPE }}== 'REVISION'
         id: bump-revision
         uses: vers-one/dotnet-project-version-updater@v1.5
         with:
