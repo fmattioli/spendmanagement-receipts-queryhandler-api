@@ -141,7 +141,7 @@ jobs:
         working-directory: ${{ github.workspace }}
 
       # Adiciona um passo para exibir o conteúdo do arquivo após a alteração
-      - name: Display appsettings after
+      - name: Display appsettings after changes
         run: cat src/Receipts.QueryHandler.Api/appsettings.Development.json
         
       - name: Build Docker image
