@@ -76,7 +76,7 @@ jobs:
         
       - name: Get CSProj Version
         run: |
-          echo ${{ steps.bump-revision.outputs.newVersion }}
+          echo $VERSION_UPDATE_TYPE
           
       - name: Checkout repository
         uses: actions/checkout@v4
