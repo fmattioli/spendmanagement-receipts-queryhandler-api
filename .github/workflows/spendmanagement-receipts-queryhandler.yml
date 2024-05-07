@@ -11,7 +11,7 @@ jobs:
   bump:
     runs-on: ubuntu-latest
     outputs:
-      version: ${{ steps.check-prs.outputs.VERSION }}
+      pr-number: ${{ steps.set-version.outputs.PR_NUMBER }}
     if: github.ref == 'refs/heads/main'
     name: Build and bump version
     steps:
@@ -70,13 +70,13 @@ jobs:
       - name: Set version
         id: set-version
         run: |
-          echo "VERSION=${{ steps.bump-revision.outputs.newVersion }}" >> $GITHUB_OUTPUT
+          echo "PR_NUMBER=${{ steps.bump-revision.outputs.newVersion }}" >> $GITHUB_OUTPUT
                  
   publish-docker-image:
     needs: [bump]
     runs-on: ubuntu-latest
     env:
-      VERSION: ${{ needs.bump.outputs.version }}
+      VERSION: ${{ needs.bump.outputs.pr-number }}
     steps:      
       - name: Checkout
         uses: actions/checkout@v4    
