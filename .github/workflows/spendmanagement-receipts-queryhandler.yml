@@ -73,12 +73,15 @@ jobs:
     steps:      
       - name: Checkout
         uses: actions/checkout@v4    
-      - name: Get csproj version - REVISION
-        if: env.VERSION_UPDATE_TYPE == 'REVISION'
-        id: get_version
+      - name: Get CSProj Version
         run: |
-          version=$(grep -oP '<Version>([^<]+)</Version>' src/Receipts.QueryHandler.Api/Receipts.QueryHandler.Api.csproj | grep -oP '(\d+\.\d+\.\d+)')
-          echo "csproj_version=${{ steps.bump-revision.outputs.newVersion }}" >> $GITHUB_ENV
+          revision_version=${{ steps.bump-revision.outputs.newVersion }}
+          if [ -z "$revision_version" ]; then
+              csproj_version=${{ steps.bump-minor.outputs.newVersion }}
+          else
+              csproj_version=${{ steps.bump-revision.outputs.newVersion }}
+          fi
+          echo "csproj_version=$csproj_version" >> $GITHUB_ENV
           echo "The csproj version is $csproj_version"
           
       - name: Checkout repository
