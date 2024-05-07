@@ -77,4 +77,11 @@ jobs:
     runs-on: ubuntu-latest
     env:
       VERSION: ${{ needs.bump.outputs.version }}
+    steps:      
+      - name: Checkout
+        uses: actions/checkout@v4    
+      - name: Get csproj version
+        id: get_version
+        run: |                    
+          echo "The csproj version is ${{ steps.bump-project-version.outputs.newVersion }}"
    
