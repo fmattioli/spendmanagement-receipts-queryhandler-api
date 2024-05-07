@@ -7,6 +7,7 @@ on:
 
 env:
   VERSION_UPDATE_TYPE: "value"
+  NUMBER_VERSION: "1.0.0"
   
 jobs:
   bump:
@@ -47,8 +48,18 @@ jobs:
           file: src/Receipts.QueryHandler.Api/Receipts.QueryHandler.Api.csproj
           version: "*.*.^"
           
-      - name: Commit and push changes
-        if: env.VERSION_UPDATE_TYPE == 'REVISION' || env.VERSION_UPDATE_TYPE == 'MINOR'
+      - name: Commit and push changes - Revision
+        if: env.VERSION_UPDATE_TYPE == 'REVISION'
+        run: |
+          echo "NUMBER_VERSION=${{ steps.bump-revision.outputs.newVersion }}" >> $GITHUB_ENV
+          git config user.name "Build - Incrementing version | Github action"
+          git config user.email "deploy@spendmanagement.com"
+          git add .
+          git commit -m "CI: Updating application version ${NUMBER_VERSION}"
+          git push
+
+      - name: Commit and push changes - Minor
+        if: env.VERSION_UPDATE_TYPE == 'REVISION'
         run: |
           git config user.name "Build - Incrementing version | Github action"
           git config user.email "deploy@spendmanagement.com"
