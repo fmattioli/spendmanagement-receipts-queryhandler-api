@@ -123,7 +123,6 @@ jobs:
           git push
 
       - name: Set version - Revision
-        if: env.VERSION_UPDATE_TYPE == 'REVISION'
         id: set-version
         run: |
           if [[ ${{ env.VERSION_UPDATE_TYPE }} == 'REVISION' ]]; then
