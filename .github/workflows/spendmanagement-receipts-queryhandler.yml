@@ -161,6 +161,7 @@ jobs:
         run: cat src/Receipts.QueryHandler.Api/appsettings.Development.json
         
       - name: Build Docker image
+        if: env.VERSION_UPDATE_TYPE == 'MINOR' || env.VERSION_UPDATE_TYPE == 'MINOR'
         run: docker build -t "fmattioli/spendmanagement-receipts-queryhandler-api:$VERSION" .
   
       - name: Login to Docker Hub
