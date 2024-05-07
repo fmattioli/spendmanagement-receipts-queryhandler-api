@@ -125,7 +125,7 @@ jobs:
         run: |
           version=$(grep -oP '<Version>([^<]+)</Version>' src/Receipts.QueryHandler.Api/Receipts.QueryHandler.Api.csproj | grep -oP '(\d+\.\d+\.\d+)')
           echo "csproj_version=$version" >> $GITHUB_ENV
-          echo "The csproj version is $csproj_version"
+          echo "The csproj version is ${{ steps.bump-project-version.outputs.newVersion }}"
           
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -147,7 +147,7 @@ jobs:
       - name: Build Docker image
         run: docker build -t "fmattioli/spendmanagement-receipts-queryhandler-api:$csproj_version" .
   
-      - name: Log in to Docker Hub
+      - name: Login to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
   
       - name: Push Docker image to Docker Hub
