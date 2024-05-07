@@ -27,6 +27,7 @@ jobs:
           fi
           if echo "$LAST_COMMIT_MESSAGE" | grep -qiE "fix"; then
             echo "VERSION_UPDATE_TYPE=REVISION" >> $GITHUB_OUTPUT
+            echo "VERSION_UPDATE_TYPE=REVISION" >> $GITHUB_ENV
           fi
 
       - name: Print Update type
