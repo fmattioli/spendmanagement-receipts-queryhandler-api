@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  VERSION_UPDATE_TYPE: "value"
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -63,15 +66,72 @@ jobs:
           dotnet build --no-restore --configuration Release tests/Receipts.QueryHandler.IntegrationTests/Receipts.QueryHandler.IntegrationTests.csproj
           dotnet test --verbosity normal tests/Receipts.QueryHandler.IntegrationTests/Receipts.QueryHandler.IntegrationTests.csproj
 
-  publish-docker-image:
+  bump-project-version:
     runs-on: ubuntu-latest
     needs: [unit-tests, integration-tests]
-
+    if: github.ref == 'refs/heads/main'
+    name: Build and bump version
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Determinar Tipo de Mudança
+        id: determine_change_type
+        run: |
+          LAST_COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+          if echo "$LAST_COMMIT_MESSAGE" | grep -qiE "feat"; then
+            echo "VERSION_UPDATE_TYPE=MINOR" >> $GITHUB_ENV
+          fi
+          if echo "$LAST_COMMIT_MESSAGE" | grep -qiE "fix"; then
+            echo "VERSION_UPDATE_TYPE=REVISION" >> $GITHUB_ENV
+          fi
+
+      - name: Print Update type
+        run: |
+          echo "Tipo de Mudança: $VERSION_UPDATE_TYPE"
+
+      - name: Bump build version - Minor
+        if: env.VERSION_UPDATE_TYPE == 'MINOR'
+        id: bump-minor
+        uses: vers-one/dotnet-project-version-updater@v1.5
+        with:
+          file: src/Receipts.QueryHandler.Api/Receipts.QueryHandler.Api.csproj
+          version: "*.^.0"
+
+      - name: Bump build version - Revision
+        if: env.VERSION_UPDATE_TYPE == 'REVISION'
+        id: bump-revision
+        uses: vers-one/dotnet-project-version-updater@v1.5
+        with:
+          file: src/Receipts.QueryHandler.Api/Receipts.QueryHandler.Api.csproj
+          version: "*.*.^"
+          
+      - name: Commit and push changes
+        if: env.VERSION_UPDATE_TYPE == 'REVISION' || env.VERSION_UPDATE_TYPE == 'MINOR'
+        run: |
+          git config user.name "Build - Incrementing version | Github action"
+          git config user.email "deploy@spendmanagement.com"
+          git add .
+          git commit -m "CI: Updating application version"
+          git push
+          
+  publish-docker-image:
+    runs-on: ubuntu-latest
+    needs: [bump-project-version]
+    if: github.ref == 'refs/heads/main'
+    steps:      
+      - name: Checkout
+        uses: actions/checkout@v4    
+      - name: Get csproj version
+        id: get_version
+        run: |
+          version=$(grep -oP '<Version>([^<]+)</Version>' src/Receipts.QueryHandler.Api/Receipts.QueryHandler.Api.csproj | grep -oP '(\d+\.\d+\.\d+)')
+          echo "csproj_version=$version" >> $GITHUB_ENV
+          echo "The csproj version is $csproj_version"
+          
       - name: Checkout repository
         uses: actions/checkout@v4
 
-        # Adiciona um passo para exibir o conteúdo do arquivo antes da alteração
+      # Adiciona um passo para exibir o conteúdo do arquivo antes da alteração
       - name: Display appsettings before
         run: cat src/Receipts.QueryHandler.Api/appsettings.Development.json
 
@@ -85,13 +145,16 @@ jobs:
       # Adiciona um passo para exibir o conteúdo do arquivo após a alteração
       - name: Display appsettings after
         run: cat src/Receipts.QueryHandler.Api/appsettings.Development.json
-
+        
       - name: Build Docker image
-        run: docker build -t fmattioli/spendmanagement-receipts-queryhandler-api:1.0.0.1 .
+        run: docker build -t "fmattioli/spendmanagement-receipts-queryhandler-api:$csproj_version" .
+  
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+  
       - name: Push Docker image to Docker Hub
         run: |
-          docker push fmattioli/spendmanagement-receipts-queryhandler-api:1.0.0.1
-          docker tag fmattioli/spendmanagement-receipts-queryhandler-api:1.0.0.1 fmattioli/spendmanagement-receipts-queryhandler-api:latest
-          docker push fmattioli/spendmanagement-receipts-queryhandler-api:latest
+            docker push "fmattioli/spendmanagement-receipts-queryhandler-api:$csproj_version"
+            docker tag "fmattioli/spendmanagement-receipts-queryhandler-api:$csproj_version" "fmattioli/spendmanagement-receipts-queryhandler-api:latest"
+            docker push "fmattioli/spendmanagement-receipts-queryhandler-api:latest"
+            
