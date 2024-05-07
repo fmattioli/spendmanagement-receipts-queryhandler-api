@@ -142,8 +142,7 @@ jobs:
       VERSION: ${{ needs.bump.outputs.version }}
       VERSION_UPDATE_TYPE: ${{ needs.bump.outputs.version_update_type }}
     steps:      
-      - name: Get csproj version
-        id: get_version
+      - name: Print version + type
         run: |                    
           echo "The csproj version is $VERSION-$VERSION_UPDATE_TYPE"
 
@@ -165,9 +164,11 @@ jobs:
         run: docker build -t "fmattioli/spendmanagement-receipts-queryhandler-api:$VERSION" .
   
       - name: Login to Docker Hub
+        if: $VERSION == 'MINOR' || $VERSION == 'REVISION'
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
   
       - name: Push Docker image to Docker Hub
+        if: $VERSION == 'MINOR' || $VERSION == 'REVISION'
         run: |
             docker push "fmattioli/spendmanagement-receipts-queryhandler-api:$VERSION"
             docker tag "fmattioli/spendmanagement-receipts-queryhandler-api:$VERSION" "fmattioli/spendmanagement-receipts-queryhandler-api:latest"
