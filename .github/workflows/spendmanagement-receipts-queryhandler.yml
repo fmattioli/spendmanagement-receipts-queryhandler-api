@@ -87,7 +87,7 @@ jobs:
       - name: Get csproj version
         id: get_version
         run: |                    
-          echo "The csproj version is $VERSION"
+          echo "The csproj version is $VERSION-$VERSION_UPDATE_TYPE"
 
       - name: Checkout repository
         uses: actions/checkout@v4
