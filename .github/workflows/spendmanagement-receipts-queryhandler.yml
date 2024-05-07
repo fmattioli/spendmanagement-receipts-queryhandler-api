@@ -127,6 +127,7 @@ jobs:
 
       - name: Set version - Revision
         id: set-version
+        if: env.VERSION_UPDATE_TYPE == 'MINOR' || env.VERSION_UPDATE_TYPE == 'REVISION'
         run: |
           if [[ ${{ steps.determine_update_type.outputs.VERSION_UPDATE_TYPE }} == 'REVISION' ]]; then
             echo "VERSION=${{ steps.bump-revision.outputs.newVersion }}" >> $GITHUB_OUTPUT
