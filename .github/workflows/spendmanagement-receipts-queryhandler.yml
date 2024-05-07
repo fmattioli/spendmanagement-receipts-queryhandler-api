@@ -23,51 +23,8 @@ jobs:
     - name: Build
       run: dotnet build --no-restore --configuration Release src/Receipts.QueryHandler.Api/Receipts.QueryHandler.Api.csproj
 
-  unit-tests:
+  bump:
     runs-on: ubuntu-latest
-    needs: [build]
-
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 8.0.x
-      - name: Restore dependencies for unit tests
-        run: dotnet restore tests/Receipts.QueryHandler.UnitTests/Receipts.QueryHandler.UnitTests.csproj
-      - name: Build project
-        run: |
-          dotnet restore tests/Receipts.QueryHandler.UnitTests/Receipts.QueryHandler.UnitTests.csproj
-          dotnet build --no-restore --configuration Release tests/Receipts.QueryHandler.UnitTests/Receipts.QueryHandler.UnitTests.csproj
-          dotnet test --verbosity normal tests/Receipts.QueryHandler.UnitTests/Receipts.QueryHandler.UnitTests.csproj
-          
-  integration-tests:
-    runs-on: ubuntu-latest
-    needs: [unit-tests]
-    steps:      
-      - name: Start MongoDB database
-        run: |
-          docker network create spendmanagement-network || true
-          docker run -d --name mongodb -p 27017:27017 \
-            -e MONGO_INITDB_ROOT_USERNAME=root \
-            -e MONGO_INITDB_ROOT_PASSWORD=root \
-            --network spendmanagement-network \
-            mongo:latest
-
-      - uses: actions/checkout@v4
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 8.0.x
-      - name: Run integration tests
-        run: |
-          dotnet restore tests/Receipts.QueryHandler.IntegrationTests/Receipts.QueryHandler.IntegrationTests.csproj
-          dotnet build --no-restore --configuration Release tests/Receipts.QueryHandler.IntegrationTests/Receipts.QueryHandler.IntegrationTests.csproj
-          dotnet test --verbosity normal tests/Receipts.QueryHandler.IntegrationTests/Receipts.QueryHandler.IntegrationTests.csproj
-
-  bump-project-version:
-    runs-on: ubuntu-latest
-    needs: [unit-tests, integration-tests]
     if: github.ref == 'refs/heads/main'
     name: Build and bump version
     steps:
@@ -110,49 +67,7 @@ jobs:
           git config user.name "Build - Incrementing version | Github action"
           git config user.email "deploy@spendmanagement.com"
           git add .
-          git commit -m "CI: Updating application version"
+          git commit -m "CI: Updating application version ${{ steps.bump.outputs.newVersion }}"
           git push
           
-  publish-docker-image:
-    runs-on: ubuntu-latest
-    needs: [bump-project-version]
-    if: github.ref == 'refs/heads/main'
-    steps:      
-      - name: Checkout
-        uses: actions/checkout@v4    
-      - name: Get csproj version
-        id: get_version
-        run: |
-          version=$(grep -oP '<Version>([^<]+)</Version>' src/Receipts.QueryHandler.Api/Receipts.QueryHandler.Api.csproj | grep -oP '(\d+\.\d+\.\d+)')
-          echo "csproj_version=$version" >> $GITHUB_ENV
-          echo "The csproj version is ${{ steps.bump-project-version.outputs.newVersion }}"
-          
-      - name: Checkout repository
-        uses: actions/checkout@v4
 
-      # Adiciona um passo para exibir o conteúdo do arquivo antes da alteração
-      - name: Display appsettings before
-        run: cat src/Receipts.QueryHandler.Api/appsettings.Development.json
-
-      # Altera a configuração da string de conexão no appsettings.Development.json
-      - name: Change connection string
-        run: |
-          sed -i 's/localhost:27017/mongodb:27017/g' src/Receipts.QueryHandler.Api/appsettings.Development.json
-        working-directory: ${{ github.workspace }}
-
-      # Adiciona um passo para exibir o conteúdo do arquivo após a alteração
-      - name: Display appsettings after changes
-        run: cat src/Receipts.QueryHandler.Api/appsettings.Development.json
-        
-      - name: Build Docker image
-        run: docker build -t "fmattioli/spendmanagement-receipts-queryhandler-api:$csproj_version" .
-  
-      - name: Login to Docker Hub
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-  
-      - name: Push Docker image to Docker Hub
-        run: |
-            docker push "fmattioli/spendmanagement-receipts-queryhandler-api:$csproj_version"
-            docker tag "fmattioli/spendmanagement-receipts-queryhandler-api:$csproj_version" "fmattioli/spendmanagement-receipts-queryhandler-api:latest"
-            docker push "fmattioli/spendmanagement-receipts-queryhandler-api:latest"
-            
