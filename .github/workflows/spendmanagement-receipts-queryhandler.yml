@@ -54,7 +54,7 @@ jobs:
           git add csproj_version.txt
           git commit -m "CI: Updating application version ${{ steps.bump-minor.outputs.newVersion }}"
           git push
-          echo "VERSION_NUMBER=${{ steps.bump-minor.outputs.newVersion }}" >> $GITHUB_ENV
+           echo "::set-output name=VERSION_NUMBER::${{ steps.bump-minor.outputs.newVersion }}"
 
       - name: Commit and push changes - Revision
         if: env.VERSION_UPDATE_TYPE == 'REVISION'
@@ -64,7 +64,7 @@ jobs:
           git add .
           git commit -m "CI: Updating application version ${{ steps.bump-minor.outputs.newVersion }}${{ steps.bump-revision.outputs.newVersion }}"
           git push
-          echo "VERSION_NUMBER=${{ steps.bump-revision.outputs.newVersion }}" >> $GITHUB_ENV
+          echo "::set-output name=VERSION_NUMBER::${{ steps.bump-revision.outputs.newVersion }}"
           
   publish-docker-image:
     runs-on: ubuntu-latest
@@ -74,4 +74,4 @@ jobs:
       - name: Get csproj version
         id: get_version
         run: |
-          echo "Versão do csproj: ${{ env.VERSION_NUMBER }}"
+          echo "Versão do csproj: ${{ needs.bump.outputs.VERSION_NUMBER }}"
