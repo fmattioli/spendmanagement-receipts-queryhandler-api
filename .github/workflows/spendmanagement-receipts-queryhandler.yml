@@ -30,7 +30,7 @@ jobs:
 
       - name: Print Update type
         run: |
-          echo "Tipo de Mudança: $VERSION_UPDATE_TYPE"
+          echo "Tipo de Mudança: ${{ steps.determine_update_type.outputs.VERSION_UPDATE_TYPE }}"
 
       - name: Bump build version - Minor
         if: ${{ steps.determine_update_type.outputs.VERSION_UPDATE_TYPE }}  == 'MINOR'
