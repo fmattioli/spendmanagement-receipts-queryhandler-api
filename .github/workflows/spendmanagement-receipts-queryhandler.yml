@@ -33,7 +33,7 @@ jobs:
           echo "Tipo de Mudança: ${{ steps.determine_update_type.outputs.VERSION_UPDATE_TYPE }}"
 
       - name: Bump build version - Minor
-        if: ${{ steps.determine_update_type.outputs.VERSION_UPDATE_TYPE }}  == 'MINOR'
+        if: env.VERSION_UPDATE_TYPE == 'MINOR'
         id: bump-minor
         uses: vers-one/dotnet-project-version-updater@v1.5
         with:
@@ -41,7 +41,7 @@ jobs:
           version: "*.^.0"
 
       - name: Bump build version - Revision
-        if: ${{ steps.determine_update_type.outputs.VERSION_UPDATE_TYPE }} == 'REVISION'
+        if: env.VERSION_UPDATE_TYPE == 'REVISION'
         id: bump-revision
         uses: vers-one/dotnet-project-version-updater@v1.5
         with:
@@ -58,7 +58,7 @@ jobs:
           git push
 
       - name: Commit and push changes - Revision
-        if: ${{ steps.determine_update_type.outputs.VERSION_UPDATE_TYPE }}  == 'REVISION'
+        if: env.VERSION_UPDATE_TYPE  == 'REVISION'
         run: |
           git config user.name "Build - Incrementing version | Github action"
           git config user.email "deploy@spendmanagement.com"
