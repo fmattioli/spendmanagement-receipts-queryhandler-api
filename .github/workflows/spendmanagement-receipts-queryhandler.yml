@@ -9,7 +9,9 @@ env:
   
 jobs:
   bump:
-    runs-on: ubuntu-latest    
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.check-prs.outputs.VERSION }}
     if: github.ref == 'refs/heads/main'
     name: Build and bump version
     steps:
@@ -64,7 +66,12 @@ jobs:
           git add .
           git commit -m "CI: Updating application version ${{ steps.bump-minor.outputs.newVersion }}${{ steps.bump-revision.outputs.newVersion }}"
           git push
-          echo "VERSION_NUMBER=${{ steps.bump-revision.outputs.newVersion }}" >> $GITHUB_OUTPUT
+
+
+      - name: Set version
+        id: set-version
+        run: |
+          echo "VERSION=${{ steps.bump-revision.outputs.newVersion }}" >> $GITHUB_OUTPUT
                  
   publish-docker-image:
     runs-on: ubuntu-latest
@@ -74,4 +81,4 @@ jobs:
       - name: Get csproj version
         id: get_version
         run: |
-          echo "Versão do csproj: ${{ needs.bump.outputs.VERSION_NUMBER }}"
+          echo "Versão do csproj: ${{ needs.bump.outputs.version }}
