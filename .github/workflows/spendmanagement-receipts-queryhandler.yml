@@ -76,15 +76,7 @@ jobs:
         
       - name: Get CSProj Version
         run: |
-          revision_version=${{ steps.bump-revision.outputs.newVersion }}
-          if [ -z "$revision_version" ]; then
-              csproj_version=${{ steps.bump-minor.outputs.newVersion }}
-          else
-              csproj_version=${{ steps.bump-revision.outputs.newVersion }}
-          fi
-          echo "The revision version is $revision_version"
-          echo "The csproj version is $csproj_version"
-          echo "csproj_version=$csproj_version" >> $GITHUB_ENV
+          echo ${{ steps.bump-revision.outputs.newVersion }}
           
       - name: Checkout repository
         uses: actions/checkout@v4
