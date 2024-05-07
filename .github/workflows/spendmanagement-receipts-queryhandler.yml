@@ -76,14 +76,9 @@ jobs:
     needs: [bump]
     if: github.ref == 'refs/heads/main'
     steps:      
-      - name: Checkout
-        uses: actions/checkout@v4
-
       - name: Read CSProj Version
         id: read_csproj_version
-        run: echo "::set-output name=csproj_version::$(cat csproj_version.txt)"
-  
-      - name: Get CSProj Version
-        run: |
-           echo "The csproj version is $csproj_version"
+        run: | 
+          echo "::set-output name=csproj_version::$(cat csproj_version.txt)"
+          echo "The csproj version is $csproj_version"
                
