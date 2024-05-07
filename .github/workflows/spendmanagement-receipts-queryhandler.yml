@@ -74,4 +74,4 @@ jobs:
       - name: Get csproj version
         id: get_version
         run: |
-          echo ${{ needs.bump.outputs.VERSION_NUMBER }}
+          echo "Versão do csproj: ${{ env.VERSION_NUMBER }}"
