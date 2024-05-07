@@ -9,20 +9,6 @@ env:
   VERSION_UPDATE_TYPE: "value"
   
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v4
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.x
-    - name: Restore dependencies
-      run: dotnet restore src/Receipts.QueryHandler.Api/Receipts.QueryHandler.Api.csproj
-    - name: Build
-      run: dotnet build --no-restore --configuration Release src/Receipts.QueryHandler.Api/Receipts.QueryHandler.Api.csproj
-
   bump:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
@@ -67,7 +53,7 @@ jobs:
           git config user.name "Build - Incrementing version | Github action"
           git config user.email "deploy@spendmanagement.com"
           git add .
-          git commit -m "CI: Updating application version ${{ steps.bump.outputs.newVersion }}"
+          git commit -m "CI: Updating application version ${{ steps.bump-minor.outputs.newVersion }}${{ steps.bump-revision.outputs.newVersion }}"
           git push
           
 
