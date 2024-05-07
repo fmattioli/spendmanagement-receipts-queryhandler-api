@@ -81,4 +81,4 @@ jobs:
       - name: Get csproj version
         id: get_version
         run: |
-          echo "Versão do csproj: ${{ needs.bump.outputs.version }}
+          echo "Versão do csproj: ${{ needs.bump.outputs.version }}"
