@@ -9,9 +9,8 @@ env:
   VERSION_UPDATE_TYPE: "value"
   
 jobs:
-  
   bump:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest    
     if: github.ref == 'refs/heads/main'
     name: Build and bump version
     steps:
@@ -48,16 +47,6 @@ jobs:
           file: src/Receipts.QueryHandler.Api/Receipts.QueryHandler.Api.csproj
           version: "*.*.^"
           
-      - name: Create csproj_version.txt - MINOR
-        if: env.VERSION_UPDATE_TYPE == 'MINOR'
-        run: |
-          echo "${{ steps.bump-minor.outputs.newVersion }}" > csproj_version.txt
-
-      - name: Create csproj_version.txt - Revision
-        if: env.VERSION_UPDATE_TYPE == 'REVISION'
-        run: |
-          echo "${{ steps.bump-revision.outputs.newVersion }}" > csproj_version.txt
-          
       - name: Commit and push changes - MINOR
         if: env.VERSION_UPDATE_TYPE == 'MINOR'
         run: |
@@ -66,6 +55,7 @@ jobs:
           git add csproj_version.txt
           git commit -m "CI: Updating application version ${{ steps.bump-minor.outputs.newVersion }}"
           git push
+          echo "VERSION_NUMBER=${{ steps.bump-minor.outputs.newVersion }}" >> $GITHUB_ENV
 
       - name: Commit and push changes - Revision
         if: env.VERSION_UPDATE_TYPE == 'REVISION'
@@ -75,6 +65,7 @@ jobs:
           git add csproj_version.txt
           git commit -m "CI: Updating application version ${{ steps.bump-revision.outputs.newVersion }}"
           git push
+          echo "VERSION_NUMBER=${{ steps.bump-revision.outputs.newVersion }}" >> $GITHUB_ENV
           
   publish-docker-image:
     runs-on: ubuntu-latest
@@ -84,5 +75,4 @@ jobs:
       - name: Get csproj version
         id: get_version
         run: |
-          echo "::set-output name=csproj_version::$(cat csproj_version.txt)"
-          echo "The csproj version is $csproj_version"
+          echo ${{ needs.bump.outputs.VERSION_NUMBER }}
