@@ -68,8 +68,6 @@ jobs:
           git push
           echo "${{ steps.bump-revision.outputs.newVersion }}" > csproj_version.txt
 
-      - name: Store CSProj Version
-
           
   publish-docker-image:
     runs-on: ubuntu-latest
