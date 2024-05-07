@@ -83,5 +83,5 @@ jobs:
       - name: Get csproj version
         id: get_version
         run: |                    
-          echo "The csproj version is ${{ steps.bump-project-version.outputs.newVersion }}"
+          echo "The csproj version is $VERSION"
    
