@@ -9,6 +9,7 @@ name: .NET
 jobs:
   Build:
     runs-on: ubuntu-latest
+    name: Build application
     steps:
       - uses: actions/checkout@v4
       - name: Setup .NET
@@ -26,6 +27,7 @@ jobs:
           
   UnitTests:
     runs-on: ubuntu-latest
+    name: Run unit tests
     needs:
       - Build
     steps:
@@ -50,6 +52,7 @@ jobs:
           tests/Receipts.QueryHandler.UnitTests/Receipts.QueryHandler.UnitTests.csproj
   IntegrationTests:
     runs-on: ubuntu-latest
+    name: Run integration tests
     needs:
       - UnitTests
     steps:
@@ -76,14 +79,16 @@ jobs:
 
           dotnet test --verbosity normal
           tests/Receipts.QueryHandler.IntegrationTests/Receipts.QueryHandler.IntegrationTests.csproj
+          
   Update-ProjectVersion:
     runs-on: ubuntu-latest
+    name: Update project version
     needs: [Build, UnitTests, IntegrationTests]      
     outputs:
       version: '${{ steps.set-version.outputs.VERSION }}'
       version_update_type: '${{ steps.determine_update_type.outputs.VERSION_UPDATE_TYPE }}'
+      
     if: github.ref == 'refs/heads/main'
-    name: Build and bump version
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -157,6 +162,7 @@ jobs:
           fi
           
   Publish-New-DockerImage:
+    name: Publish new image version on docker
     needs: [Update-ProjectVersion]
     runs-on: ubuntu-latest
     env:
@@ -223,6 +229,7 @@ jobs:
           
   Deploy:
     needs: [Publish-New-DockerImage]
+    name: Start deploy on Render
     runs-on: ubuntu-latest
     env:
       DEPLOY_URL: 'https://api.render.com/deploy/srv-couh2sf79t8c739hfa90?key=trK2py3qxic'
