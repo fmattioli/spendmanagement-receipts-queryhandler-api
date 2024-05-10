@@ -205,3 +205,4 @@ jobs:
         run: |
           echo $VERSION_UPDATE_TYPE
           echo "$DEPLOY_URL&imgUrl=$IMAGE_URL"
+          curl "$DEPLOY_URL&imgUrl=$IMAGE_URL"
