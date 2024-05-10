@@ -17,11 +17,11 @@ jobs:
         with:
           dotnet-version: 8.0.x
       - name: Restore dependencies
-        run: >-
+        run: |
           dotnet restore
           src/Receipts.QueryHandler.Api/Receipts.QueryHandler.Api.csproj
       - name: Build
-        run: >-
+        run: |
           dotnet build --no-restore --configuration Release
           src/Receipts.QueryHandler.Api/Receipts.QueryHandler.Api.csproj
           
@@ -37,11 +37,11 @@ jobs:
         with:
           dotnet-version: 8.0.x
       - name: Restore dependencies for unit tests
-        run: >-
+        run: |
           dotnet restore
           tests/Receipts.QueryHandler.UnitTests/Receipts.QueryHandler.UnitTests.csproj
       - name: Build project
-        run: >
+        run: |
           dotnet restore
           tests/Receipts.QueryHandler.UnitTests/Receipts.QueryHandler.UnitTests.csproj
 
@@ -105,7 +105,7 @@ jobs:
             echo "VERSION_UPDATE_TYPE=REVISION" >> $GITHUB_ENV
           fi
       - name: Print Update type
-        run: >
+        run: |
           echo "Tipo de Mudança: ${{
           steps.determine_update_type.outputs.VERSION_UPDATE_TYPE }}"
       - name: Bump build version - Minor
@@ -124,7 +124,7 @@ jobs:
           version: '*.*.^'
       - name: Commit and push changes - MINOR
         if: env.VERSION_UPDATE_TYPE == 'MINOR'
-        run: >
+        run: |
           git config user.name "Build - Incrementing version | Github action"
 
           git config user.email "deploy@spendmanagement.com"
@@ -150,12 +150,10 @@ jobs:
           git push
       - name: Set version - Revision
         id: set-version
-        if: >-
-          env.VERSION_UPDATE_TYPE == 'MINOR' || env.VERSION_UPDATE_TYPE ==
+        if: env.VERSION_UPDATE_TYPE == 'MINOR' || env.VERSION_UPDATE_TYPE == 'REVISION'
           'REVISION'
-        run: >
-          if [[ ${{ steps.determine_update_type.outputs.VERSION_UPDATE_TYPE }}
-          == 'REVISION' ]]; then
+        run: |
+          if [[ ${{ steps.determine_update_type.outputs.VERSION_UPDATE_TYPE }} == 'REVISION' ]]; then
             echo "VERSION=${{ steps.bump-revision.outputs.newVersion }}" >> $GITHUB_OUTPUT
           else
             echo "VERSION=${{ steps.bump-minor.outputs.newVersion }}" >> $GITHUB_OUTPUT
@@ -170,53 +168,37 @@ jobs:
       VERSION_UPDATE_TYPE: '${{ needs.bump.outputs.version_update_type }}'
     steps:
       - name: Print version + type
-        if: >-
-          env.VERSION_UPDATE_TYPE == 'MINOR' || env.VERSION_UPDATE_TYPE ==
-          'REVISION'
+        if: env.VERSION_UPDATE_TYPE == 'MINOR' || env.VERSION_UPDATE_TYPE == 'REVISION'
         run: |
           echo "The csproj version is $VERSION-$VERSION_UPDATE_TYPE"
       - name: Checkout repository
-        if: >-
-          env.VERSION_UPDATE_TYPE == 'MINOR' || env.VERSION_UPDATE_TYPE ==
-          'REVISION'
+        if: env.VERSION_UPDATE_TYPE == 'MINOR' || env.VERSION_UPDATE_TYPE == 'REVISION'
         uses: actions/checkout@v4
       - name: Display appsettings before
-        if: >-
-          env.VERSION_UPDATE_TYPE == 'MINOR' || env.VERSION_UPDATE_TYPE ==
-          'REVISION'
+        if: env.VERSION_UPDATE_TYPE == 'MINOR' || env.VERSION_UPDATE_TYPE == 'REVISION'
         run: cat src/Receipts.QueryHandler.Api/appsettings.Development.json
       - name: Change connection string
-        if: >-
-          env.VERSION_UPDATE_TYPE == 'MINOR' || env.VERSION_UPDATE_TYPE ==
-          'REVISION'
-        run: >
+        if: env.VERSION_UPDATE_TYPE == 'MINOR' || env.VERSION_UPDATE_TYPE == 'REVISION'
+        run: |
           sed -i 's/localhost:27017/mongodb:27017/g'
           src/Receipts.QueryHandler.Api/appsettings.Development.json
         working-directory: '${{ github.workspace }}'
       - name: Display appsettings after changes
-        if: >-
-          env.VERSION_UPDATE_TYPE == 'MINOR' || env.VERSION_UPDATE_TYPE ==
-          'REVISION'
+        if: env.VERSION_UPDATE_TYPE == 'MINOR' || env.VERSION_UPDATE_TYPE == 'REVISION'
         run: cat src/Receipts.QueryHandler.Api/appsettings.Development.json
       - name: Build Docker image
-        if: >-
-          env.VERSION_UPDATE_TYPE == 'MINOR' || env.VERSION_UPDATE_TYPE ==
-          'REVISION'
-        run: >-
+        if: env.VERSION_UPDATE_TYPE == 'MINOR' || env.VERSION_UPDATE_TYPE == 'REVISION'
+        run: |
           docker build -t
           "fmattioli/spendmanagement-receipts-queryhandler-api:$VERSION" .
       - name: Login to Docker Hub
-        if: >-
-          env.VERSION_UPDATE_TYPE == 'MINOR' || env.VERSION_UPDATE_TYPE ==
-          'REVISION'
-        run: >-
+        if: env.VERSION_UPDATE_TYPE == 'MINOR' || env.VERSION_UPDATE_TYPE == 'REVISION'
+        run: |
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{
           secrets.DOCKER_USERNAME }}" --password-stdin
       - name: Push Docker image to Docker Hub
-        if: >-
-          env.VERSION_UPDATE_TYPE == 'MINOR' || env.VERSION_UPDATE_TYPE ==
-          'REVISION'
-        run: >
+        if: env.VERSION_UPDATE_TYPE == 'MINOR' || env.VERSION_UPDATE_TYPE == 'REVISION'
+        run: |
           docker push
           "fmattioli/spendmanagement-receipts-queryhandler-api:$VERSION"
 
@@ -234,9 +216,10 @@ jobs:
     env:
       DEPLOY_URL: 'https://api.render.com/deploy/srv-couh2sf79t8c739hfa90?key=trK2py3qxic'
       IMAGE_URL: 'docker.io/fmattioli/spendmanagement-receipts-queryhandler-api:latest'
+      VERSION_UPDATE_TYPE: '${{ needs.bump.outputs.version_update_type }}'
     steps:
       - name: Deploy Render
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' && env.VERSION_UPDATE_TYPE == 'MINOR' || env.VERSION_UPDATE_TYPE == 'REVISION'
         run: |
           echo "$DEPLOY_URL&imgUrl=$IMAGE_URL"
           curl "$DEPLOY_URL&imgUrl=$IMAGE_URL"
