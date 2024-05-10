@@ -162,7 +162,7 @@ jobs:
           fi
           
   Publish-New-DockerImage:
-    name: Publish new image version on docker
+    name: Publish new image version
     needs: [Update-ProjectVersion]
     runs-on: ubuntu-latest
     env:
