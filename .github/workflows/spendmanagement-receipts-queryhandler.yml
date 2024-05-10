@@ -72,7 +72,7 @@ jobs:
           dotnet test --verbosity normal
           tests/Receipts.QueryHandler.IntegrationTests/Receipts.QueryHandler.IntegrationTests.csproj
           
-  Update-ProjectVersion:
+  update-project-version:
     runs-on: ubuntu-latest
     name: Update project version
     needs: [Build, UnitTests, IntegrationTests]      
@@ -150,9 +150,9 @@ jobs:
             echo "VERSION=${{ steps.bump-minor.outputs.newVersion }}" >> $GITHUB_OUTPUT
           fi
           
-  Publish-New-DockerImage:
-    name: Publish new image version
-    needs: [Update-ProjectVersion]
+  publish-image:    
+    name: Publish new image version    
+    needs: [update-project-version]
     runs-on: ubuntu-latest
     env:
       VERSION: '${{ needs.bump.outputs.version }}'
@@ -201,7 +201,7 @@ jobs:
           "fmattioli/spendmanagement-receipts-queryhandler-api:latest"
           
   Deploy:
-    needs: [Publish-New-DockerImage]
+    needs: [update-project-version, publish-image]
     name: Start deploy on Render
     runs-on: ubuntu-latest
     env:
