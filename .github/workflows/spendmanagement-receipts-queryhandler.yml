@@ -203,7 +203,7 @@ jobs:
           "fmattioli/spendmanagement-receipts-queryhandler-api:latest"
           
   Deploy:
-    needs: [bump]
+    needs: [publish-image, bump]
     name: Start deploy on Render
     runs-on: ubuntu-latest
     env:
