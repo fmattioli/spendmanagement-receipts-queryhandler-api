@@ -169,8 +169,7 @@ jobs:
       - name: Change connection string
         if: env.VERSION_UPDATE_TYPE == 'MINOR' || env.VERSION_UPDATE_TYPE == 'REVISION'
         run: |
-          sed -i 's/localhost:27017/mongodb:27017/g'
-          src/Receipts.QueryHandler.Api/appsettings.Development.json
+          sed -i 's/localhost:27017/mongodb:27017/g' src/Receipts.QueryHandler.Api/appsettings.Development.json
         working-directory: '${{ github.workspace }}'
 
       - name: Display appsettings after changes
