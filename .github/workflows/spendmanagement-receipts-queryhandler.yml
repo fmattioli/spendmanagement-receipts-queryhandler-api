@@ -134,5 +134,5 @@ jobs:
       - name: Deploy Render
         if: github.ref == 'refs/heads/main'
         run: |
-          echo "$DEPLOY_URL?imgUrl=$IMAGE_URL"
-          curl "$DEPLOY_URL?imgUrl=$IMAGE_URL"
+          echo "$DEPLOY_URL?key=AABBCC&imgUrl=$IMAGE_URL"
+          curl "$DEPLOY_URL?key=AABBCC&imgUrl=$IMAGE_URL"
