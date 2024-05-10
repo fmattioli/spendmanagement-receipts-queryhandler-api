@@ -21,8 +21,7 @@ jobs:
           dotnet restore src/Receipts.QueryHandler.Api/Receipts.QueryHandler.Api.csproj
       - name: Build
         run: |
-          dotnet build --no-restore --configuration Release
-          src/Receipts.QueryHandler.Api/Receipts.QueryHandler.Api.csproj
+          dotnet build --no-restore --configuration Release src/Receipts.QueryHandler.Api/Receipts.QueryHandler.Api.csproj
           
   UnitTests:
     runs-on: ubuntu-latest
@@ -37,18 +36,12 @@ jobs:
           dotnet-version: 8.0.x
       - name: Restore dependencies for unit tests
         run: |
-          dotnet restore
-          tests/Receipts.QueryHandler.UnitTests/Receipts.QueryHandler.UnitTests.csproj
+          dotnet restore tests/Receipts.QueryHandler.UnitTests/Receipts.QueryHandler.UnitTests.csproj
       - name: Build project
         run: |
-          dotnet restore
-          tests/Receipts.QueryHandler.UnitTests/Receipts.QueryHandler.UnitTests.csproj
-
-          dotnet build --no-restore --configuration Release
-          tests/Receipts.QueryHandler.UnitTests/Receipts.QueryHandler.UnitTests.csproj
-
-          dotnet test --verbosity normal
-          tests/Receipts.QueryHandler.UnitTests/Receipts.QueryHandler.UnitTests.csproj
+          dotnet restore tests/Receipts.QueryHandler.UnitTests/Receipts.QueryHandler.UnitTests.csproj
+          dotnet build --no-restore --configuration Release tests/Receipts.QueryHandler.UnitTests/Receipts.QueryHandler.UnitTests.csproj
+          dotnet test --verbosity normal tests/Receipts.QueryHandler.UnitTests/Receipts.QueryHandler.UnitTests.csproj
   IntegrationTests:
     runs-on: ubuntu-latest
     name: Run integration tests
