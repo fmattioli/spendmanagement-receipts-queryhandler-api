@@ -18,8 +18,7 @@ jobs:
           dotnet-version: 8.0.x
       - name: Restore dependencies
         run: |
-          dotnet restore
-          src/Receipts.QueryHandler.Api/Receipts.QueryHandler.Api.csproj
+          dotnet restore src/Receipts.QueryHandler.Api/Receipts.QueryHandler.Api.csproj
       - name: Build
         run: |
           dotnet build --no-restore --configuration Release
