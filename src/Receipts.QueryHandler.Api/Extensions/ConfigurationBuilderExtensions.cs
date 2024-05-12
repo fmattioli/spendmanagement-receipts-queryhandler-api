@@ -12,6 +12,7 @@ namespace Receipts.QueryHandler.Api.Extensions
             {
                 settings!.MongoSettings!.ConnectionString = GetEnvironmentVariableFromRender("ConnectionString_Mongo");
                 settings.TokenAuth = GetEnvironmentVariableFromRender("Token_Authentication");
+                settings.SpendManagementIdentity!.Url = GetEnvironmentVariableFromRender("SpendManagementIdentity_Url");
             }
 
             return settings!;
