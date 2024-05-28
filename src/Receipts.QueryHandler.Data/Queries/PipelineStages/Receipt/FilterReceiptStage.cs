@@ -80,7 +80,7 @@ namespace Receipts.QueryHandler.Data.Queries.PipelineStages.Receipt
         private static FilterDefinition<BsonDocument> MatchByReceiptDate(
             ReceiptFilters queryFilter)
         {
-            if (queryFilter.ReceiptDate == DateTime.MinValue && queryFilter.ReceiptDateFinal == DateTime.MinValue)
+            if (queryFilter.ReceiptDateInitial == DateTime.MinValue && queryFilter.ReceiptDateEnd == DateTime.MinValue)
             {
                 return FilterDefinition<BsonDocument>.Empty;
             }
@@ -88,8 +88,8 @@ namespace Receipts.QueryHandler.Data.Queries.PipelineStages.Receipt
             var query = new BsonDocument("ReceiptDate",
                 new BsonDocument
                 {
-                    { "$gte", new DateTime(queryFilter.ReceiptDate.Year, queryFilter.ReceiptDate.Month, queryFilter.ReceiptDate.Day, 0, 0, 0, DateTimeKind.Utc) },
-                    { "$lte", new DateTime(queryFilter.ReceiptDateFinal.Year, queryFilter.ReceiptDateFinal.Month, queryFilter.ReceiptDateFinal.Day, 23, 59, 59, DateTimeKind.Utc) },
+                    { "$gte", new DateTime(queryFilter.ReceiptDateInitial.Year, queryFilter.ReceiptDateInitial.Month, queryFilter.ReceiptDateInitial.Day, 0, 0, 0, DateTimeKind.Utc) },
+                    { "$lte", new DateTime(queryFilter.ReceiptDateEnd.Year, queryFilter.ReceiptDateEnd.Month, queryFilter.ReceiptDateEnd.Day, 23, 59, 59, DateTimeKind.Utc) },
                 });
 
 

@@ -5,5 +5,5 @@ using MediatR;
 
 namespace Receipts.QueryHandler.Application.Queries.Receipt.GetVariableReceipts
 {
-    public record GetVariableReceiptsQuery(GetVariableReceiptsRequest GetVariableReceiptsRequest) : IRequest<PagedResult<ReceiptResponse>>;
+    public record GetVariableReceiptsQuery(GetVariableReceiptsRequest GetVariableReceiptsRequest) : IRequest<PagedResult<GetVariableReceiptResponse>>;
 }

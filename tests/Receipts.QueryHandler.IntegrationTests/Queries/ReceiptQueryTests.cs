@@ -1,16 +1,11 @@
 ﻿using AutoFixture;
-
 using Contracts.Web.Receipt.Requests;
-
 using FluentAssertions;
-
 using Newtonsoft.Json;
-
 using Receipts.QueryHandler.Application.Queries.Receipt.GetVariableReceipts;
 using Receipts.QueryHandler.Domain.Entities;
 using Receipts.QueryHandler.Domain.ValueObjects;
 using Receipts.QueryHandler.IntegrationTests.Fixtures;
-
 using System.Net;
 
 namespace Receipts.QueryHandler.IntegrationTests.Queries
@@ -49,8 +44,8 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
 
             var receiptResponse = JsonConvert.DeserializeObject<GetVariableReceiptsResponse>(Content);
 
-            receiptResponse?.Results.Should().NotBeNull();
-            receiptResponse?.Results.Should().Contain(x => x.Id.Equals(receiptId));
+            receiptResponse.Results.Should().NotBeNull();
+            receiptResponse.Results.Should().Contain(x => x.Id.Equals(receiptId));
         }
 
         [Fact]
@@ -182,15 +177,15 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
 
             var receiptFilter = _fixture
                 .Build<GetVariableReceiptsRequest>()
-                .With(x => x.ReceiptDate, dateIni)
-                .With(x => x.ReceiptDateFinal, dateFinal)
+                .With(x => x.ReceiptDateInitial, dateIni)
+                .With(x => x.ReceiptDateEnd, dateFinal)
                 .Create();
 
             //Act
             var (StatusCode, Content) = await _httpFixture.GetAsync("/getVariableReceipts",
                 receiptFilter,
-                nameof(receiptFilter.ReceiptDate),
-                nameof(receiptFilter.ReceiptDateFinal));
+                nameof(receiptFilter.ReceiptDateInitial),
+                nameof(receiptFilter.ReceiptDateEnd));
 
             //Assert
             StatusCode.Should().Be(HttpStatusCode.OK);

@@ -19,8 +19,8 @@ namespace Receipts.QueryHandler.Domain.QueriesFilters
         public IEnumerable<string>? EstablishmentNames { get; set; } = establishmentNames;
         public IEnumerable<string>? ReceiptItemNames { get; set; } = itemNames;
         [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
-        public DateTime ReceiptDate { get; set; } = receiptDate;
+        public DateTime ReceiptDateInitial { get; set; } = receiptDate;
         [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
-        public DateTime ReceiptDateFinal { get; set; } = receiptDateFinal;
+        public DateTime ReceiptDateEnd { get; set; } = receiptDateFinal;
     }
 }
