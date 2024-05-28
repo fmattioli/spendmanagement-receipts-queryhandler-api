@@ -3,7 +3,6 @@ using Receipts.QueryHandler.CrossCutting.Extensions.Logging;
 using Receipts.QueryHandler.CrossCutting.Extensions.Mongo;
 using Receipts.QueryHandler.CrossCutting.Extensions.HealthCheckers;
 using Receipts.QueryHandler.CrossCutting.Extensions.Tracing;
-using Receipts.QueryHandler.CrossCutting.Middlewares;
 using Receipts.QueryHandler.CrossCutting.Extensions.Repositories;
 using Receipts.QueryHandler.CrossCutting.Extensions.Handlers;
 

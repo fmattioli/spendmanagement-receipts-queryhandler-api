@@ -28,7 +28,11 @@ namespace Receipts.QueryHandler.CrossCutting.Extensions.Handlers
                 _ => HttpStatusCode.InternalServerError,
             };
 
-            var errors = new List<string>();
+            var errors = new List<string>
+            {
+                exception.Message
+            };
+
             foreach (var key in exception.Data.Keys)
             {
                 _logger.Error("The following error occured: {ErrorMessage}", exception.Data[key]);
