@@ -6,11 +6,11 @@ using Receipts.QueryHandler.Domain.Interfaces;
 
 namespace Receipts.QueryHandler.Application.Queries.Receipt.GetVariableReceipts
 {
-    public class GetVariableReceiptsQueryHandler(IReceiptRepository receiptRepository) : IRequestHandler<GetVariableReceiptsQuery, PagedResult<ReceiptResponse>>
+    public class GetVariableReceiptsQueryHandler(IReceiptRepository receiptRepository) : IRequestHandler<GetVariableReceiptsQuery, PagedResult<GetVariableReceiptResponse>>
     {
         private readonly IReceiptRepository receiptRepository = receiptRepository;
 
-        public async Task<PagedResult<ReceiptResponse>> Handle(GetVariableReceiptsQuery request, CancellationToken cancellationToken)
+        public async Task<PagedResult<GetVariableReceiptResponse>> Handle(GetVariableReceiptsQuery request, CancellationToken cancellationToken)
         {
             var domainFilters = request.GetVariableReceiptsRequest.ToDomainFilters();
             var receiptQueryResult = await receiptRepository.GetVariableReceiptsAsync(domainFilters);

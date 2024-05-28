@@ -3,7 +3,7 @@ using Contracts.Web.Receipt.Responses;
 
 namespace Receipts.QueryHandler.Application.Queries.Receipt.GetVariableReceipts
 {
-    public class GetVariableReceiptsResponse : PagedResult<ReceiptResponse>
+    public class GetVariableReceiptsResponse : PagedResult<GetVariableReceiptResponse>
     {
     }
 }

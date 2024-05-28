@@ -5,5 +5,5 @@ using MediatR;
 
 namespace Receipts.QueryHandler.Application.Queries.Receipt.GetRecurringReceipts
 {
-    public record GetRecurringReceiptsQuery(GetRecurringReceiptsRequest GetRecurringReceiptsRequest) : IRequest<PagedResult<RecurringReceiptResponse>>;
+    public record GetRecurringReceiptsQuery(GetRecurringReceiptsRequest GetRecurringReceiptsRequest) : IRequest<PagedResult<GetRecurringReceiptResponse>>;
 }

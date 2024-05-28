@@ -18,8 +18,8 @@ namespace Receipts.QueryHandler.Application.Mappers
                 getVariableReceiptsInput.ReceiptItemIds,
                 getVariableReceiptsInput.EstablishmentNames,
                 getVariableReceiptsInput.ReceiptItemNames,
-                getVariableReceiptsInput.ReceiptDate,
-                getVariableReceiptsInput.ReceiptDateFinal,
+                getVariableReceiptsInput.ReceiptDateInitial,
+                getVariableReceiptsInput.ReceiptDateEnd,
                 getVariableReceiptsInput.PageFilter.Page,
                 getVariableReceiptsInput.PageFilter.PageSize);
         }
@@ -34,9 +34,9 @@ namespace Receipts.QueryHandler.Application.Mappers
                 getReceiptsInput.PageFilter.PageSize);
         }
 
-        public static PagedResult<ReceiptResponse> ToResponse(this PagedResultFilter<Receipt> receipts, PageFilterRequest pageFilter)
+        public static PagedResult<GetVariableReceiptResponse> ToResponse(this PagedResultFilter<Receipt> receipts, PageFilterRequest pageFilter)
         {
-            return new PagedResult<ReceiptResponse>
+            return new PagedResult<GetVariableReceiptResponse>
             {
                 PageNumber = pageFilter.Page,
                 PageSize = pageFilter.PageSize,
@@ -47,9 +47,9 @@ namespace Receipts.QueryHandler.Application.Mappers
             };
         }
 
-        public static PagedResult<RecurringReceiptResponse> ToResponse(this PagedResultFilter<RecurringReceipt> recurringReceipts, PageFilterRequest pageFilter)
+        public static PagedResult<GetRecurringReceiptResponse> ToResponse(this PagedResultFilter<RecurringReceipt> recurringReceipts, PageFilterRequest pageFilter)
         {
-            return new PagedResult<RecurringReceiptResponse>
+            return new PagedResult<GetRecurringReceiptResponse>
             {
                 PageNumber = pageFilter.Page,
                 PageSize = pageFilter.PageSize,
@@ -60,9 +60,9 @@ namespace Receipts.QueryHandler.Application.Mappers
             };
         }
 
-        public static ReceiptResponse ToReceiptResponse(this Receipt receipt)
+        public static GetVariableReceiptResponse ToReceiptResponse(this Receipt receipt)
         {
-            return new ReceiptResponse
+            return new GetVariableReceiptResponse
             {
                 Id = receipt.Id,
                 Category = receipt.Category.ToCategoryResponse(),
@@ -74,7 +74,7 @@ namespace Receipts.QueryHandler.Application.Mappers
             };
         }
 
-        public static IEnumerable<ReceiptItemResponse> ToDomainReceiptItems(this ReceiptItem receiptItem)
+        public static IEnumerable<GetReceiptItemResponse> ToDomainReceiptItems(this ReceiptItem receiptItem)
         {
             return
             [
@@ -90,7 +90,7 @@ namespace Receipts.QueryHandler.Application.Mappers
             ];
         }
 
-        public static IEnumerable<ReceiptResponse> ToReceiptResponseItems(this Receipt receipt)
+        public static IEnumerable<GetVariableReceiptResponse> ToReceiptResponseItems(this Receipt receipt)
         {
             return
             [
@@ -106,7 +106,7 @@ namespace Receipts.QueryHandler.Application.Mappers
             ];
         }
 
-        public static IEnumerable<RecurringReceiptResponse> ToRecurringReceiptResponseItems(this RecurringReceipt receipt)
+        public static IEnumerable<GetRecurringReceiptResponse> ToRecurringReceiptResponseItems(this RecurringReceipt receipt)
         {
             return
             [
