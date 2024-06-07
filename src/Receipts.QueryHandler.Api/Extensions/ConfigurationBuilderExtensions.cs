@@ -10,15 +10,13 @@ namespace Receipts.QueryHandler.Api.Extensions
 
             if (!env.IsDevelopment())
             {
-                settings!.MongoSettings!.ConnectionString = GetEnvironmentVariableFromRender("ConnectionString_Mongo");
-                settings.TokenAuth = GetEnvironmentVariableFromRender("Token_Authentication");
-                settings.SpendManagementIdentity!.Url = GetEnvironmentVariableFromRender("SpendManagementIdentity_Url");
+                settings!.MongoSettings!.ConnectionString = GetEnvironmentVariable("ConnectionString_Mongo");
             }
 
             return settings!;
         }
 
-        private static string GetEnvironmentVariableFromRender(string variableName)
+        private static string GetEnvironmentVariable(string variableName)
         {
             return Environment.GetEnvironmentVariable(variableName) ?? "";
         }

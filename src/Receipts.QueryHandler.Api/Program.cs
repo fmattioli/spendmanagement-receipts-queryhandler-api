@@ -1,10 +1,11 @@
+using Keycloak.AuthServices.Authentication;
 using Receipts.QueryHandler.Api.Extensions;
+using Receipts.QueryHandler.CrossCutting.Extensions.Handlers;
+using Receipts.QueryHandler.CrossCutting.Extensions.HealthCheckers;
 using Receipts.QueryHandler.CrossCutting.Extensions.Logging;
 using Receipts.QueryHandler.CrossCutting.Extensions.Mongo;
-using Receipts.QueryHandler.CrossCutting.Extensions.HealthCheckers;
-using Receipts.QueryHandler.CrossCutting.Extensions.Tracing;
 using Receipts.QueryHandler.CrossCutting.Extensions.Repositories;
-using Receipts.QueryHandler.CrossCutting.Extensions.Handlers;
+using Receipts.QueryHandler.CrossCutting.Extensions.Tracing;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,22 +16,23 @@ builder.Configuration
     .AddJsonFile($"appsettings.{environment}.json", true, reloadOnChange: true)
     .AddEnvironmentVariables();
 
-var applicationSettings = builder.Configuration.GetApplicationSettings(builder.Environment);
 
 builder.Logging
     .ClearProviders()
     .AddFilter("Microsoft", LogLevel.Warning)
     .AddFilter("Microsoft", LogLevel.Critical);
 
+var applicationSettings = builder.Configuration.GetApplicationSettings(builder.Environment);
+
 // Add services to the container.
 builder.Services
+    .AddKeycloakAuthentication(builder.Configuration, applicationSettings.Keycloak!)
     .AddExceptionHandler<GlobalExceptionHandler>()
     .AddProblemDetails()
     .AddTracing(applicationSettings!.TracingSettings)
     .AddDependencyInjection()
     .AddRepositories()
     .AddMongo(applicationSettings.MongoSettings!)
-    .AddAuthorization(applicationSettings.TokenAuth)
     .AddHealthCheckers(applicationSettings)
     .AddLoggingDependency()
     .AddControllers();
@@ -38,13 +40,19 @@ builder.Services
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services
     .AddEndpointsApiExplorer()
-    .AddSwagger();
+    .AddSwagger(applicationSettings.Keycloak!);
 
 var app = builder.Build();
 
 app.UseExceptionHandler()
    .UseSwagger()
-   .UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SpendManagement.ReadModel"))
+   .UseSwaggerUI(c =>
+   {
+       c.SwaggerEndpoint("/swagger/v1/swagger.json", "SpendManagement.QueryHandler.Api");
+       c.OAuthClientId(applicationSettings!.Keycloak!.Resource);
+       c.OAuthClientSecret(applicationSettings!.Keycloak!.Credentials!.Secret);
+       c.OAuthUseBasicAuthenticationWithAccessCodeGrant();
+   })
    .UseHealthCheckers()
    .UseHttpsRedirection()
    .UseAuthentication()

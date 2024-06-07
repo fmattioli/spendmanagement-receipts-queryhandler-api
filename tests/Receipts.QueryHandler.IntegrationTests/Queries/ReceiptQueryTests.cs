@@ -44,7 +44,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
 
             var receiptResponse = JsonConvert.DeserializeObject<GetVariableReceiptsResponse>(Content);
 
-            receiptResponse.Results.Should().NotBeNull();
+            receiptResponse!.Results.Should().NotBeNull();
             receiptResponse.Results.Should().Contain(x => x.Id.Equals(receiptId));
         }
 

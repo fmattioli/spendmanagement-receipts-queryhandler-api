@@ -1,11 +1,8 @@
 ﻿using Flurl;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Linq;
 using Receipts.QueryHandler.Application.Constants;
-using Receipts.QueryHandler.IntegrationTests.Configuration;
-using System.IdentityModel.Tokens.Jwt;
 using System.Net;
-using System.Security.Claims;
 using System.Text;
 
 namespace Receipts.QueryHandler.IntegrationTests.Fixtures
@@ -13,6 +10,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Fixtures
     public class HttpFixture
     {
         private readonly HttpClient _httpClient;
+        private string? accessToken;
 
         public HttpFixture()
         {
@@ -23,7 +21,8 @@ namespace Receipts.QueryHandler.IntegrationTests.Fixtures
 
         public async Task<(HttpStatusCode StatusCode, string Content)> GetAsync<T>(string resource, T queryFilters, params string[] discardProperties) where T : class
         {
-            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", GenerateJWToken());
+            await GenerateJWTokenAsync();
+            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
             var queryParams = BuildFilters(queryFilters, discardProperties);
 
             var url = ReadModelConstants.ApiVersion
@@ -72,34 +71,33 @@ namespace Receipts.QueryHandler.IntegrationTests.Fixtures
                     });
         }
 
-        private static string GenerateJWToken()
+        private async Task<string> GenerateJWTokenAsync()
         {
-            var settings = TestSettings.JwtOptionsSettings;
-            var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(settings?.SecurityKey ?? throw new Exception("Invalid token security key")));
+            if (string.IsNullOrEmpty(accessToken))
+            {
+                string tokenEndpoint = "https://docker-containers-keycloak.8ya11r.easypanel.host/realms/spendmanagement/protocol/openid-connect/token";
 
-            var claims = GenerateClaims();
+                var parameters = new List<KeyValuePair<string, string>>
+                {
+                     new("grant_type", "password"),
+                     new("client_id", "receipts-queryhandler-api"),
+                     new("client_secret", "kTrOmd1FdZaVjMeHgbBJucYZl4Iw6Rfg"),
+                     new("username", "integrationtests"),
+                     new("password", "integrationtests"),
+                     new("scope", "receipts-queryhandler-api-read")
+                };
 
-            var credenciais = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512);
+                using var client = new HttpClient();
+                var content = new FormUrlEncodedContent(parameters);
+                using var response = await client.PostAsync(tokenEndpoint, content);
+                string responseBody = await response.Content.ReadAsStringAsync();
 
-            var token = new JwtSecurityToken(
-                settings.Issuer,
-                settings.Audience,
-                claims,
-                expires: DateTime.UtcNow.AddMinutes(settings.AccessTokenExpiration),
-                signingCredentials: credenciais
-            );
+                JObject tokenResponse = JObject.Parse(responseBody);
+                accessToken = tokenResponse["access_token"]!.ToString();
+                return accessToken!;
+            }
 
-            var tokenJWT = new JwtSecurityTokenHandler().WriteToken(token);
-            return tokenJWT;
-        }
-
-        private static List<Claim> GenerateClaims()
-        {
-            return
-            [
-                new(Application.Claims.ClaimTypes.Receipt, "Read"),
-                new(Application.Claims.ClaimTypes.Category, "Read"),
-            ];
+            return accessToken;
         }
     }
 }

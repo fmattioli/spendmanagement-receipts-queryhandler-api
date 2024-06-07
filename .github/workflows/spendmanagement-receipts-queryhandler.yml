@@ -193,7 +193,7 @@ jobs:
             docker push "fmattioli/spendmanagement-receipts-queryhandler-api:latest"
   Deploy:
     needs: [bump, publish-docker-image]
-    name: Start deploy on Render
+    name: Start deploy
     runs-on: ubuntu-latest
     env:
       IMAGE_URL: 'docker.io/fmattioli/spendmanagement-receipts-commandhandler-api:latest'

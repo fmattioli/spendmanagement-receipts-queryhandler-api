@@ -9,13 +9,11 @@ namespace Receipts.QueryHandler.CrossCutting.Extensions.HealthCheckers
 {
     public static class HealthCheckersExtensions
     {
-        private const string UrlHealthCheck = "/health";
         public static IServiceCollection AddHealthCheckers(this IServiceCollection services, Settings settings)
         {
             services
                 .AddHealthChecks()
-                .AddMongoDb(settings!.MongoSettings!.ConnectionString, name: "MongoDB")
-                .AddUrlGroup(new Uri(settings.SpendManagementIdentity!.Url + UrlHealthCheck), name: "SpendManagement.Identity");
+                .AddMongoDb(settings!.MongoSettings!.ConnectionString, name: "MongoDB");
 
             services
                 .AddHealthChecksUI()
