@@ -2,16 +2,14 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Receipts.QueryHandler.Application.Claims;
 using Receipts.QueryHandler.Application.Queries.Receipt.GetRecurringReceipts;
 using Receipts.QueryHandler.Application.Queries.Receipt.GetVariableReceipts;
-using Receipts.QueryHandler.CrossCutting.Filters;
 
 namespace Receipts.QueryHandler.Api.Controllers
 {
     [Route("api/v1")]
     [ApiController]
-    [Authorize]
+    [Authorize(Policy = "ApiReader")]
     public class ReceiptController(IMediator mediator) : ControllerBase
     {
         private readonly IMediator _mediator = mediator;
@@ -26,7 +24,6 @@ namespace Receipts.QueryHandler.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ClaimsAuthorize(ClaimTypes.Receipt, "Read")]
         public async Task<IActionResult> GetVariableReceipts([FromRoute] GetVariableReceiptsRequest getVariableReceiptsRequest, CancellationToken cancellationToken)
         {
             var receipts = await _mediator.Send(new GetVariableReceiptsQuery(getVariableReceiptsRequest), cancellationToken);
@@ -43,7 +40,6 @@ namespace Receipts.QueryHandler.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ClaimsAuthorize(ClaimTypes.Receipt, "Read")]
         public async Task<IActionResult> GetRecurringReceipts([FromRoute] GetRecurringReceiptsRequest getRecurringReceiptsRequest, CancellationToken cancellationToken)
         {
             var receipts = await _mediator.Send(new GetRecurringReceiptsQuery(getRecurringReceiptsRequest), cancellationToken);
