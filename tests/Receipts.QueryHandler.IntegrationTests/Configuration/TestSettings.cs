@@ -10,11 +10,11 @@ namespace Receipts.QueryHandler.IntegrationTests.Configuration
                .AddJsonFile("Configuration/testsettings.json", false, true)
                .Build();
 
-            JwtOptionsSettings = config.GetSection("JwtOptionsSettings").Get<JwtOptionsSettings>();
+            Keycloak = config.GetSection("Keycloak").Get<KeycloakSettings>();
             MongoSettings = config.GetSection("MongoSettings").Get<MongoSettings>();
         }
 
         public static MongoSettings? MongoSettings { get; }
-        public static JwtOptionsSettings? JwtOptionsSettings { get; }
+        public static KeycloakSettings? Keycloak { get; }
     }
 }

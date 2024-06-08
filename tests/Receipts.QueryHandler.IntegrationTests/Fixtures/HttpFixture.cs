@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json.Linq;
 using Receipts.QueryHandler.Application.Constants;
+using Receipts.QueryHandler.IntegrationTests.Configuration;
 using System.Net;
 using System.Text;
 
@@ -80,11 +81,11 @@ namespace Receipts.QueryHandler.IntegrationTests.Fixtures
                 var parameters = new List<KeyValuePair<string, string>>
                 {
                      new("grant_type", "password"),
-                     new("client_id", "receipts-queryhandler-api"),
-                     new("client_secret", "kTrOmd1FdZaVjMeHgbBJucYZl4Iw6Rfg"),
+                     new("client_id", TestSettings.Keycloak!.Resource!),
+                     new("client_secret", TestSettings.Keycloak!.Credentials!.Secret!),
                      new("username", "integrationtests"),
                      new("password", "integrationtests"),
-                     new("scope", "receipts-queryhandler-api-read")
+                     new("scope", TestSettings.Keycloak!.Scopes!.FirstOrDefault()!)
                 };
 
                 using var client = new HttpClient();
