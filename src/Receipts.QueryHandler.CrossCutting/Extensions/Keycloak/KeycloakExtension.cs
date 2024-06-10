@@ -1,6 +1,8 @@
 ﻿using Keycloak.AuthServices.Authentication;
 using Keycloak.AuthServices.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Receipts.QueryHandler.CrossCutting.Config;
 
 namespace Receipts.QueryHandler.Api.Extensions

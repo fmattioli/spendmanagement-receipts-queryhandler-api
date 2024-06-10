@@ -1,4 +1,5 @@
-﻿using Receipts.QueryHandler.Application.Queries.Receipt.GetVariableReceipts;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Receipts.QueryHandler.Application.Queries.Receipt.GetVariableReceipts;
 
 namespace Receipts.QueryHandler.Api.Extensions
 {
