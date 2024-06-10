@@ -1,4 +1,6 @@
-﻿using Receipts.QueryHandler.CrossCutting.Config;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Receipts.QueryHandler.CrossCutting.Config;
 
 namespace Receipts.QueryHandler.Api.Extensions
 {
