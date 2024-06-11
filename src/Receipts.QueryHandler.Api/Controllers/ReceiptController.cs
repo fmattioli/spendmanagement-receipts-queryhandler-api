@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Receipts.QueryHandler.Application.Queries.Receipt.GetRecurringReceipts;
 using Receipts.QueryHandler.Application.Queries.Receipt.GetVariableReceipts;
 
+
 namespace Receipts.QueryHandler.Api.Controllers
 {
     [Route("api/v1")]

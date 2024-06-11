@@ -23,6 +23,7 @@ namespace Receipts.QueryHandler.CrossCutting.Extensions.Handlers
                 InternalServerErrorException => HttpStatusCode.InternalServerError,
                 ValidationException => HttpStatusCode.BadRequest,
                 BadRequestException => HttpStatusCode.BadRequest,
+                ForbiddenAccessException => HttpStatusCode.Forbidden,
                 UnauthorizedAccessException => HttpStatusCode.Unauthorized,
                 HttpRequestException => HttpStatusCode.InternalServerError,
                 _ => HttpStatusCode.InternalServerError,

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Receipts.QueryHandler.Application.Queries.Category.GetCategories;
 
+
 namespace Receipts.QueryHandler.Api.Controllers
 {
     [Route("api/v1")]
