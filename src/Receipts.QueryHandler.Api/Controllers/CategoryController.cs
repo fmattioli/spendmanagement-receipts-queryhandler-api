@@ -1,4 +1,5 @@
-﻿using Contracts.Web.Category.Requests;
+﻿using Contracts.Web.Attributes;
+using Contracts.Web.Category.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ namespace Receipts.QueryHandler.Api.Controllers
     [Route("api/v1")]
     [ApiController]
     [Authorize(Policy = "ApiReader")]
+    [RequiredScope("receipts-read")]
     public class CategoryController(IMediator mediator) : Controller
     {
         private readonly IMediator _mediator = mediator;
