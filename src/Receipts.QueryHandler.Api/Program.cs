@@ -26,7 +26,7 @@ var applicationSettings = builder.Configuration.GetApplicationSettings(builder.E
 
 // Add services to the container.
 builder.Services
-    .AddKeycloakAuthentication(builder.Configuration, applicationSettings.Keycloak!)
+    .AddKeycloakAuthentication(applicationSettings.Keycloak!)
     .AddExceptionHandler<GlobalExceptionHandler>()
     .AddProblemDetails()
     .AddTracing(applicationSettings!.TracingSettings)
