@@ -76,7 +76,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Fixtures
         {
             if (string.IsNullOrEmpty(accessToken))
             {
-                string tokenEndpoint = "https://docker-containers-keycloak.8ya11r.easypanel.host/realms/spendmanagement/protocol/openid-connect/token";
+                string tokenEndpoint = TestSettings.Keycloak!.SwaggerTokenUrl!;
 
                 var parameters = new List<KeyValuePair<string, string>>
                 {
