@@ -32,7 +32,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Fixtures
 
             if (receiptIds.Count != 0)
             {
-                var collection = database.GetCollection<Receipt>("Receipts");
+                var collection = database.GetCollection<Receipt>("VariableReceipts");
 
                 var filter = new FilterDefinitionBuilder<Receipt>()
                     .In(x => x.Id, receiptIds);
@@ -58,7 +58,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Fixtures
 
         public async Task InsertReceiptAsync(params Receipt[] receipts)
         {
-            var collection = database.GetCollection<Receipt>("Receipts");
+            var collection = database.GetCollection<Receipt>("VariableReceipts");
             await Task.WhenAll(receipts.Select(receipt => collection.InsertOneAsync(receipt)));
             receiptIds.AddRange(receipts.Select(x => x.Id));
         }
