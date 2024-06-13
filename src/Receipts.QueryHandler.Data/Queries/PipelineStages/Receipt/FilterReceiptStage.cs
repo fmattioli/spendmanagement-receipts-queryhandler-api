@@ -25,6 +25,7 @@ namespace Receipts.QueryHandler.Data.Queries.PipelineStages.Receipt
         {
             var filters = new List<FilterDefinition<BsonDocument>>
             {
+                MatchByTenant(queryFilter.TenantId),
                 MatchByReceiptIds(queryFilter),
                 MatchByCategoryIds(queryFilter),
                 MatchByEstablishmentNames(queryFilter),
@@ -39,6 +40,15 @@ namespace Receipts.QueryHandler.Data.Queries.PipelineStages.Receipt
             }
 
             return filters.Count == 1 ? filters[0] : Builders<BsonDocument>.Filter.And(filters);
+        }
+
+        private static FilterDefinition<BsonDocument> MatchByTenant(int tenantId)
+        {
+            var filter = new BsonDocument(
+                "Tenant.Id",
+                new BsonDocument("$eq", tenantId));
+
+            return new BsonDocumentFilterDefinition<BsonDocument>(filter);
         }
 
         private static FilterDefinition<BsonDocument> MatchByReceiptIds(

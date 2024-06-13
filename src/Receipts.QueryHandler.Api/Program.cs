@@ -1,10 +1,13 @@
 using Keycloak.AuthServices.Authentication;
-using Receipts.QueryHandler.Api.Extensions;
+using Receipts.QueryHandler.CrossCutting.Extensions.Api;
+using Receipts.QueryHandler.CrossCutting.Extensions.Auth;
 using Receipts.QueryHandler.CrossCutting.Extensions.Handlers;
 using Receipts.QueryHandler.CrossCutting.Extensions.HealthCheckers;
 using Receipts.QueryHandler.CrossCutting.Extensions.Logging;
+using Receipts.QueryHandler.CrossCutting.Extensions.MediatR;
 using Receipts.QueryHandler.CrossCutting.Extensions.Mongo;
 using Receipts.QueryHandler.CrossCutting.Extensions.Repositories;
+using Receipts.QueryHandler.CrossCutting.Extensions.Swagger;
 using Receipts.QueryHandler.CrossCutting.Extensions.Tracing;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,7 +29,7 @@ var applicationSettings = builder.Configuration.GetApplicationSettings(builder.E
 
 // Add services to the container.
 builder.Services
-    .AddKeycloakAuthentication(applicationSettings.Keycloak!)
+    .AddAuth(applicationSettings.Keycloak!)
     .AddExceptionHandler<GlobalExceptionHandler>()
     .AddProblemDetails()
     .AddTracing(applicationSettings!.TracingSettings)

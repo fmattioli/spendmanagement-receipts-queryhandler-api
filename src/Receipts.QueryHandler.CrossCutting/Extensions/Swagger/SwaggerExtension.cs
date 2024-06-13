@@ -3,7 +3,7 @@ using Microsoft.OpenApi.Models;
 using Receipts.QueryHandler.CrossCutting.Config;
 using Receipts.QueryHandler.CrossCutting.Filters;
 
-namespace Receipts.QueryHandler.Api.Extensions
+namespace Receipts.QueryHandler.CrossCutting.Extensions.Swagger
 {
     public static class SwaggerExtension
     {

@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
-using Receipts.QueryHandler.Data.Queries.PipelineStages.Receipt;
 using Receipts.QueryHandler.Data.Queries.PipelineStages;
+using Receipts.QueryHandler.Data.Queries.PipelineStages.Receipt;
 using Receipts.QueryHandler.Data.Queries.PipelineStages.RecurringReceipt;
 using Receipts.QueryHandler.Domain.Entities;
 using Receipts.QueryHandler.Domain.Interfaces;
@@ -12,8 +12,9 @@ namespace Receipts.QueryHandler.Data.Queries.Repositories
 {
     public class ReceiptRepository(IMongoDatabase mongoDb) : IReceiptRepository
     {
-        private readonly IMongoCollection<Receipt> receiptCollection = mongoDb.GetCollection<Receipt>("Receipts");
+        private readonly IMongoCollection<Receipt> receiptCollection = mongoDb.GetCollection<Receipt>("VariableReceipts");
         private readonly IMongoCollection<RecurringReceipt> recurringReceiptCollection = mongoDb.GetCollection<RecurringReceipt>("RecurringReceipts");
+
 
         #region Variable receipts
         public async Task<PagedResultFilter<Receipt>> GetVariableReceiptsAsync(ReceiptFilters queryFilter)

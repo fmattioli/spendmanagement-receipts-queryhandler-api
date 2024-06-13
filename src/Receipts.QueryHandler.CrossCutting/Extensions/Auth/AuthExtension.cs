@@ -3,14 +3,15 @@ using Keycloak.AuthServices.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Receipts.QueryHandler.Application.Providers;
 using Receipts.QueryHandler.CrossCutting.Config;
 using System.IdentityModel.Tokens.Jwt;
 
-namespace Receipts.QueryHandler.Api.Extensions
+namespace Receipts.QueryHandler.CrossCutting.Extensions.Auth
 {
-    public static class KeycloakExtension
+    public static class AuthExtension
     {
-        public static IServiceCollection AddKeycloakAuthentication(this IServiceCollection services, KeycloakSettings keycloakSettings)
+        public static IServiceCollection AddAuth(this IServiceCollection services, KeycloakSettings keycloakSettings)
         {
             var httpClient = new HttpClient();
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -76,6 +77,11 @@ namespace Receipts.QueryHandler.Api.Extensions
                         };
                     }
                 );
+
+            services.AddSingleton<JwtSecurityTokenHandler>();
+            services.AddScoped<IAuthProvider, AuthProvider>();
+            services.AddHttpContextAccessor();
+            services.AddScoped<IAuthProvider, AuthProvider>();
 
             services
                 .AddAuthorization()

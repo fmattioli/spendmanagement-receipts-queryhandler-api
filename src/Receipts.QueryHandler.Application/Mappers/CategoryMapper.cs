@@ -20,9 +20,10 @@ namespace Receipts.QueryHandler.Application.Mappers
             };
         }
 
-        public static CategoryFilters ToDomainFilters(this GetCategoriesRequest getCategoriesRequest)
+        public static CategoryFilters ToDomainFilters(this GetCategoriesRequest getCategoriesRequest, int tenantId)
         {
             return new CategoryFilters(
+                tenantId,
                 getCategoriesRequest.CategoryIds,
                 getCategoriesRequest.CategoryNames,
                 (short)getCategoriesRequest.PageFilter.Page,

@@ -4,8 +4,8 @@ using Receipts.QueryHandler.Data.Queries.PipelineStages;
 using Receipts.QueryHandler.Data.Queries.PipelineStages.Category;
 using Receipts.QueryHandler.Domain.Entities;
 using Receipts.QueryHandler.Domain.Interfaces;
-using Receipts.QueryHandler.Domain.QueriesFilters.PageFilters;
 using Receipts.QueryHandler.Domain.QueriesFilters;
+using Receipts.QueryHandler.Domain.QueriesFilters.PageFilters;
 
 namespace Receipts.QueryHandler.Data.Queries.Repositories
 {

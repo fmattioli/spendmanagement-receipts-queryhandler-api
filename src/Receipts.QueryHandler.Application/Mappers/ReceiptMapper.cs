@@ -10,9 +10,10 @@ namespace Receipts.QueryHandler.Application.Mappers
 {
     public static class ReceiptMapper
     {
-        public static ReceiptFilters ToDomainFilters(this GetVariableReceiptsRequest getVariableReceiptsInput)
+        public static ReceiptFilters ToDomainFilters(this GetVariableReceiptsRequest getVariableReceiptsInput, int tenantId)
         {
             return new ReceiptFilters(
+                tenantId,
                 getVariableReceiptsInput.ReceiptIds,
                 getVariableReceiptsInput.CategoryIds,
                 getVariableReceiptsInput.ReceiptItemIds,
@@ -24,9 +25,10 @@ namespace Receipts.QueryHandler.Application.Mappers
                 getVariableReceiptsInput.PageFilter.PageSize);
         }
 
-        public static RecurringReceiptFilters ToDomainFilters(this GetRecurringReceiptsRequest getReceiptsInput)
+        public static RecurringReceiptFilters ToDomainFilters(this GetRecurringReceiptsRequest getReceiptsInput, int tenantId)
         {
             return new RecurringReceiptFilters(
+                tenantId,
                 getReceiptsInput.ReceiptIds,
                 getReceiptsInput.CategoryIds,
                 getReceiptsInput.EstablishmentNames,

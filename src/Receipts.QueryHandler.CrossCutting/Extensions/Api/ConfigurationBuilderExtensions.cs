@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using Receipts.QueryHandler.CrossCutting.Config;
 
-namespace Receipts.QueryHandler.Api.Extensions
+namespace Receipts.QueryHandler.CrossCutting.Extensions.Api
 {
     public static class ConfigurationBuilderExtensions
     {

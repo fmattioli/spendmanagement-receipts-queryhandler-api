@@ -1,5 +1,6 @@
 ﻿using AutoFixture;
 using Moq;
+using Receipts.QueryHandler.Application.Providers;
 using Receipts.QueryHandler.Application.Queries.Category.GetCategories;
 using Receipts.QueryHandler.Domain.Interfaces;
 using Receipts.QueryHandler.Domain.QueriesFilters;
@@ -11,11 +12,12 @@ namespace Receipts.QueryHandler.UnitTests.Queries.Category
     {
         private readonly Fixture _fixture = new();
         private readonly Mock<ICategoryRepository> mockCategoryRepository = new();
+        private readonly Mock<IAuthProvider> authProviderRepository = new();
         private readonly GetCategoriesQueryHandler _categoriesQueryHandler;
 
         public CategoryQueriesTests()
         {
-            _categoriesQueryHandler = new GetCategoriesQueryHandler(mockCategoryRepository.Object);
+            _categoriesQueryHandler = new GetCategoriesQueryHandler(mockCategoryRepository.Object, authProviderRepository.Object);
         }
 
         [Fact]

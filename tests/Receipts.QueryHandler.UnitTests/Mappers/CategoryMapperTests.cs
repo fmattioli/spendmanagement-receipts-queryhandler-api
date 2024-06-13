@@ -31,7 +31,7 @@ namespace Receipts.QueryHandler.UnitTests.Mappers
             var getCategoriesRequest = _fixture.Create<GetCategoriesRequest>();
 
             // Act
-            var result = getCategoriesRequest.ToDomainFilters();
+            var result = getCategoriesRequest.ToDomainFilters(_fixture.Create<int>());
 
             // Assert
             result.Should().NotBeNull();

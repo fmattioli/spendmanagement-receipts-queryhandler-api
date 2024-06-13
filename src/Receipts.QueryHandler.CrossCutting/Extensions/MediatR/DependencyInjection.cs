@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Receipts.QueryHandler.Application.Queries.Receipt.GetVariableReceipts;
 
-namespace Receipts.QueryHandler.Api.Extensions
+namespace Receipts.QueryHandler.CrossCutting.Extensions.MediatR
 {
     public static class DependencyInjection
     {

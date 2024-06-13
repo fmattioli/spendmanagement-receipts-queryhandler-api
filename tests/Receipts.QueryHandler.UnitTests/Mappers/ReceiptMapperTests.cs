@@ -19,7 +19,7 @@ namespace Receipts.QueryHandler.UnitTests.Mappers
             var receiptFilters = _fixture.Create<GetVariableReceiptsRequest>();
 
             // Act
-            var result = receiptFilters?.ToDomainFilters();
+            var result = receiptFilters?.ToDomainFilters(_fixture.Create<int>());
 
             // Assert
             result.Should().BeEquivalentTo(receiptFilters, options =>
