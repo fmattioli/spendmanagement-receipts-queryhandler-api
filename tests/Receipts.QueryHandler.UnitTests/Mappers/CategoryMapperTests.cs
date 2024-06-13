@@ -1,6 +1,6 @@
 ﻿using AutoFixture;
-using Contracts.Web.Category.Requests;
-using Contracts.Web.Common;
+using Contracts.Web.Http.Category.Requests;
+using Contracts.Web.Http.Common;
 using FluentAssertions;
 using Receipts.QueryHandler.Application.Mappers;
 using Receipts.QueryHandler.Domain.Entities;

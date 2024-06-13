@@ -1,5 +1,5 @@
 ﻿using Contracts.Web.Attributes;
-using Contracts.Web.Receipt.Requests;
+using Contracts.Web.Http.Receipt.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

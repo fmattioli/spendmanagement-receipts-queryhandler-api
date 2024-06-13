@@ -1,4 +1,6 @@
 using Keycloak.AuthServices.Authentication;
+using Microsoft.Extensions.DependencyInjection;
+using Receipts.QueryHandler.CrossCutting.Config;
 using Receipts.QueryHandler.CrossCutting.Extensions.Api;
 using Receipts.QueryHandler.CrossCutting.Extensions.Auth;
 using Receipts.QueryHandler.CrossCutting.Extensions.Handlers;
@@ -29,7 +31,8 @@ var applicationSettings = builder.Configuration.GetApplicationSettings(builder.E
 
 // Add services to the container.
 builder.Services
-    .AddAuth(applicationSettings.Keycloak!)
+    .AddSingleton<ISettings>(applicationSettings!)
+    .AddApiAuthentication(applicationSettings.AuthSettings!)
     .AddExceptionHandler<GlobalExceptionHandler>()
     .AddProblemDetails()
     .AddTracing(applicationSettings!.TracingSettings)
@@ -43,7 +46,7 @@ builder.Services
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services
     .AddEndpointsApiExplorer()
-    .AddSwagger(applicationSettings.Keycloak!);
+    .AddSwagger(applicationSettings!.AuthSettings!);
 
 var app = builder.Build();
 
@@ -52,8 +55,7 @@ app.UseExceptionHandler()
    .UseSwaggerUI(c =>
    {
        c.SwaggerEndpoint("/swagger/v1/swagger.json", "SpendManagement.QueryHandler.Api");
-       c.OAuthClientId(applicationSettings!.Keycloak!.Resource);
-       c.OAuthClientSecret(applicationSettings!.Keycloak!.Credentials!.Secret);
+       c.OAuthClientId(applicationSettings!.AuthSettings!.Resource);
        c.OAuthUseBasicAuthenticationWithAccessCodeGrant();
    })
    .UseHealthCheckers()

@@ -1,6 +1,6 @@
-﻿using Contracts.Web.Common;
-using Contracts.Web.Receipt.Requests;
-using Contracts.Web.Receipt.Responses;
+﻿using Contracts.Web.Http.Common;
+using Contracts.Web.Http.Receipt.Requests;
+using Contracts.Web.Http.Receipt.Responses;
 using Receipts.QueryHandler.Domain.Entities;
 using Receipts.QueryHandler.Domain.QueriesFilters;
 using Receipts.QueryHandler.Domain.QueriesFilters.PageFilters;

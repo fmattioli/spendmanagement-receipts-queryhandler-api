@@ -1,5 +1,5 @@
 ﻿using AutoFixture;
-using Contracts.Web.Receipt.Requests;
+using Contracts.Web.Http.Receipt.Requests;
 using FluentAssertions;
 using Newtonsoft.Json;
 using Receipts.QueryHandler.Application.Queries.Receipt.GetVariableReceipts;

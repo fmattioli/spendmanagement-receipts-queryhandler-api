@@ -1,6 +1,6 @@
 ﻿using AutoFixture;
+using Contracts.Web.Services.Auth;
 using Moq;
-using Receipts.QueryHandler.Application.Providers;
 using Receipts.QueryHandler.Application.Queries.Receipt.GetRecurringReceipts;
 using Receipts.QueryHandler.Application.Queries.Receipt.GetVariableReceipts;
 using Receipts.QueryHandler.Domain.Entities;
@@ -14,14 +14,14 @@ namespace Receipts.QueryHandler.UnitTests.Queries.Receipt
     {
         private readonly Fixture _fixture = new();
         private readonly Mock<IReceiptRepository> mockReceiptRepository = new();
-        private readonly Mock<IAuthProvider> authProviderRepository = new();
+        private readonly Mock<IAuthService> authServiceRepository = new();
         private readonly GetVariableReceiptsQueryHandler _receiptsQueryHandler;
         private readonly GetRecurringReceiptsQueryHandler _recurringReceiptsQueryHandler;
 
         public ReceiptQueriesTests()
         {
-            _receiptsQueryHandler = new GetVariableReceiptsQueryHandler(mockReceiptRepository.Object, authProviderRepository.Object);
-            _recurringReceiptsQueryHandler = new GetRecurringReceiptsQueryHandler(mockReceiptRepository.Object, authProviderRepository.Object);
+            _receiptsQueryHandler = new GetVariableReceiptsQueryHandler(mockReceiptRepository.Object, authServiceRepository.Object);
+            _recurringReceiptsQueryHandler = new GetRecurringReceiptsQueryHandler(mockReceiptRepository.Object, authServiceRepository.Object);
         }
 
         [Fact]

@@ -1,5 +1,5 @@
-﻿using Contracts.Web.Common;
-using Contracts.Web.Receipt.Responses;
+﻿using Contracts.Web.Http.Common;
+using Contracts.Web.Http.Receipt.Responses;
 
 namespace Receipts.QueryHandler.Application.Queries.Receipt.GetVariableReceipts
 {

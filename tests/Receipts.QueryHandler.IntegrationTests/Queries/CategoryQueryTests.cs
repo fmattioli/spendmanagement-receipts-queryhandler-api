@@ -1,6 +1,6 @@
 ﻿using AutoFixture;
 
-using Contracts.Web.Category.Requests;
+using Contracts.Web.Http.Category.Requests;
 
 using FluentAssertions;
 

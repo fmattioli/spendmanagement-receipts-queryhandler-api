@@ -1,6 +1,6 @@
-﻿using Contracts.Web.Category.Requests;
-using Contracts.Web.Category.Responses;
-using Contracts.Web.Common;
+﻿using Contracts.Web.Http.Category.Requests;
+using Contracts.Web.Http.Category.Responses;
+using Contracts.Web.Http.Common;
 using Receipts.QueryHandler.Application.Queries.Category.GetCategories;
 using Receipts.QueryHandler.Domain.Entities;
 using Receipts.QueryHandler.Domain.QueriesFilters;
