@@ -12,12 +12,12 @@ namespace Receipts.QueryHandler.Data.Queries.Repositories
 {
     public class ReceiptRepository(IMongoDatabase mongoDb) : IReceiptRepository
     {
-        private readonly IMongoCollection<Receipt> receiptCollection = mongoDb.GetCollection<Receipt>("VariableReceipts");
+        private readonly IMongoCollection<VariableReceipt> receiptCollection = mongoDb.GetCollection<VariableReceipt>("VariableReceipts");
         private readonly IMongoCollection<RecurringReceipt> recurringReceiptCollection = mongoDb.GetCollection<RecurringReceipt>("RecurringReceipts");
 
 
         #region Variable receipts
-        public async Task<PagedResultFilter<Receipt>> GetVariableReceiptsAsync(ReceiptFilters queryFilter)
+        public async Task<PagedResultFilter<VariableReceipt>> GetVariableReceiptsAsync(ReceiptFilters queryFilter)
         {
             var filteredResults = FindVariableReceiptsResultsAsync(queryFilter);
             var totaResults = GetVariableReceiptsTotalResultsAsync(queryFilter);
@@ -25,7 +25,7 @@ namespace Receipts.QueryHandler.Data.Queries.Repositories
 
             await Task.WhenAll(filteredResults, totaResults, receiptsTotal);
 
-            return new PagedResultFilter<Receipt>
+            return new PagedResultFilter<VariableReceipt>
             {
                 PageSize = queryFilter.PageSize,
                 Results = await filteredResults,
@@ -34,20 +34,20 @@ namespace Receipts.QueryHandler.Data.Queries.Repositories
             };
         }
 
-        private async Task<IEnumerable<Receipt>> FindVariableReceiptsResultsAsync(ReceiptFilters queryFilter)
+        private async Task<IEnumerable<VariableReceipt>> FindVariableReceiptsResultsAsync(ReceiptFilters queryFilter)
         {
             var pipelineDefinition = PipelineDefinitionBuilder
-                            .For<Receipt>()
-                            .As<Receipt, Receipt, BsonDocument>()
+                            .For<VariableReceipt>()
+                            .As<VariableReceipt, VariableReceipt, BsonDocument>()
                             .FilterReceipts(queryFilter)
                             .FilterReceiptItems(queryFilter)
                             .Sort(
                                 Builders<BsonDocument>.Sort.Descending(
                                     new StringFieldDefinition<BsonDocument>(
-                                        nameof(Receipt.ReceiptDate))))
+                                        nameof(VariableReceipt.ReceiptDate))))
                             .Paginate(queryFilter.PageSize, queryFilter.PageNumber);
 
-            var resultsPipeline = pipelineDefinition.As<Receipt, BsonDocument, Receipt>();
+            var resultsPipeline = pipelineDefinition.As<VariableReceipt, BsonDocument, VariableReceipt>();
 
             var aggregation = await receiptCollection.AggregateAsync(
                                   resultsPipeline,
@@ -59,12 +59,12 @@ namespace Receipts.QueryHandler.Data.Queries.Repositories
         private async Task<long> GetVariableReceiptsTotalResultsAsync(ReceiptFilters queryFilter)
         {
             var pipelineDefinition = PipelineDefinitionBuilder
-                .For<Receipt>()
-                .As<Receipt, Receipt, BsonDocument>()
+                .For<VariableReceipt>()
+                .As<VariableReceipt, VariableReceipt, BsonDocument>()
                 .FilterReceipts(queryFilter)
                 .FilterReceiptItems(queryFilter);
 
-            PipelineDefinition<Receipt, AggregateCountResult> totalResultsCountPipeline;
+            PipelineDefinition<VariableReceipt, AggregateCountResult> totalResultsCountPipeline;
 
             totalResultsCountPipeline = pipelineDefinition.Count();
 
@@ -79,11 +79,11 @@ namespace Receipts.QueryHandler.Data.Queries.Repositories
         private async Task<decimal> GetVariableReceiptsTotalAmount(ReceiptFilters queryFilter)
         {
             var pipelineDefinition = PipelineDefinitionBuilder
-                .For<Receipt>()
-                .As<Receipt, Receipt, BsonDocument>()
+                .For<VariableReceipt>()
+                .As<VariableReceipt, VariableReceipt, BsonDocument>()
                 .FilterReceipts(queryFilter)
                 .FilterReceiptItems(queryFilter)
-                .MakeSumBasedOnFilterName(nameof(Receipt.Total));
+                .MakeSumBasedOnFilterName(nameof(VariableReceipt.Total));
 
             var aggregateOptions = new AggregateOptions { AllowDiskUse = true };
 
@@ -91,8 +91,8 @@ namespace Receipts.QueryHandler.Data.Queries.Repositories
 
             var document = await aggregation.FirstOrDefaultAsync();
 
-            if (document != null && document.Contains(nameof(Receipt.Total)))
-                return document[nameof(Receipt.Total)].AsDecimal;
+            if (document != null && document.Contains(nameof(VariableReceipt.Total)))
+                return document[nameof(VariableReceipt.Total)].AsDecimal;
 
             return 0;
         }
@@ -125,7 +125,7 @@ namespace Receipts.QueryHandler.Data.Queries.Repositories
                 .Sort(
                     Builders<BsonDocument>.Sort.Descending(
                         new StringFieldDefinition<BsonDocument>(
-                            nameof(Receipt.Id))))
+                            nameof(VariableReceipt.Id))))
                 .Paginate(queryFilter.PageSize, queryFilter.PageNumber);
 
             var resultsPipeline = pipelineDefinition.As<RecurringReceipt, BsonDocument, RecurringReceipt>();

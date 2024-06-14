@@ -36,7 +36,7 @@ namespace Receipts.QueryHandler.Application.Mappers
                 getReceiptsInput.PageFilter.PageSize);
         }
 
-        public static PagedResult<GetVariableReceiptResponse> ToResponse(this PagedResultFilter<Receipt> receipts, PageFilterRequest pageFilter)
+        public static PagedResult<GetVariableReceiptResponse> ToResponse(this PagedResultFilter<VariableReceipt> receipts, PageFilterRequest pageFilter)
         {
             return new PagedResult<GetVariableReceiptResponse>
             {
@@ -62,7 +62,7 @@ namespace Receipts.QueryHandler.Application.Mappers
             };
         }
 
-        public static GetVariableReceiptResponse ToReceiptResponse(this Receipt receipt)
+        public static GetVariableReceiptResponse ToReceiptResponse(this VariableReceipt receipt)
         {
             return new GetVariableReceiptResponse
             {
@@ -92,7 +92,7 @@ namespace Receipts.QueryHandler.Application.Mappers
             ];
         }
 
-        public static IEnumerable<GetVariableReceiptResponse> ToReceiptResponseItems(this Receipt receipt)
+        public static IEnumerable<GetVariableReceiptResponse> ToReceiptResponseItems(this VariableReceipt receipt)
         {
             return
             [

@@ -38,7 +38,7 @@ namespace Receipts.QueryHandler.Data.Queries.Repositories
                             .Sort(
                                 Builders<BsonDocument>.Sort.Ascending(
                                     new StringFieldDefinition<BsonDocument>(
-                                        nameof(Receipt.Id))));
+                                        nameof(VariableReceipt.Id))));
 
             var resultsPipeline = pipelineDefinition.As<Category, BsonDocument, Category>();
 

@@ -76,16 +76,16 @@ namespace Receipts.QueryHandler.IntegrationTests.Fixtures
         {
             if (string.IsNullOrEmpty(accessToken))
             {
-                string tokenEndpoint = TestSettings.Keycloak!.SwaggerTokenUrl!;
+                string tokenEndpoint = TestSettings.AuthSettings!.AuthServerUrl!;
 
                 var parameters = new List<KeyValuePair<string, string>>
                 {
                      new("grant_type", "password"),
-                     new("client_id", TestSettings.Keycloak!.Resource!),
-                     new("client_secret", TestSettings.Keycloak!.Credentials!.Secret!),
+                     new("client_id", TestSettings.AuthSettings!.Resource!),
+                     new("client_secret", "KOeGQCGjemIBIIoz2VJwascLpdyk484o"),
                      new("username", "integrationtests"),
                      new("password", "integrationtests"),
-                     new("scope", TestSettings.Keycloak!.Scopes!.FirstOrDefault()!)
+                     new("scope", TestSettings.AuthSettings!.Scopes!.FirstOrDefault()!)
                 };
 
                 using var client = new HttpClient();

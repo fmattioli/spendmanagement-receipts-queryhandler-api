@@ -30,7 +30,7 @@ namespace Receipts.QueryHandler.UnitTests.Queries.Receipt
             //Arrange
             var filter = _fixture.Create<GetVariableReceiptsQuery>();
 
-            var receipts = _fixture.Create<PagedResultFilter<Domain.Entities.Receipt>>();
+            var receipts = _fixture.Create<PagedResultFilter<Domain.Entities.VariableReceipt>>();
 
             mockReceiptRepository
                 .Setup(x => x.GetVariableReceiptsAsync(It.IsAny<ReceiptFilters>()))

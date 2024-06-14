@@ -21,7 +21,7 @@ namespace Receipts.QueryHandler.UnitTests.Mappers
             var result = category.ToCategoryResponse();
 
             // Assert
-            result.Should().BeEquivalentTo(category);
+            result.Should().BeEquivalentTo(category, x => x.Excluding(x => x.Tenant));
         }
 
         [Fact]

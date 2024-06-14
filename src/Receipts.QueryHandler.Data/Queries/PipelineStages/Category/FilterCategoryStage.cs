@@ -43,7 +43,7 @@ namespace Receipts.QueryHandler.Data.Queries.PipelineStages.Category
         private static FilterDefinition<BsonDocument> MatchByTenant(int tenantId)
         {
             var filter = new BsonDocument(
-                "Tenant.Id",
+                "Tenant.Number",
                 new BsonDocument("$eq", tenantId));
 
             return new BsonDocumentFilterDefinition<BsonDocument>(filter);

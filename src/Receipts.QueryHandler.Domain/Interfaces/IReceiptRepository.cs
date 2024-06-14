@@ -6,7 +6,7 @@ namespace Receipts.QueryHandler.Domain.Interfaces
 {
     public interface IReceiptRepository
     {
-        Task<PagedResultFilter<Receipt>> GetVariableReceiptsAsync(ReceiptFilters queryFilter);
+        Task<PagedResultFilter<VariableReceipt>> GetVariableReceiptsAsync(ReceiptFilters queryFilter);
         Task<PagedResultFilter<RecurringReceipt>> GetRecurringReceiptsAsync(RecurringReceiptFilters queryFilter);
     }
 }

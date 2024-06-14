@@ -7,8 +7,8 @@ namespace Receipts.QueryHandler.Data.Queries.PipelineStages.Receipt
 {
     public static class FilterReceiptStage
     {
-        public static PipelineDefinition<Domain.Entities.Receipt, BsonDocument> FilterReceipts(
-            this PipelineDefinition<Domain.Entities.Receipt, BsonDocument> pipelineDefinition,
+        public static PipelineDefinition<Domain.Entities.VariableReceipt, BsonDocument> FilterReceipts(
+            this PipelineDefinition<Domain.Entities.VariableReceipt, BsonDocument> pipelineDefinition,
             ReceiptFilters queryFilter)
         {
             var matchFilter = BuildMatchFilter(queryFilter);
@@ -45,7 +45,7 @@ namespace Receipts.QueryHandler.Data.Queries.PipelineStages.Receipt
         private static FilterDefinition<BsonDocument> MatchByTenant(int tenantId)
         {
             var filter = new BsonDocument(
-                "Tenant.Id",
+                "Tenant.Number",
                 new BsonDocument("$eq", tenantId));
 
             return new BsonDocumentFilterDefinition<BsonDocument>(filter);

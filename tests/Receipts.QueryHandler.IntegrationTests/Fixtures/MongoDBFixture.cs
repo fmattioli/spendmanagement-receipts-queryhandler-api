@@ -32,9 +32,9 @@ namespace Receipts.QueryHandler.IntegrationTests.Fixtures
 
             if (receiptIds.Count != 0)
             {
-                var collection = database.GetCollection<Receipt>("VariableReceipts");
+                var collection = database.GetCollection<VariableReceipt>("VariableReceipts");
 
-                var filter = new FilterDefinitionBuilder<Receipt>()
+                var filter = new FilterDefinitionBuilder<VariableReceipt>()
                     .In(x => x.Id, receiptIds);
 
                 await collection.DeleteManyAsync(filter);
@@ -56,9 +56,9 @@ namespace Receipts.QueryHandler.IntegrationTests.Fixtures
             return Task.CompletedTask;
         }
 
-        public async Task InsertReceiptAsync(params Receipt[] receipts)
+        public async Task InsertReceiptAsync(params VariableReceipt[] receipts)
         {
-            var collection = database.GetCollection<Receipt>("VariableReceipts");
+            var collection = database.GetCollection<VariableReceipt>("VariableReceipts");
             await Task.WhenAll(receipts.Select(receipt => collection.InsertOneAsync(receipt)));
             receiptIds.AddRange(receipts.Select(x => x.Id));
         }

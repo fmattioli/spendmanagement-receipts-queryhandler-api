@@ -3,10 +3,11 @@ using Receipts.QueryHandler.Domain.ValueObjects;
 
 namespace Receipts.QueryHandler.Domain.Entities
 {
-    public class Receipt(Guid id, Category category, string establishmentName, DateTime receiptDate, IEnumerable<ReceiptItem> receiptItems, decimal discount, decimal total)
+    public class VariableReceipt(Guid id, Tenant tenant, Category category, string establishmentName, DateTime receiptDate, IEnumerable<ReceiptItem> receiptItems, decimal discount, decimal total)
     {
         [BsonId]
         public Guid Id { get; set; } = id;
+        public Tenant Tenant { get; set; } = tenant;
         public Category Category { get; set; } = category;
         public string EstablishmentName { get; set; } = establishmentName;
         public DateTime ReceiptDate { get; set; } = receiptDate;
