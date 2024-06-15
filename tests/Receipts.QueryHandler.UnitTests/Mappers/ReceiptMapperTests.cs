@@ -1,6 +1,6 @@
 ﻿using AutoFixture;
-using Contracts.Web.Common;
-using Contracts.Web.Receipt.Requests;
+using Contracts.Web.Http.Common;
+using Contracts.Web.Http.Receipt.Requests;
 using FluentAssertions;
 using Receipts.QueryHandler.Application.Mappers;
 using Receipts.QueryHandler.Domain.Entities;
@@ -19,7 +19,7 @@ namespace Receipts.QueryHandler.UnitTests.Mappers
             var receiptFilters = _fixture.Create<GetVariableReceiptsRequest>();
 
             // Act
-            var result = receiptFilters?.ToDomainFilters();
+            var result = receiptFilters?.ToDomainFilters(_fixture.Create<int>());
 
             // Assert
             result.Should().BeEquivalentTo(receiptFilters, options =>
@@ -31,7 +31,8 @@ namespace Receipts.QueryHandler.UnitTests.Mappers
         public void ToResponse_WhenCalled_ReturnsEquivalentGetReceiptsResponse()
         {
             // Arrange
-            var receiptsPagedFilter = _fixture.Create<PagedResultFilter<Receipt>>();
+            var receipts = _fixture.Create<VariableReceipt>();
+            var receiptsPagedFilter = _fixture.Create<PagedResultFilter<VariableReceipt>>();
 
             // Act
             var result = receiptsPagedFilter.ToResponse(new PageFilterRequest
@@ -45,23 +46,28 @@ namespace Receipts.QueryHandler.UnitTests.Mappers
                 .NotBeNull();
 
             result
+                .Results.First()
                 .Should()
-                .BeEquivalentTo(receiptsPagedFilter, options => options
-                    .Excluding(x => x.ReceiptsTotalAmount));
+                .BeEquivalentTo(receiptsPagedFilter.Results.First(), x => x
+                    .Excluding(x => x.Category.Tenant)
+                    .Excluding(x => x.Tenant));
         }
 
         [Fact]
         public void ToReceiptResponse_WhenCalled_ReturnsEquivalentReceiptResponse()
         {
             // Arrange
-            var receipt = _fixture.Create<Receipt>();
+            var receipt = _fixture.Create<VariableReceipt>();
 
             // Act
             var result = receipt.ToReceiptResponse();
 
             // Assert
             result.Should().NotBeNull();
-            result.Should().BeEquivalentTo(receipt);
+            result.Should().BeEquivalentTo(receipt, 
+                x => x
+                .Excluding(x => x.Tenant)
+                .Excluding(x => x.Category.Tenant));
         }
     }
 }

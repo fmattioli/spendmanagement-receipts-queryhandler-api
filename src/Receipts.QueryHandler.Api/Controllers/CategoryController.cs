@@ -1,5 +1,5 @@
 ﻿using Contracts.Web.Attributes;
-using Contracts.Web.Category.Requests;
+using Contracts.Web.Http.Category.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

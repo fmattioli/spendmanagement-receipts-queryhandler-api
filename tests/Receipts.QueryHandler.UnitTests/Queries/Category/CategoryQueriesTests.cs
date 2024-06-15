@@ -1,4 +1,5 @@
 ﻿using AutoFixture;
+using Contracts.Web.Services.Auth;
 using Moq;
 using Receipts.QueryHandler.Application.Queries.Category.GetCategories;
 using Receipts.QueryHandler.Domain.Interfaces;
@@ -11,11 +12,12 @@ namespace Receipts.QueryHandler.UnitTests.Queries.Category
     {
         private readonly Fixture _fixture = new();
         private readonly Mock<ICategoryRepository> mockCategoryRepository = new();
+        private readonly Mock<IAuthService> authServiceRepository = new();
         private readonly GetCategoriesQueryHandler _categoriesQueryHandler;
 
         public CategoryQueriesTests()
         {
-            _categoriesQueryHandler = new GetCategoriesQueryHandler(mockCategoryRepository.Object);
+            _categoriesQueryHandler = new GetCategoriesQueryHandler(mockCategoryRepository.Object, authServiceRepository.Object);
         }
 
         [Fact]

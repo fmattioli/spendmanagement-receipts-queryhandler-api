@@ -1,7 +1,11 @@
 ﻿using AutoFixture;
-using Contracts.Web.Receipt.Requests;
+
+using Contracts.Web.Http.Receipt.Requests;
+
 using FluentAssertions;
+
 using Newtonsoft.Json;
+
 using Receipts.QueryHandler.Application.Queries.Receipt.GetVariableReceipts;
 using Receipts.QueryHandler.Domain.Entities;
 using Receipts.QueryHandler.Domain.ValueObjects;
@@ -23,7 +27,13 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
             //Arrange
             var receiptId = _fixture.Create<Guid>();
 
-            var receipt = _fixture.Build<Receipt>()
+            var tenant = _fixture
+                .Build<Tenant>()
+                .With(x => x.Number, 10000)
+                .Create();
+
+            var receipt = _fixture.Build<VariableReceipt>()
+                .With(x => x.Tenant, tenant)
                 .With(x => x.Id, receiptId)
                 .Create();
 
@@ -58,7 +68,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
                 .With(x => x.Id, receiptItemId)
                 .Create();
 
-            var receipt = _fixture.Build<Receipt>()
+            var receipt = _fixture.Build<VariableReceipt>()
                 .With(x => x.ReceiptItems, new List<ReceiptItem> { receiptItem })
                 .Create();
 
@@ -97,8 +107,14 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
             //Arrange
             var category = _fixture.Create<Category>();
 
-            var receipt = _fixture.Build<Receipt>()
+            var tenant = _fixture
+                .Build<Tenant>()
+                .With(x => x.Number, 10000)
+                .Create();
+
+            var receipt = _fixture.Build<VariableReceipt>()
                 .With(x => x.Category, category)
+                .With(x => x.Tenant, tenant)
                 .Create();
 
             await _mongoDBFixture.InsertReceiptAsync(receipt);
@@ -133,7 +149,13 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
             //Arrange
             var establishmentName = _fixture.Create<string>();
 
-            var receipt = _fixture.Build<Receipt>()
+            var tenant = _fixture
+                .Build<Tenant>()
+                .With(x => x.Number, 10000)
+                .Create();
+
+            var receipt = _fixture.Build<VariableReceipt>()
+                .With(x => x.Tenant, tenant)
                 .With(x => x.EstablishmentName, establishmentName)
                 .Create();
 
@@ -165,11 +187,18 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
             var dateIni = DateTime.UtcNow;
             var dateFinal = DateTime.UtcNow.AddDays(2);
 
-            var receiptOne = _fixture.Build<Receipt>()
+            var tenant = _fixture
+                .Build<Tenant>()
+                .With(x => x.Number, 10000)
+                .Create();
+
+            var receiptOne = _fixture.Build<VariableReceipt>()
+                .With(x => x.Tenant, tenant)
                 .With(x => x.ReceiptDate, dateIni)
                 .Create();
 
-            var receiptTwo = _fixture.Build<Receipt>()
+            var receiptTwo = _fixture.Build<VariableReceipt>()
+                .With(x => x.Tenant, tenant)
                 .With(x => x.ReceiptDate, dateFinal)
                 .Create();
 
@@ -207,8 +236,14 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
                 .With(x => x.Id, receiptItemId)
                 .Create();
 
-            var receipt = _fixture.Build<Receipt>()
-                .With(x => x.ReceiptItems, new List<ReceiptItem> { receiptItem })
+            var tenant = _fixture
+                .Build<Tenant>()
+                .With(x => x.Number, 10000)
+                .Create();
+
+            var receipt = _fixture.Build<VariableReceipt>()
+                .With(x => x.Tenant, tenant)
+                .With(x => x.ReceiptItems, [receiptItem])
                 .Create();
 
             await _mongoDBFixture.InsertReceiptAsync(receipt);
@@ -249,8 +284,14 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
                 .With(x => x.ItemName, receiptItemName)
                 .Create();
 
-            var receipt = _fixture.Build<Receipt>()
-                .With(x => x.ReceiptItems, new List<ReceiptItem> { receiptItem })
+            var tenant = _fixture
+                .Build<Tenant>()
+                .With(x => x.Number, 10000)
+                .Create();
+
+            var receipt = _fixture.Build<VariableReceipt>()
+                .With(x => x.Tenant, tenant)
+                .With(x => x.ReceiptItems, [receiptItem])
                 .Create();
 
             await _mongoDBFixture.InsertReceiptAsync(receipt);
@@ -287,7 +328,13 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
             //Arrange
             var receiptId = _fixture.Create<Guid>();
 
+            var tenant = _fixture
+                .Build<Tenant>()
+                .With(x => x.Number, 10000)
+                .Create();
+
             var receipt = _fixture.Build<RecurringReceipt>()
+                .With(x => x.Tenant, tenant)
                 .Create();
 
             await _mongoDBFixture.InsertRecurringReceiptAsync(receipt);
@@ -324,7 +371,13 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
             //Arrange
             var category = _fixture.Create<Category>();
 
+            var tenant = _fixture
+                .Build<Tenant>()
+                .With(x => x.Number, 10000)
+                .Create();
+
             var receipt = _fixture.Build<RecurringReceipt>()
+                .With(x => x.Tenant, tenant)
                 .With(x => x.Category, category)
                 .Create();
 
@@ -355,7 +408,13 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
             //Arrange
             var establishmentName = _fixture.Create<string>();
 
+            var tenant = _fixture
+                .Build<Tenant>()
+                .With(x => x.Number, 10000)
+                .Create();
+
             var receipt = _fixture.Build<RecurringReceipt>()
+                .With(x => x.Tenant, tenant)
                 .With(x => x.EstablishmentName, establishmentName)
                 .Create();
 

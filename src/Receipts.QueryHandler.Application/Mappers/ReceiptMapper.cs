@@ -1,6 +1,6 @@
-﻿using Contracts.Web.Common;
-using Contracts.Web.Receipt.Requests;
-using Contracts.Web.Receipt.Responses;
+﻿using Contracts.Web.Http.Common;
+using Contracts.Web.Http.Receipt.Requests;
+using Contracts.Web.Http.Receipt.Responses;
 using Receipts.QueryHandler.Domain.Entities;
 using Receipts.QueryHandler.Domain.QueriesFilters;
 using Receipts.QueryHandler.Domain.QueriesFilters.PageFilters;
@@ -10,9 +10,10 @@ namespace Receipts.QueryHandler.Application.Mappers
 {
     public static class ReceiptMapper
     {
-        public static ReceiptFilters ToDomainFilters(this GetVariableReceiptsRequest getVariableReceiptsInput)
+        public static ReceiptFilters ToDomainFilters(this GetVariableReceiptsRequest getVariableReceiptsInput, int tenantId)
         {
             return new ReceiptFilters(
+                tenantId,
                 getVariableReceiptsInput.ReceiptIds,
                 getVariableReceiptsInput.CategoryIds,
                 getVariableReceiptsInput.ReceiptItemIds,
@@ -24,9 +25,10 @@ namespace Receipts.QueryHandler.Application.Mappers
                 getVariableReceiptsInput.PageFilter.PageSize);
         }
 
-        public static RecurringReceiptFilters ToDomainFilters(this GetRecurringReceiptsRequest getReceiptsInput)
+        public static RecurringReceiptFilters ToDomainFilters(this GetRecurringReceiptsRequest getReceiptsInput, int tenantId)
         {
             return new RecurringReceiptFilters(
+                tenantId,
                 getReceiptsInput.ReceiptIds,
                 getReceiptsInput.CategoryIds,
                 getReceiptsInput.EstablishmentNames,
@@ -34,7 +36,7 @@ namespace Receipts.QueryHandler.Application.Mappers
                 getReceiptsInput.PageFilter.PageSize);
         }
 
-        public static PagedResult<GetVariableReceiptResponse> ToResponse(this PagedResultFilter<Receipt> receipts, PageFilterRequest pageFilter)
+        public static PagedResult<GetVariableReceiptResponse> ToResponse(this PagedResultFilter<VariableReceipt> receipts, PageFilterRequest pageFilter)
         {
             return new PagedResult<GetVariableReceiptResponse>
             {
@@ -60,7 +62,7 @@ namespace Receipts.QueryHandler.Application.Mappers
             };
         }
 
-        public static GetVariableReceiptResponse ToReceiptResponse(this Receipt receipt)
+        public static GetVariableReceiptResponse ToReceiptResponse(this VariableReceipt receipt)
         {
             return new GetVariableReceiptResponse
             {
@@ -90,7 +92,7 @@ namespace Receipts.QueryHandler.Application.Mappers
             ];
         }
 
-        public static IEnumerable<GetVariableReceiptResponse> ToReceiptResponseItems(this Receipt receipt)
+        public static IEnumerable<GetVariableReceiptResponse> ToReceiptResponseItems(this VariableReceipt receipt)
         {
             return
             [

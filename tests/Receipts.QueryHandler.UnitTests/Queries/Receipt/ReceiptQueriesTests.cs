@@ -1,4 +1,5 @@
 ﻿using AutoFixture;
+using Contracts.Web.Services.Auth;
 using Moq;
 using Receipts.QueryHandler.Application.Queries.Receipt.GetRecurringReceipts;
 using Receipts.QueryHandler.Application.Queries.Receipt.GetVariableReceipts;
@@ -13,13 +14,14 @@ namespace Receipts.QueryHandler.UnitTests.Queries.Receipt
     {
         private readonly Fixture _fixture = new();
         private readonly Mock<IReceiptRepository> mockReceiptRepository = new();
+        private readonly Mock<IAuthService> authServiceRepository = new();
         private readonly GetVariableReceiptsQueryHandler _receiptsQueryHandler;
         private readonly GetRecurringReceiptsQueryHandler _recurringReceiptsQueryHandler;
 
         public ReceiptQueriesTests()
         {
-            _receiptsQueryHandler = new GetVariableReceiptsQueryHandler(mockReceiptRepository.Object);
-            _recurringReceiptsQueryHandler = new GetRecurringReceiptsQueryHandler(mockReceiptRepository.Object);
+            _receiptsQueryHandler = new GetVariableReceiptsQueryHandler(mockReceiptRepository.Object, authServiceRepository.Object);
+            _recurringReceiptsQueryHandler = new GetRecurringReceiptsQueryHandler(mockReceiptRepository.Object, authServiceRepository.Object);
         }
 
         [Fact]
@@ -28,7 +30,7 @@ namespace Receipts.QueryHandler.UnitTests.Queries.Receipt
             //Arrange
             var filter = _fixture.Create<GetVariableReceiptsQuery>();
 
-            var receipts = _fixture.Create<PagedResultFilter<Domain.Entities.Receipt>>();
+            var receipts = _fixture.Create<PagedResultFilter<Domain.Entities.VariableReceipt>>();
 
             mockReceiptRepository
                 .Setup(x => x.GetVariableReceiptsAsync(It.IsAny<ReceiptFilters>()))

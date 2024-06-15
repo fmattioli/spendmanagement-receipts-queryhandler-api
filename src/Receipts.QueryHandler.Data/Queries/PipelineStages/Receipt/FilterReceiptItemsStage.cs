@@ -7,8 +7,8 @@ namespace Receipts.QueryHandler.Data.Queries.PipelineStages.Receipt
 {
     internal static class FilterReceiptItemsStage
     {
-        internal static PipelineDefinition<Domain.Entities.Receipt, BsonDocument> FilterReceiptItems(
-            this PipelineDefinition<Domain.Entities.Receipt, BsonDocument> pipelineDefinition,
+        internal static PipelineDefinition<Domain.Entities.VariableReceipt, BsonDocument> FilterReceiptItems(
+            this PipelineDefinition<Domain.Entities.VariableReceipt, BsonDocument> pipelineDefinition,
             ReceiptFilters queryFilter)
         {
             var matchFilter = BuildMatchFilter(queryFilter);

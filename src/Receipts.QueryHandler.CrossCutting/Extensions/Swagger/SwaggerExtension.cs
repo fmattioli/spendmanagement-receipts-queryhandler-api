@@ -1,13 +1,13 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Contracts.Web.ServiceCollectionExtensions.KeycloakAuth;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using Receipts.QueryHandler.CrossCutting.Config;
 using Receipts.QueryHandler.CrossCutting.Filters;
 
-namespace Receipts.QueryHandler.Api.Extensions
+namespace Receipts.QueryHandler.CrossCutting.Extensions.Swagger
 {
     public static class SwaggerExtension
     {
-        public static void AddSwagger(this IServiceCollection services, KeycloakSettings keyCloakSettings)
+        public static void AddSwagger(this IServiceCollection services, AuthSettings keyCloakSettings)
         {
             services.AddSwaggerGen(c =>
             {
@@ -20,7 +20,7 @@ namespace Receipts.QueryHandler.Api.Extensions
                     {
                         Password = new OpenApiOAuthFlow
                         {
-                            TokenUrl = new Uri(keyCloakSettings.SwaggerTokenUrl!),
+                            TokenUrl = new Uri(keyCloakSettings.AuthServerUrl!),
                             Scopes = keyCloakSettings.Scopes!.ToDictionary(key => key, value => value)
                         }
                     }

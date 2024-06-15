@@ -1,4 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Contracts.Web.ServiceCollectionExtensions.KeycloakAuth;
+
+using Microsoft.Extensions.Configuration;
+
+using Receipts.QueryHandler.CrossCutting.Config;
 
 namespace Receipts.QueryHandler.IntegrationTests.Configuration
 {
@@ -10,11 +14,11 @@ namespace Receipts.QueryHandler.IntegrationTests.Configuration
                .AddJsonFile("Configuration/testsettings.json", false, true)
                .Build();
 
-            Keycloak = config.GetSection("Keycloak").Get<KeycloakSettings>();
+            AuthSettings = config.GetSection("AuthSettings").Get<AuthSettings>();
             MongoSettings = config.GetSection("MongoSettings").Get<MongoSettings>();
         }
 
         public static MongoSettings? MongoSettings { get; }
-        public static KeycloakSettings? Keycloak { get; }
+        public static AuthSettings? AuthSettings { get; }
     }
 }

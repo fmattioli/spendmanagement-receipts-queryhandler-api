@@ -1,15 +1,10 @@
 ﻿using AutoFixture;
-
-using Contracts.Web.Category.Requests;
-
+using Contracts.Web.Http.Category.Requests;
 using FluentAssertions;
-
 using Newtonsoft.Json;
-
 using Receipts.QueryHandler.Application.Queries.Category.GetCategories;
 using Receipts.QueryHandler.Domain.Entities;
 using Receipts.QueryHandler.IntegrationTests.Fixtures;
-
 using System.Net;
 
 namespace Receipts.QueryHandler.IntegrationTests.Queries
@@ -27,8 +22,14 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
             //Arrange
             var categoryId = _fixture.Create<Guid>();
 
+            var tenant = _fixture
+                .Build<Tenant>()
+                .With(x => x.Number, 10000)
+                .Create();
+
             var category = _fixture.Build<Category>()
                 .With(x => x.Id, categoryId)
+                .With(x => x.Tenant, tenant)
                 .Create();
 
             await _mongoDBFixture.InsertCategoryAsync(category);
@@ -56,8 +57,14 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
             //Arrange
             var categoryName = _fixture.Create<string>();
 
+            var tenant = _fixture
+                .Build<Tenant>()
+                .With(x => x.Number, 10000)
+                .Create();
+
             var category = _fixture.Build<Category>()
                 .With(x => x.Name, categoryName)
+                .With(x => x.Tenant, tenant)
                 .Create();
 
             await _mongoDBFixture.InsertCategoryAsync(category);

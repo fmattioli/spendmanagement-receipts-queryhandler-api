@@ -3,7 +3,8 @@ using Receipts.QueryHandler.Domain.QueriesFilters.PageFilters;
 
 namespace Receipts.QueryHandler.Domain.QueriesFilters
 {
-    public class ReceiptFilters(IEnumerable<Guid>? receiptIds,
+    public class ReceiptFilters(int tenantId,
+        IEnumerable<Guid>? receiptIds,
         IEnumerable<Guid>? categoryIds,
         IEnumerable<Guid>? receiptItemIds,
         IEnumerable<string>? establishmentNames,
@@ -13,6 +14,7 @@ namespace Receipts.QueryHandler.Domain.QueriesFilters
         int pageNumber,
         int pageSize) : PageFilter(pageNumber, pageSize)
     {
+        public int TenantId { get; set; } = tenantId;
         public IEnumerable<Guid>? ReceiptIds { get; set; } = receiptIds;
         public IEnumerable<Guid>? CategoryIds { get; set; } = categoryIds;
         public IEnumerable<Guid>? ReceiptItemIds { get; set; } = receiptItemIds;

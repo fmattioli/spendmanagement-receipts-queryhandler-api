@@ -1,6 +1,6 @@
 ﻿using AutoFixture;
-using Contracts.Web.Category.Requests;
-using Contracts.Web.Common;
+using Contracts.Web.Http.Category.Requests;
+using Contracts.Web.Http.Common;
 using FluentAssertions;
 using Receipts.QueryHandler.Application.Mappers;
 using Receipts.QueryHandler.Domain.Entities;
@@ -21,7 +21,7 @@ namespace Receipts.QueryHandler.UnitTests.Mappers
             var result = category.ToCategoryResponse();
 
             // Assert
-            result.Should().BeEquivalentTo(category);
+            result.Should().BeEquivalentTo(category, x => x.Excluding(x => x.Tenant));
         }
 
         [Fact]
@@ -31,7 +31,7 @@ namespace Receipts.QueryHandler.UnitTests.Mappers
             var getCategoriesRequest = _fixture.Create<GetCategoriesRequest>();
 
             // Act
-            var result = getCategoriesRequest.ToDomainFilters();
+            var result = getCategoriesRequest.ToDomainFilters(_fixture.Create<int>());
 
             // Assert
             result.Should().NotBeNull();
