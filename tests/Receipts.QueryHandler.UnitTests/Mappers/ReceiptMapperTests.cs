@@ -1,6 +1,8 @@
 ﻿using AutoFixture;
 using Contracts.Web.Http.Common;
 using Contracts.Web.Http.Receipt.Requests;
+using Contracts.Web.Models;
+
 using FluentAssertions;
 using Receipts.QueryHandler.Application.Mappers;
 using Receipts.QueryHandler.Domain.Entities;
@@ -19,7 +21,7 @@ namespace Receipts.QueryHandler.UnitTests.Mappers
             var receiptFilters = _fixture.Create<GetVariableReceiptsRequest>();
 
             // Act
-            var result = receiptFilters?.ToDomainFilters(_fixture.Create<int>());
+            var result = receiptFilters?.ToDomainFilters(_fixture.Create<AuthModel>());
 
             // Assert
             result.Should().BeEquivalentTo(receiptFilters, options =>
@@ -50,6 +52,8 @@ namespace Receipts.QueryHandler.UnitTests.Mappers
                 .Should()
                 .BeEquivalentTo(receiptsPagedFilter.Results.First(), x => x
                     .Excluding(x => x.Category.Tenant)
+                    .Excluding(x => x.Category.UserId)
+                    .Excluding(x => x.UserId)
                     .Excluding(x => x.Tenant));
         }
 
@@ -67,7 +71,9 @@ namespace Receipts.QueryHandler.UnitTests.Mappers
             result.Should().BeEquivalentTo(receipt, 
                 x => x
                 .Excluding(x => x.Tenant)
-                .Excluding(x => x.Category.Tenant));
+                .Excluding(x => x.Category.Tenant)
+                .Excluding(x => x.Category.UserId)
+                .Excluding(x => x.UserId));
         }
     }
 }

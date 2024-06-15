@@ -15,11 +15,11 @@ namespace Receipts.QueryHandler.CrossCutting.Extensions.Tracing
             services.AddOpenTelemetry().WithTracing(tcb =>
             {
                 tcb
-                .AddSource(ReadModelConstants.ApplicationName)
+                .AddSource(QueryHandlerConstants.ApplicationName)
                 .SetResourceBuilder(
                     ResourceBuilder
                     .CreateDefault()
-                    .AddService(serviceName: ReadModelConstants.ApplicationName))
+                    .AddService(serviceName: QueryHandlerConstants.ApplicationName))
                 .AddAspNetCoreInstrumentation()
                 .AddHttpClientInstrumentation()
                 .AddOtlpExporter(opt =>
@@ -29,7 +29,7 @@ namespace Receipts.QueryHandler.CrossCutting.Extensions.Tracing
                 });
             });
 
-            services.AddSingleton(TracerProvider.Default.GetTracer(ReadModelConstants.ApplicationName));
+            services.AddSingleton(TracerProvider.Default.GetTracer(QueryHandlerConstants.ApplicationName));
             return services;
         }
     }
