@@ -82,9 +82,9 @@ namespace Receipts.QueryHandler.IntegrationTests.Fixtures
                 {
                      new("grant_type", "password"),
                      new("client_id", TestSettings.AuthSettings!.Resource!),
-                     new("client_secret", "KOeGQCGjemIBIIoz2VJwascLpdyk484o"),
-                     new("username", "integrationtests"),
-                     new("password", "integrationtests"),
+                     new("client_secret", Environment.GetEnvironmentVariable("CLIENT_SECRET")!),
+                     new("username", Environment.GetEnvironmentVariable("INTEGRATION_TEST_USER")!),
+                     new("password", Environment.GetEnvironmentVariable("INTEGRATION_TEST_USER_PASSWORD")!),
                      new("scope", TestSettings.AuthSettings!.Scopes!.FirstOrDefault()!)
                 };
 
