@@ -46,7 +46,7 @@ jobs:
   integration-tests:
     runs-on: ubuntu-latest
     name: Run integration tests
-    needs: [build,unit-tests]
+    needs: [build,unit-tests]    
     steps:
       - name: Start MongoDB database
         run: |
@@ -71,6 +71,11 @@ jobs:
 
           dotnet test --verbosity normal
           tests/Receipts.QueryHandler.IntegrationTests/Receipts.QueryHandler.IntegrationTests.csproj
+        env:
+          INTEGRATION_TESTS_USERID: ${{ secrets.INTEGRATION_TESTS_USERID }}          
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}          
+          INTEGRATION_TEST_USER: ${{ secrets.INTEGRATION_TEST_USER }}          
+          INTEGRATION_TEST_USER_PASSWORD: ${{ secrets.INTEGRATION_TEST_USER_PASSWORD }}          
 
   bump:
     name: Update project version

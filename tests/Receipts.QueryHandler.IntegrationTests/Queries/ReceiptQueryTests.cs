@@ -25,7 +25,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
         {
             //Arrange
             var receiptId = _fixture.Create<Guid>();
-            var userId = Guid.Parse("c804ff1e-4027-4374-b83a-06151f288536");
+            var userId = Environment.GetEnvironmentVariable("INTEGRATION_TESTS_USERID");
 
             var tenant = _fixture
                 .Build<Tenant>()
@@ -33,7 +33,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
                 .Create();
 
             var receipt = _fixture.Build<VariableReceipt>()
-                .With(x => x.UserId, userId)
+                .With(x => x.UserId, Guid.Parse(userId!))
                 .With(x => x.Tenant, tenant)
                 .With(x => x.Id, receiptId)
                 .Create();
@@ -64,7 +64,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
         {
             //Arrange
             var receiptItemId = _fixture.Create<Guid>();
-            var userId = Guid.Parse("c804ff1e-4027-4374-b83a-06151f288536");
+            var userId = Environment.GetEnvironmentVariable("INTEGRATION_TESTS_USERID");
 
             var tenant = _fixture
                 .Build<Tenant>()
@@ -77,7 +77,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
 
             var receipt = _fixture.Build<VariableReceipt>()
                 .With(x => x.ReceiptItems, [receiptItem])
-                .With(x => x.UserId, userId)
+                .With(x => x.UserId, Guid.Parse(userId!))
                 .With(x => x.Tenant, tenant)
                 .Create();
 
@@ -115,7 +115,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
         {
             //Arrange
             var category = _fixture.Create<Category>();
-            var userId = Guid.Parse("c804ff1e-4027-4374-b83a-06151f288536");
+            var userId = Environment.GetEnvironmentVariable("INTEGRATION_TESTS_USERID");
 
             var tenant = _fixture
                 .Build<Tenant>()
@@ -124,7 +124,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
 
             var receipt = _fixture.Build<VariableReceipt>()
                 .With(x => x.Category, category)
-                .With(x => x.UserId, userId)
+                .With(x => x.UserId, Guid.Parse(userId!))
                 .With(x => x.Tenant, tenant)
                 .Create();
 
@@ -159,7 +159,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
         {
             //Arrange
             var establishmentName = _fixture.Create<string>();
-            var userId = Guid.Parse("c804ff1e-4027-4374-b83a-06151f288536");
+            var userId = Environment.GetEnvironmentVariable("INTEGRATION_TESTS_USERID");
 
             var tenant = _fixture
                 .Build<Tenant>()
@@ -167,7 +167,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
                 .Create();
 
             var receipt = _fixture.Build<VariableReceipt>()
-                .With(x => x.UserId, userId)
+                .With(x => x.UserId, Guid.Parse(userId!))
                 .With(x => x.Tenant, tenant)
                 .With(x => x.EstablishmentName, establishmentName)
                 .Create();
@@ -199,7 +199,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
             //Arrange
             var dateIni = DateTime.UtcNow;
             var dateFinal = DateTime.UtcNow.AddDays(2);
-            var userId = Guid.Parse("c804ff1e-4027-4374-b83a-06151f288536");
+            var userId = Environment.GetEnvironmentVariable("INTEGRATION_TESTS_USERID");
 
             var tenant = _fixture
                 .Build<Tenant>()
@@ -207,7 +207,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
                 .Create();
 
             var receiptOne = _fixture.Build<VariableReceipt>()
-                .With(x => x.UserId, userId)
+                .With(x => x.UserId, Guid.Parse(userId!))
                 .With(x => x.Tenant, tenant)
                 .With(x => x.ReceiptDate, dateIni)
                 .Create();
@@ -246,7 +246,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
         {
             //Arrange
             var receiptItemId = _fixture.Create<Guid>();
-            var userId = Guid.Parse("c804ff1e-4027-4374-b83a-06151f288536");
+            var userId = Environment.GetEnvironmentVariable("INTEGRATION_TESTS_USERID");
 
             var receiptItem = _fixture.Build<ReceiptItem>()
                 .With(x => x.Id, receiptItemId)
@@ -258,7 +258,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
                 .Create();
 
             var receipt = _fixture.Build<VariableReceipt>()
-                .With(x => x.UserId, userId)
+                .With(x => x.UserId, Guid.Parse(userId!))
                 .With(x => x.Tenant, tenant)
                 .With(x => x.ReceiptItems, [receiptItem])
                 .Create();
@@ -296,7 +296,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
         {
             //Arrange
             var receiptItemName = _fixture.Create<string>();
-            var userId = Guid.Parse("c804ff1e-4027-4374-b83a-06151f288536");
+            var userId = Environment.GetEnvironmentVariable("INTEGRATION_TESTS_USERID");
 
             var receiptItem = _fixture.Build<ReceiptItem>()
                 .With(x => x.ItemName, receiptItemName)
@@ -308,7 +308,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
                 .Create();
 
             var receipt = _fixture.Build<VariableReceipt>()
-                .With(x => x.UserId, userId)
+                .With(x => x.UserId, Guid.Parse(userId!))
                 .With(x => x.Tenant, tenant)
                 .With(x => x.ReceiptItems, [receiptItem])
                 .Create();
@@ -346,7 +346,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
         {
             //Arrange
             var receiptId = _fixture.Create<Guid>();
-            var userId = Guid.Parse("c804ff1e-4027-4374-b83a-06151f288536");
+            var userId = Environment.GetEnvironmentVariable("INTEGRATION_TESTS_USERID");
 
             var tenant = _fixture
                 .Build<Tenant>()
@@ -354,7 +354,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
                 .Create();
 
             var receipt = _fixture.Build<RecurringReceipt>()
-                .With(x => x.UserId, userId)
+                .With(x => x.UserId, Guid.Parse(userId!))
                 .With(x => x.Tenant, tenant)
                 .Create();
 
@@ -391,7 +391,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
         {
             //Arrange
             var category = _fixture.Create<Category>();
-            var userId = Guid.Parse("c804ff1e-4027-4374-b83a-06151f288536");
+            var userId = Environment.GetEnvironmentVariable("INTEGRATION_TESTS_USERID");
 
             var tenant = _fixture
                 .Build<Tenant>()
@@ -399,7 +399,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
                 .Create();
 
             var receipt = _fixture.Build<RecurringReceipt>()
-                .With(x => x.UserId, userId)
+                .With(x => x.UserId, Guid.Parse(userId!))
                 .With(x => x.Tenant, tenant)
                 .With(x => x.Category, category)
                 .Create();
@@ -430,7 +430,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
         {
             //Arrange
             var establishmentName = _fixture.Create<string>();
-            var userId = Guid.Parse("c804ff1e-4027-4374-b83a-06151f288536");
+            var userId = Environment.GetEnvironmentVariable("INTEGRATION_TESTS_USERID");
 
             var tenant = _fixture
                 .Build<Tenant>()
@@ -438,7 +438,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
                 .Create();
 
             var receipt = _fixture.Build<RecurringReceipt>()
-                .With(x => x.UserId, userId)
+                .With(x => x.UserId, Guid.Parse(userId!))
                 .With(x => x.Tenant, tenant)
                 .With(x => x.EstablishmentName, establishmentName)
                 .Create();
