@@ -1,10 +1,11 @@
 ﻿namespace Receipts.QueryHandler.Domain.Entities
 {
-    public class Category
+    public class Category(Guid id, Guid userId, Tenant tenant, string name, DateTime createdDate)
     {
-        public Guid Id { get; set; }
-        public Tenant Tenant { get; set; } = null!;
-        public string Name { get; set; } = null!;
-        public DateTime CreatedDate { get; set; }
+        public Guid Id { get; set; } = id;
+        public Guid UserId { get; set; } = userId;
+        public Tenant Tenant { get; set; } = tenant;
+        public string Name { get; set; } = name;
+        public DateTime CreatedDate { get; set; } = createdDate;
     }
 }

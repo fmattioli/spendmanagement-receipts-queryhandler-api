@@ -26,7 +26,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Fixtures
             _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
             var queryParams = BuildFilters(queryFilters, discardProperties);
 
-            var url = ReadModelConstants.ApiVersion
+            var url = QueryHandlerConstants.ApiVersion
                 .AppendPathSegment(resource)
                 .AppendQueryParam(queryParams);
 

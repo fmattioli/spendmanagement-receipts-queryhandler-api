@@ -1,5 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
+
+using Receipts.QueryHandler.Data.Constants;
 using Receipts.QueryHandler.Domain.QueriesFilters;
 using System.Text.RegularExpressions;
 
@@ -25,6 +27,7 @@ namespace Receipts.QueryHandler.Data.Queries.PipelineStages.Receipt
         {
             var filters = new List<FilterDefinition<BsonDocument>>
             {
+                MatchByUser(queryFilter.TenantId, queryFilter.UserId),
                 MatchByTenant(queryFilter.TenantId),
                 MatchByReceiptIds(queryFilter),
                 MatchByCategoryIds(queryFilter),
@@ -40,6 +43,21 @@ namespace Receipts.QueryHandler.Data.Queries.PipelineStages.Receipt
             }
 
             return filters.Count == 1 ? filters[0] : Builders<BsonDocument>.Filter.And(filters);
+        }
+
+        private static FilterDefinition<BsonDocument> MatchByUser(int tenantId, Guid userId)
+        {
+            if (tenantId == DataConstants.DefaultTenant)
+            {
+
+                var filter = new BsonDocument(
+                    "UserId",
+                    new BsonDocument("$eq", new BsonBinaryData(userId, GuidRepresentation.Standard)));
+
+                return new BsonDocumentFilterDefinition<BsonDocument>(filter);
+            }
+
+            return FilterDefinition<BsonDocument>.Empty;
         }
 
         private static FilterDefinition<BsonDocument> MatchByTenant(int tenantId)

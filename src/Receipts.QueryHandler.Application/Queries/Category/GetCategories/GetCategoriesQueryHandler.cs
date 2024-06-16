@@ -1,4 +1,5 @@
-﻿using Contracts.Web.Services.Auth;
+﻿using Contracts.Web.Models;
+using Contracts.Web.Services.Auth;
 using MediatR;
 using Receipts.QueryHandler.Application.Mappers;
 using Receipts.QueryHandler.Domain.Interfaces;
@@ -13,7 +14,11 @@ namespace Receipts.QueryHandler.Application.Queries.Category.GetCategories
         public async Task<GetCategoriesResponse> Handle(GetCategoriesQuery request, CancellationToken cancellationToken)
         {
             int tenantId = _authService.GetTenant();
-            var domainFilters = request.GetReceiptsRequest.ToDomainFilters(tenantId);
+            Guid userId = _authService.GetUser();
+
+            var authModel = new AuthModel(tenantId, userId);
+
+            var domainFilters = request.GetReceiptsRequest.ToDomainFilters(authModel);
             var categoriesQueryResult = await _categoryRepository.GetCategoriesAsync(domainFilters);
             return categoriesQueryResult.ToResponse(request.GetReceiptsRequest.PageFilter);
         }

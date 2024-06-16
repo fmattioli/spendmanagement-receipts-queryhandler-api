@@ -1,5 +1,6 @@
 ﻿using Contracts.Web.Http.Common;
 using Contracts.Web.Http.Receipt.Responses;
+using Contracts.Web.Models;
 using Contracts.Web.Services.Auth;
 using MediatR;
 using Receipts.QueryHandler.Application.Mappers;
@@ -14,8 +15,12 @@ namespace Receipts.QueryHandler.Application.Queries.Receipt.GetVariableReceipts
 
         public async Task<PagedResult<GetVariableReceiptResponse>> Handle(GetVariableReceiptsQuery request, CancellationToken cancellationToken)
         {
-            var tenantId = _authService.GetTenant();
-            var domainFilters = request.GetVariableReceiptsRequest.ToDomainFilters(tenantId);
+            int tenantId = _authService.GetTenant();
+            Guid userId = _authService.GetUser();
+
+            var authModel = new AuthModel(tenantId, userId);
+
+            var domainFilters = request.GetVariableReceiptsRequest.ToDomainFilters(authModel);
             var receiptQueryResult = await _receiptRepository.GetVariableReceiptsAsync(domainFilters);
             return receiptQueryResult.ToResponse(request.GetVariableReceiptsRequest.PageFilter);
         }

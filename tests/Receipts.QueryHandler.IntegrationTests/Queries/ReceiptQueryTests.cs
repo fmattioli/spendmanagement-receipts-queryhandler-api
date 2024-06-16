@@ -5,7 +5,6 @@ using Contracts.Web.Http.Receipt.Requests;
 using FluentAssertions;
 
 using Newtonsoft.Json;
-
 using Receipts.QueryHandler.Application.Queries.Receipt.GetVariableReceipts;
 using Receipts.QueryHandler.Domain.Entities;
 using Receipts.QueryHandler.Domain.ValueObjects;
@@ -26,6 +25,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
         {
             //Arrange
             var receiptId = _fixture.Create<Guid>();
+            var userId = Guid.Parse("c804ff1e-4027-4374-b83a-06151f288536");
 
             var tenant = _fixture
                 .Build<Tenant>()
@@ -33,6 +33,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
                 .Create();
 
             var receipt = _fixture.Build<VariableReceipt>()
+                .With(x => x.UserId, userId)
                 .With(x => x.Tenant, tenant)
                 .With(x => x.Id, receiptId)
                 .Create();
@@ -63,13 +64,21 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
         {
             //Arrange
             var receiptItemId = _fixture.Create<Guid>();
+            var userId = Guid.Parse("c804ff1e-4027-4374-b83a-06151f288536");
+
+            var tenant = _fixture
+                .Build<Tenant>()
+                .With(x => x.Number, 10000)
+                .Create();
 
             var receiptItem = _fixture.Build<ReceiptItem>()
                 .With(x => x.Id, receiptItemId)
                 .Create();
 
             var receipt = _fixture.Build<VariableReceipt>()
-                .With(x => x.ReceiptItems, new List<ReceiptItem> { receiptItem })
+                .With(x => x.ReceiptItems, [receiptItem])
+                .With(x => x.UserId, userId)
+                .With(x => x.Tenant, tenant)
                 .Create();
 
             await _mongoDBFixture.InsertReceiptAsync(receipt);
@@ -106,6 +115,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
         {
             //Arrange
             var category = _fixture.Create<Category>();
+            var userId = Guid.Parse("c804ff1e-4027-4374-b83a-06151f288536");
 
             var tenant = _fixture
                 .Build<Tenant>()
@@ -114,6 +124,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
 
             var receipt = _fixture.Build<VariableReceipt>()
                 .With(x => x.Category, category)
+                .With(x => x.UserId, userId)
                 .With(x => x.Tenant, tenant)
                 .Create();
 
@@ -148,6 +159,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
         {
             //Arrange
             var establishmentName = _fixture.Create<string>();
+            var userId = Guid.Parse("c804ff1e-4027-4374-b83a-06151f288536");
 
             var tenant = _fixture
                 .Build<Tenant>()
@@ -155,6 +167,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
                 .Create();
 
             var receipt = _fixture.Build<VariableReceipt>()
+                .With(x => x.UserId, userId)
                 .With(x => x.Tenant, tenant)
                 .With(x => x.EstablishmentName, establishmentName)
                 .Create();
@@ -163,7 +176,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
 
             var receiptFilter = _fixture
                 .Build<GetVariableReceiptsRequest>()
-                .With(x => x.EstablishmentNames, new List<string> { establishmentName })
+                .With(x => x.EstablishmentNames, [establishmentName])
                 .Create();
 
             //Act
@@ -186,6 +199,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
             //Arrange
             var dateIni = DateTime.UtcNow;
             var dateFinal = DateTime.UtcNow.AddDays(2);
+            var userId = Guid.Parse("c804ff1e-4027-4374-b83a-06151f288536");
 
             var tenant = _fixture
                 .Build<Tenant>()
@@ -193,6 +207,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
                 .Create();
 
             var receiptOne = _fixture.Build<VariableReceipt>()
+                .With(x => x.UserId, userId)
                 .With(x => x.Tenant, tenant)
                 .With(x => x.ReceiptDate, dateIni)
                 .Create();
@@ -231,6 +246,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
         {
             //Arrange
             var receiptItemId = _fixture.Create<Guid>();
+            var userId = Guid.Parse("c804ff1e-4027-4374-b83a-06151f288536");
 
             var receiptItem = _fixture.Build<ReceiptItem>()
                 .With(x => x.Id, receiptItemId)
@@ -242,6 +258,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
                 .Create();
 
             var receipt = _fixture.Build<VariableReceipt>()
+                .With(x => x.UserId, userId)
                 .With(x => x.Tenant, tenant)
                 .With(x => x.ReceiptItems, [receiptItem])
                 .Create();
@@ -279,6 +296,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
         {
             //Arrange
             var receiptItemName = _fixture.Create<string>();
+            var userId = Guid.Parse("c804ff1e-4027-4374-b83a-06151f288536");
 
             var receiptItem = _fixture.Build<ReceiptItem>()
                 .With(x => x.ItemName, receiptItemName)
@@ -290,6 +308,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
                 .Create();
 
             var receipt = _fixture.Build<VariableReceipt>()
+                .With(x => x.UserId, userId)
                 .With(x => x.Tenant, tenant)
                 .With(x => x.ReceiptItems, [receiptItem])
                 .Create();
@@ -298,7 +317,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
 
             var receiptFilter = _fixture
                 .Build<GetVariableReceiptsRequest>()
-                .With(x => x.ReceiptItemNames, new List<string> { receiptItemName })
+                .With(x => x.ReceiptItemNames, [receiptItemName])
                 .Create();
 
             //Act
@@ -327,6 +346,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
         {
             //Arrange
             var receiptId = _fixture.Create<Guid>();
+            var userId = Guid.Parse("c804ff1e-4027-4374-b83a-06151f288536");
 
             var tenant = _fixture
                 .Build<Tenant>()
@@ -334,14 +354,15 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
                 .Create();
 
             var receipt = _fixture.Build<RecurringReceipt>()
+                .With(x => x.UserId, userId)
                 .With(x => x.Tenant, tenant)
                 .Create();
 
             await _mongoDBFixture.InsertRecurringReceiptAsync(receipt);
 
             var receiptFilter = _fixture
-                .Build<GetVariableReceiptsRequest>()
-                .With(x => x.ReceiptItemIds, [receiptId])
+                .Build<GetRecurringReceiptsRequest>()
+                .With(x => x.ReceiptIds, [receiptId])
                 .Create();
 
             //Act
@@ -370,6 +391,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
         {
             //Arrange
             var category = _fixture.Create<Category>();
+            var userId = Guid.Parse("c804ff1e-4027-4374-b83a-06151f288536");
 
             var tenant = _fixture
                 .Build<Tenant>()
@@ -377,6 +399,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
                 .Create();
 
             var receipt = _fixture.Build<RecurringReceipt>()
+                .With(x => x.UserId, userId)
                 .With(x => x.Tenant, tenant)
                 .With(x => x.Category, category)
                 .Create();
@@ -407,6 +430,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
         {
             //Arrange
             var establishmentName = _fixture.Create<string>();
+            var userId = Guid.Parse("c804ff1e-4027-4374-b83a-06151f288536");
 
             var tenant = _fixture
                 .Build<Tenant>()
@@ -414,6 +438,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
                 .Create();
 
             var receipt = _fixture.Build<RecurringReceipt>()
+                .With(x => x.UserId, userId)
                 .With(x => x.Tenant, tenant)
                 .With(x => x.EstablishmentName, establishmentName)
                 .Create();
@@ -422,7 +447,7 @@ namespace Receipts.QueryHandler.IntegrationTests.Queries
 
             var receiptFilter = _fixture
                 .Build<GetVariableReceiptsRequest>()
-                .With(x => x.EstablishmentNames, new List<string> { establishmentName })
+                .With(x => x.EstablishmentNames, [establishmentName])
                 .Create();
 
             //Act
