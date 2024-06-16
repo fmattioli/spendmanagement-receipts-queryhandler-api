@@ -74,8 +74,8 @@ jobs:
         env:
           INTEGRATION_TESTS_USERID: ${{ secrets.INTEGRATION_TESTS_USERID }}          
           CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}          
-          INTEGRATION_TEST_USER: ${{ secrets.INTEGRATION_TEST_USER }}          
-          INTEGRATION_TEST_USER_PASSWORD: ${{ secrets.INTEGRATION_TEST_USER_PASSWORD }}          
+          INTEGRATION_TESTS_USER: ${{ secrets.INTEGRATION_TESTS_USER }}          
+          INTEGRATION_TESTS_USER_PASSWORD: ${{ secrets.INTEGRATION_TESTS_USER_PASSWORD }}          
 
   bump:
     name: Update project version
