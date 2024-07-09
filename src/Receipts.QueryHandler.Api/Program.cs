@@ -1,5 +1,3 @@
-using Keycloak.AuthServices.Authentication;
-using Microsoft.Extensions.DependencyInjection;
 using Receipts.QueryHandler.CrossCutting.Config;
 using Receipts.QueryHandler.CrossCutting.Extensions.Api;
 using Receipts.QueryHandler.CrossCutting.Extensions.Auth;

@@ -1,8 +1,6 @@
 ﻿using AutoFixture;
 using Contracts.Web.Http.Category.Requests;
 using Contracts.Web.Http.Common;
-using Contracts.Web.Models;
-
 using FluentAssertions;
 using Receipts.QueryHandler.Application.Mappers;
 using Receipts.QueryHandler.Domain.Entities;
@@ -33,9 +31,11 @@ namespace Receipts.QueryHandler.UnitTests.Mappers
         {
             // Arrange
             var getCategoriesRequest = _fixture.Create<GetCategoriesRequest>();
+            var userId = _fixture.Create<Guid>();
+            var tenantId = _fixture.Create<int>();
 
             // Act
-            var result = getCategoriesRequest.ToDomainFilters(_fixture.Create<AuthModel>());
+            var result = getCategoriesRequest.ToDomainFilters(userId, tenantId);
 
             // Assert
             result.Should().NotBeNull();

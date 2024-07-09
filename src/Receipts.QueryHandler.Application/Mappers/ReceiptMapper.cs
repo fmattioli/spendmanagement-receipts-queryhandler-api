@@ -1,8 +1,6 @@
 ﻿using Contracts.Web.Http.Common;
 using Contracts.Web.Http.Receipt.Requests;
 using Contracts.Web.Http.Receipt.Responses;
-using Contracts.Web.Models;
-
 using Receipts.QueryHandler.Domain.Entities;
 using Receipts.QueryHandler.Domain.QueriesFilters;
 using Receipts.QueryHandler.Domain.QueriesFilters.PageFilters;
@@ -12,11 +10,11 @@ namespace Receipts.QueryHandler.Application.Mappers
 {
     public static class ReceiptMapper
     {
-        public static ReceiptFilters ToDomainFilters(this GetVariableReceiptsRequest getVariableReceiptsInput, AuthModel authModel)
+        public static ReceiptFilters ToDomainFilters(this GetVariableReceiptsRequest getVariableReceiptsInput, Guid userId, int tenantId)
         {
             return new ReceiptFilters(
-                authModel.UserId,
-                authModel.TenantId,
+                userId,
+                tenantId,
                 getVariableReceiptsInput.ReceiptIds,
                 getVariableReceiptsInput.CategoryIds,
                 getVariableReceiptsInput.ReceiptItemIds,
@@ -28,11 +26,11 @@ namespace Receipts.QueryHandler.Application.Mappers
                 getVariableReceiptsInput.PageFilter.PageSize);
         }
 
-        public static RecurringReceiptFilters ToDomainFilters(this GetRecurringReceiptsRequest getReceiptsInput, AuthModel authModel)
+        public static RecurringReceiptFilters ToDomainFilters(this GetRecurringReceiptsRequest getReceiptsInput, Guid userId, int tenantId)
         {
             return new RecurringReceiptFilters(
-                authModel.UserId,
-                authModel.TenantId,
+                userId,
+                tenantId,
                 getReceiptsInput.ReceiptIds,
                 getReceiptsInput.CategoryIds,
                 getReceiptsInput.EstablishmentNames,

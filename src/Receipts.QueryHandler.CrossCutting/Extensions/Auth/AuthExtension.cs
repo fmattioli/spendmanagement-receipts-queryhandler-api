@@ -1,4 +1,5 @@
-﻿using Contracts.Web.ServiceCollectionExtensions.KeycloakAuth;
+﻿using Feijuca.Keycloak.MultiTenancy.Extensions;
+using Feijuca.Keycloak.MultiTenancy.Services.Models;
 using Microsoft.Extensions.DependencyInjection;
 using System.IdentityModel.Tokens.Jwt;
 

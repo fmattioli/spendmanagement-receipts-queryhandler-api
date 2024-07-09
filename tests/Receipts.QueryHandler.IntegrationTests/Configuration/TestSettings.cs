@@ -1,7 +1,5 @@
-﻿using Contracts.Web.ServiceCollectionExtensions.KeycloakAuth;
-
+﻿using Feijuca.Keycloak.MultiTenancy.Services.Models;
 using Microsoft.Extensions.Configuration;
-
 using Receipts.QueryHandler.CrossCutting.Config;
 
 namespace Receipts.QueryHandler.IntegrationTests.Configuration

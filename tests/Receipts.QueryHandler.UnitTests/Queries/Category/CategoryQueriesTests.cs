@@ -1,5 +1,5 @@
 ﻿using AutoFixture;
-using Contracts.Web.Services.Auth;
+using Feijuca.Keycloak.MultiTenancy.Services;
 using Moq;
 using Receipts.QueryHandler.Application.Queries.Category.GetCategories;
 using Receipts.QueryHandler.Domain.Interfaces;
@@ -31,6 +31,14 @@ namespace Receipts.QueryHandler.UnitTests.Queries.Category
             mockCategoryRepository
                 .Setup(x => x.GetCategoriesAsync(It.IsAny<CategoryFilters>()))
                 .Returns(Task.FromResult(categories));
+
+            authServiceRepository
+                .Setup(x => x.GetTenantFromToken())
+                .Returns("10000");
+
+            authServiceRepository
+                .Setup(x => x.GetUserFromToken())
+                .Returns(_fixture.Create<Guid>());
 
             //Act
             await _categoriesQueryHandler.Handle(filter, CancellationToken.None);

@@ -1,5 +1,5 @@
 ﻿using AutoFixture;
-using Contracts.Web.Services.Auth;
+using Feijuca.Keycloak.MultiTenancy.Services;
 using Moq;
 using Receipts.QueryHandler.Application.Queries.Receipt.GetRecurringReceipts;
 using Receipts.QueryHandler.Application.Queries.Receipt.GetVariableReceipts;
@@ -14,14 +14,14 @@ namespace Receipts.QueryHandler.UnitTests.Queries.Receipt
     {
         private readonly Fixture _fixture = new();
         private readonly Mock<IReceiptRepository> mockReceiptRepository = new();
-        private readonly Mock<IAuthService> authServiceRepository = new();
+        private readonly Mock<IAuthService> _authServiceRepository = new();
         private readonly GetVariableReceiptsQueryHandler _receiptsQueryHandler;
         private readonly GetRecurringReceiptsQueryHandler _recurringReceiptsQueryHandler;
 
         public ReceiptQueriesTests()
         {
-            _receiptsQueryHandler = new GetVariableReceiptsQueryHandler(mockReceiptRepository.Object, authServiceRepository.Object);
-            _recurringReceiptsQueryHandler = new GetRecurringReceiptsQueryHandler(mockReceiptRepository.Object, authServiceRepository.Object);
+            _receiptsQueryHandler = new GetVariableReceiptsQueryHandler(mockReceiptRepository.Object, _authServiceRepository.Object);
+            _recurringReceiptsQueryHandler = new GetRecurringReceiptsQueryHandler(mockReceiptRepository.Object, _authServiceRepository.Object);
         }
 
         [Fact]
@@ -30,11 +30,19 @@ namespace Receipts.QueryHandler.UnitTests.Queries.Receipt
             //Arrange
             var filter = _fixture.Create<GetVariableReceiptsQuery>();
 
-            var receipts = _fixture.Create<PagedResultFilter<Domain.Entities.VariableReceipt>>();
+            var receipts = _fixture.Create<PagedResultFilter<VariableReceipt>>();
 
             mockReceiptRepository
                 .Setup(x => x.GetVariableReceiptsAsync(It.IsAny<ReceiptFilters>()))
                 .Returns(Task.FromResult(receipts));
+
+            _authServiceRepository
+               .Setup(x => x.GetTenantFromToken())
+               .Returns("10000");
+
+            _authServiceRepository
+                .Setup(x => x.GetUserFromToken())
+                .Returns(_fixture.Create<Guid>());
 
             //Act
             await _receiptsQueryHandler.Handle(filter, CancellationToken.None);
@@ -55,6 +63,14 @@ namespace Receipts.QueryHandler.UnitTests.Queries.Receipt
             mockReceiptRepository
                 .Setup(x => x.GetRecurringReceiptsAsync(It.IsAny<RecurringReceiptFilters>()))
                 .ReturnsAsync(receipts);
+
+            _authServiceRepository
+               .Setup(x => x.GetTenantFromToken())
+               .Returns("10000");
+
+            _authServiceRepository
+                .Setup(x => x.GetUserFromToken())
+                .Returns(_fixture.Create<Guid>());
 
             //Act
             await _recurringReceiptsQueryHandler.Handle(filter, CancellationToken.None);

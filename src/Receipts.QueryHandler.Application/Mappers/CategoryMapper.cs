@@ -1,7 +1,6 @@
 ﻿using Contracts.Web.Http.Category.Requests;
 using Contracts.Web.Http.Category.Responses;
 using Contracts.Web.Http.Common;
-using Contracts.Web.Models;
 using Receipts.QueryHandler.Application.Queries.Category.GetCategories;
 using Receipts.QueryHandler.Domain.Entities;
 using Receipts.QueryHandler.Domain.QueriesFilters;
@@ -21,12 +20,11 @@ namespace Receipts.QueryHandler.Application.Mappers
             };
         }
 
-        public static CategoryFilters ToDomainFilters(this GetCategoriesRequest getCategoriesRequest, AuthModel authModel)
+        public static CategoryFilters ToDomainFilters(this GetCategoriesRequest getCategoriesRequest, Guid userId, int tenantId)
         {
-            
             return new CategoryFilters(
-                authModel.UserId,
-                authModel.TenantId,
+                userId,
+                tenantId,
                 getCategoriesRequest.CategoryIds,
                 getCategoriesRequest.CategoryNames,
                 (short)getCategoriesRequest.PageFilter.Page,
