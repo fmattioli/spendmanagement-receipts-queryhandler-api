@@ -1,7 +1,6 @@
 ﻿using Contracts.Web.Http.Common;
 using Contracts.Web.Http.Receipt.Responses;
-using Contracts.Web.Models;
-using Contracts.Web.Services.Auth;
+using Feijuca.Keycloak.MultiTenancy.Services;
 using MediatR;
 using Receipts.QueryHandler.Application.Mappers;
 using Receipts.QueryHandler.Domain.Interfaces;
@@ -15,12 +14,10 @@ namespace Receipts.QueryHandler.Application.Queries.Receipt.GetRecurringReceipts
 
         public async Task<PagedResult<GetRecurringReceiptResponse>> Handle(GetRecurringReceiptsQuery request, CancellationToken cancellationToken)
         {
-            int tenantId = _authService.GetTenant();
-            Guid userId = _authService.GetUser();
+            var tenantId = int.Parse(_authService.GetTenantFromToken());
+            Guid userId = _authService.GetUserFromToken();
 
-            var authModel = new AuthModel(tenantId, userId);
-
-            var domainFilters = request.GetRecurringReceiptsRequest.ToDomainFilters(authModel);
+            var domainFilters = request.GetRecurringReceiptsRequest.ToDomainFilters(userId, tenantId);
             var recurringReceiptQueryResult = await recurringReceiptRepository.GetRecurringReceiptsAsync(domainFilters);
             return recurringReceiptQueryResult.ToResponse(request.GetRecurringReceiptsRequest.PageFilter);
         }

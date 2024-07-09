@@ -1,4 +1,4 @@
-﻿using Contracts.Web.ServiceCollectionExtensions.KeycloakAuth;
+﻿using Feijuca.Keycloak.MultiTenancy.Services.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Receipts.QueryHandler.CrossCutting.Filters;
