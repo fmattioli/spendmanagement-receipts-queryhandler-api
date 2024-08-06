@@ -15,7 +15,7 @@ namespace Receipts.QueryHandler.Application.Queries.Receipt.GetVariableReceipts
         public async Task<PagedResult<GetVariableReceiptResponse>> Handle(GetVariableReceiptsQuery request, CancellationToken cancellationToken)
         {
             var tenantId = int.Parse(_authService.GetTenantFromToken());
-            Guid userId = _authService.GetUserFromToken();
+            Guid userId = _authService.GetUserIdFromToken();
 
             var domainFilters = request.GetVariableReceiptsRequest.ToDomainFilters(userId, tenantId);
             var receiptQueryResult = await _receiptRepository.GetVariableReceiptsAsync(domainFilters);

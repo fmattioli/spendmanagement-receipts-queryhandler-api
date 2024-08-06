@@ -15,7 +15,7 @@ namespace Receipts.QueryHandler.Application.Queries.Receipt.GetRecurringReceipts
         public async Task<PagedResult<GetRecurringReceiptResponse>> Handle(GetRecurringReceiptsQuery request, CancellationToken cancellationToken)
         {
             var tenantId = int.Parse(_authService.GetTenantFromToken());
-            Guid userId = _authService.GetUserFromToken();
+            Guid userId = _authService.GetUserIdFromToken();
 
             var domainFilters = request.GetRecurringReceiptsRequest.ToDomainFilters(userId, tenantId);
             var recurringReceiptQueryResult = await recurringReceiptRepository.GetRecurringReceiptsAsync(domainFilters);

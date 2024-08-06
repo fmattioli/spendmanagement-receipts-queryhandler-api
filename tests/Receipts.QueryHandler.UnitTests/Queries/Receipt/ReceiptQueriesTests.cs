@@ -41,7 +41,7 @@ namespace Receipts.QueryHandler.UnitTests.Queries.Receipt
                .Returns("10000");
 
             _authServiceRepository
-                .Setup(x => x.GetUserFromToken())
+                .Setup(x => x.GetUserIdFromToken())
                 .Returns(_fixture.Create<Guid>());
 
             //Act
@@ -69,7 +69,7 @@ namespace Receipts.QueryHandler.UnitTests.Queries.Receipt
                .Returns("10000");
 
             _authServiceRepository
-                .Setup(x => x.GetUserFromToken())
+                .Setup(x => x.GetUserIdFromToken())
                 .Returns(_fixture.Create<Guid>());
 
             //Act

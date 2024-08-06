@@ -53,7 +53,7 @@ app.UseExceptionHandler()
    .UseSwaggerUI(c =>
    {
        c.SwaggerEndpoint("/swagger/v1/swagger.json", "SpendManagement.QueryHandler.Api");
-       c.OAuthClientId(applicationSettings!.AuthSettings!.Resource);
+       c.OAuthClientId(applicationSettings!.AuthSettings!.ClientId);
        c.OAuthUseBasicAuthenticationWithAccessCodeGrant();
    })
    .UseHealthCheckers()
