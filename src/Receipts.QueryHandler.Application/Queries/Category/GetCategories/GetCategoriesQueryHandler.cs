@@ -13,7 +13,7 @@ namespace Receipts.QueryHandler.Application.Queries.Category.GetCategories
         public async Task<GetCategoriesResponse> Handle(GetCategoriesQuery request, CancellationToken cancellationToken)
         {
             var tenantId = int.Parse(_authService.GetTenantFromToken());
-            Guid userId = _authService.GetUserFromToken();
+            Guid userId = _authService.GetUserIdFromToken();
 
             var domainFilters = request.GetReceiptsRequest.ToDomainFilters(userId, tenantId);
             var categoriesQueryResult = await _categoryRepository.GetCategoriesAsync(domainFilters);

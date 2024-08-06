@@ -1,5 +1,5 @@
-﻿using Contracts.Web.Attributes;
-using Contracts.Web.Http.Category.Requests;
+﻿using Contracts.Web.Http.Category.Requests;
+using Feijuca.Keycloak.MultiTenancy.Attributes;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

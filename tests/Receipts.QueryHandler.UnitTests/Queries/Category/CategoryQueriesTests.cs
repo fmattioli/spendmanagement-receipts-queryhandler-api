@@ -37,7 +37,7 @@ namespace Receipts.QueryHandler.UnitTests.Queries.Category
                 .Returns("10000");
 
             authServiceRepository
-                .Setup(x => x.GetUserFromToken())
+                .Setup(x => x.GetUserIdFromToken())
                 .Returns(_fixture.Create<Guid>());
 
             //Act

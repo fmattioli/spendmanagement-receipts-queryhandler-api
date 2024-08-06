@@ -8,7 +8,6 @@
       }
     ],
     "ClientId": "receipts-queryhandler-api",
-    "Resource": "receipts-queryhandler-api",
     "AuthServerUrl": "https://docker-containers-keycloak.8ya11r.easypanel.host/realms/10000/protocol/openid-connect/token",
     "PolicyName": "ApiReader",
     "Roles": [
