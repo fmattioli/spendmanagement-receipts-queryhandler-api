@@ -1,9 +1,9 @@
 using Receipts.QueryHandler.CrossCutting.Config;
+using Receipts.QueryHandler.CrossCutting.Extensions;
 using Receipts.QueryHandler.CrossCutting.Extensions.Api;
 using Receipts.QueryHandler.CrossCutting.Extensions.Auth;
 using Receipts.QueryHandler.CrossCutting.Extensions.Handlers;
 using Receipts.QueryHandler.CrossCutting.Extensions.HealthCheckers;
-using Receipts.QueryHandler.CrossCutting.Extensions.Logging;
 using Receipts.QueryHandler.CrossCutting.Extensions.MediatR;
 using Receipts.QueryHandler.CrossCutting.Extensions.Mongo;
 using Receipts.QueryHandler.CrossCutting.Extensions.Repositories;
@@ -19,12 +19,6 @@ builder.Configuration
     .AddJsonFile($"appsettings.{environment}.json", true, reloadOnChange: true)
     .AddEnvironmentVariables();
 
-
-builder.Logging
-    .ClearProviders()
-    .AddFilter("Microsoft", LogLevel.Warning)
-    .AddFilter("Microsoft", LogLevel.Critical);
-
 var applicationSettings = builder.Configuration.GetApplicationSettings(builder.Environment);
 
 // Add services to the container.
@@ -33,18 +27,19 @@ builder.Services
     .AddApiAuthentication(applicationSettings.AuthSettings!)
     .AddExceptionHandler<GlobalExceptionHandler>()
     .AddProblemDetails()
-    .AddTracing(applicationSettings!.TracingSettings)
+    .AddTelemetry(applicationSettings!.MltConfigsSettings)
     .AddDependencyInjection()
     .AddRepositories()
     .AddMongo(applicationSettings.MongoSettings!)
     .AddHealthCheckers(applicationSettings)
-    .AddLoggingDependency()
     .AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services
     .AddEndpointsApiExplorer()
     .AddSwagger(applicationSettings!.AuthSettings!);
+
+builder.Host.UseSerilog();
 
 var app = builder.Build();
 
